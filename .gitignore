@@ -1,0 +1,20 @@
+# Дизайн-макеты (не код)
+design 4.jpg
+design 5.jpg
+design 6.jpg
+
+# Черновики/копии
+*копия*
+index_1st_version.html
+index 2.html
+
+# Тестовые файлы
+test-categories.html
+
+# Настройки Claude (локальные)
+.claude/
+
+# Windows мусор
+Thumbs.db
+desktop.ini
+nul

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
+    <title>Smartpoint — Контакты</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="contacts-page">
+
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/LOGO_Smartpoint_Full_White.svg" alt="Smartpoint Logo" class="logo-desktop">
+                <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint Logo" class="logo-desktop-scrolled">
+                <img src="assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
+                <img src="assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
+            </a>
+            <button class="mobile-menu-toggle" aria-label="Открыть меню"><span></span></button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">О нас</a></li>
+                    <li><a href="services.html">Услуги</a></li>
+                    <li><a href="projects.html">Проекты</a></li>
+                    <li><a href="career.html">Карьера</a></li>
+                    <li class="active"><a href="contacts.html" class="active">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="menu-overlay"></div>
+
+    <!-- ═══ Секция: Главный экран с картой в качестве фона ═══ -->
+    <section class="hero hero-services contacts-hero">
+        <!-- Карта как фоновый слой -->
+        <iframe
+            class="contact-hero-map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.7!2d76.9266!3d43.2568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38836ba68c3d3d93%3A0x0!2z0YPQuy4g0JrQsNC30YvQsdC10Log0LHQuCA2NSwg0JDQu9C80LDRgtGL!5e0!3m2!1sru!2skz!4v1700000000001"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Smartpoint офис на карте — Казыбек би 65, Алматы">
+        </iframe>
+        <!-- Градиентный оверлей + текст поверх карты -->
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="title-lines hero-title">
+                    <span>Свяжитесь с нами -</span>
+                    <span>мы готовы ответить</span>
+                    <span>на любые вопросы.</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: Контактная информация + форма ═══ -->
+    <section class="contact-info-section">
+        <div class="container contact-info-container">
+
+            <!-- Левый столбец: контактные блоки -->
+            <div class="contact-info-left">
+
+                <div class="contact-block">
+                    <h3 class="contact-block-title">Контакты</h3>
+                    <p class="contact-block-line">
+                        <span class="contact-block-label">Email:</span>
+                        <a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a>
+                    </p>
+                    <p class="contact-block-line">
+                        <span class="contact-block-label">Телефон:</span>
+                        <a href="tel:+77773888333">+7 (777) 3-888-333</a>
+                    </p>
+                </div>
+
+                <div class="contact-block">
+                    <h3 class="contact-block-title">Адрес</h3>
+                    <p class="contact-block-line">ул. Казыбек би 65, офис 617</p>
+                    <p class="contact-block-line">Алматы, Казахстан</p>
+                </div>
+
+                <div class="contact-block">
+                    <h3 class="contact-block-title">Часы работы</h3>
+                    <p class="contact-block-line">Пн–Пт 9:00 — 18:00</p>
+                    <p class="contact-block-line contact-block-note">*Кроме праздничных дней</p>
+                </div>
+
+            </div>
+
+            <!-- Правый столбец: форма -->
+            <div class="contact-form-wrap">
+                <div class="contact-form-card">
+                    <h2 class="contact-form-title">Обсудим наше сотрудничество?</h2>
+
+                    <form id="contact-inquiry-form" class="contact-form" novalidate>
+
+                        <!-- Honeypot (антиспам) -->
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                        <!-- Метка источника — для разделения заявок в одной форме Forminit -->
+                        <input type="hidden" name="fi-text-source" value="Запрос проекта">
+
+                        <div class="contact-form-grid">
+
+                            <div class="form-group">
+                                <label for="contact-name">Ваше имя</label>
+                                <input type="text" id="contact-name" name="fi-sender-firstName" placeholder="Имя Фамилия">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-email">Электронная почта</label>
+                                <input type="email" id="contact-email" name="fi-sender-email" placeholder="Name@company.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-phone">Номер телефона</label>
+                                <input type="tel" id="contact-phone" name="fi-text-phone" placeholder="+X(XXX) XXX-XX-XX">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-company">Название компании</label>
+                                <input type="text" id="contact-company" name="fi-text-company" placeholder="Company Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-industry">Отрасль</label>
+                                <select id="contact-industry" name="fi-text-industry" class="form-select">
+                                    <option value="" disabled selected>Выберите отрасль</option>
+                                    <option value="Энергетика">Энергетика</option>
+                                    <option value="Промышленность и производство">Промышленность и производство</option>
+                                    <option value="Строительство и инфраструктура">Строительство и инфраструктура</option>
+                                    <option value="Телекоммуникации">Телекоммуникации</option>
+                                    <option value="Информационные технологии">Информационные технологии</option>
+                                    <option value="Транспорт и логистика">Транспорт и логистика</option>
+                                    <option value="Финансы и банковское дело">Финансы и банковское дело</option>
+                                    <option value="ЖКХ и коммунальная инфраструктура">ЖКХ и коммунальная инфраструктура</option>
+                                    <option value="Государственный сектор и управление">Государственный сектор и управление</option>
+                                    <option value="Прочее">Прочее</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-expertise">Направление</label>
+                                <select id="contact-expertise" name="fi-text-expertise" class="form-select">
+                                    <option value="" disabled selected>Выберите направление</option>
+                                    <option value="Управление проектами">Управление проектами</option>
+                                    <option value="Цифровая трансформация">Цифровая трансформация</option>
+                                    <option value="Трансфер технологий">Трансфер технологий</option>
+                                    <option value="Технический консалтинг">Технический консалтинг</option>
+                                    <option value="Технический аудит">Технический аудит</option>
+                                    <option value="Автоматизация процессов">Автоматизация процессов</option>
+                                    <option value="Развитие инфраструктуры">Развитие инфраструктуры</option>
+                                    <option value="Стратегическое планирование">Стратегическое планирование</option>
+                                    <option value="Обучение персонала">Обучение персонала</option>
+                                    <option value="Иное">Иное</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group form-group--full">
+                                <label for="contact-message">Описание проекта</label>
+                                <textarea id="contact-message" name="fi-text-message" rows="4" placeholder="Кратко опишите вашу задачу..."></textarea>
+                            </div>
+
+                        </div>
+
+                        <!-- reCAPTCHA v2 -->
+                        <div class="g-recaptcha" data-sitekey="6Leu34UsAAAAAG9uz9Iqi9BfiiFOxAKvfQCvVf88" style="margin-bottom: 20px;"></div>
+
+                        <button type="submit" class="contact-submit-btn">
+                            <span class="contact-submit-text">Отправить запрос</span>
+                            <span class="contact-submit-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                                </svg>
+                            </span>
+                        </button>
+
+                        <!-- Статус отправки -->
+                        <div id="contact-status" class="contact-form-status" aria-live="polite"></div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint">
+                    </a>
+                    <p class="footer-desc">
+                        Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
+                    </p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="index.html">О нас</a></li>
+                        <li><a href="services.html">Услуги</a></li>
+                        <li><a href="projects.html">Проекты</a></li>
+                        <li><a href="career.html">Карьера</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Контакты</h4>
+                    <ul>
+                        <li><a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a></li>
+                        <li><a href="tel:+77773888333">+7 (777) 3-888-333</a></li>
+                        <li>Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 Smartpoint. Все права защищены.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://forminit.com/sdk/v1/forminit.js"></script>
+    <script src="js/script.js?v=4.2"></script>
+</body>
+
+</html>
