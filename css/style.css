@@ -12,19 +12,40 @@
 
     /* Type scale */
     --fs-display:   clamp(2.5rem, 5vw, 4rem);
-    --fs-h2:        clamp(1.8rem, 2.6vw, 2.6rem);
-    --fs-h3:        1.15rem;
-    --fs-lead:      1.05rem;
-    --fs-body:      1rem;
-    --fs-secondary: 1rem;
-    --fs-label:     0.75rem;
+    --fs-h1:        clamp(1.75rem, 4vw, 3.5rem);
+    --fs-h2:        clamp(1.375rem, 3vw, 2.5rem);
+    --fs-h3:        clamp(1.125rem, 2.5vw, 1.875rem);
+    --fs-lead:      clamp(0.875rem, 1.5vw, 1.125rem);
+    --fs-body:      clamp(0.875rem, 1.5vw, 1.125rem);
+    --fs-secondary: clamp(0.875rem, 1.5vw, 1.125rem);
+    --fs-label:     clamp(0.75rem, 1.2vw, 0.875rem);
     --fs-micro:     0.65rem;
+
+    /* Fluid spacing */
+    --section-padding-block:  clamp(3rem, 8vw, 8rem);
+    --section-padding-inline: clamp(1rem, 5vw, 4rem);
+    --gap-section:            clamp(1rem, 3vw, 2.5rem);
+    --card-padding:           1rem;
 }
 
 /* Планшеты: уменьшенные отступы */
 @media (max-width: 1024px) {
     :root {
         --container-padding: 24px;
+    }
+}
+
+/* Планшеты: card-padding */
+@media (min-width: 768px) {
+    :root {
+        --card-padding: 1.5rem;
+    }
+}
+
+/* Десктоп: card-padding */
+@media (min-width: 1024px) {
+    :root {
+        --card-padding: 2rem;
     }
 }
 
@@ -262,7 +283,7 @@ ul {
 }
 
 .main-nav a {
-    font-size: 15px;
+    font-size: var(--fs-label);
     font-weight: 600;
     color: #ffffff;
     transition: color 0.3s ease;
@@ -467,7 +488,7 @@ ul {
 .section-strategy {
     display: none;
     background-color: #ffffff;
-    padding: 28px 0 80px;
+    padding: clamp(1rem, 2vw, 2rem) 0 var(--section-padding-block);
 }
 
 /* Верхний двухколоночный блок */
@@ -480,7 +501,7 @@ ul {
 }
 
 .strategy-heading {
-    font-size: 32px;
+    font-size: var(--fs-h1);
     font-weight: 500;
     line-height: 1.2;
     color: var(--color-text-dark);
@@ -489,7 +510,7 @@ ul {
 }
 
 .strategy-intro-left .company-label {
-    font-size: 12px;
+    font-size: var(--fs-micro);
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -574,7 +595,7 @@ ul {
 .strategy-card-letter {
     display: block;
     margin-bottom: 20px;
-    font-size: 1.8rem;
+    font-size: var(--fs-h3);
     font-weight: 700;
     line-height: 1;
     color: #d12a2a;
@@ -769,7 +790,7 @@ ul {
    ===================================================== */
 .section-smart-cards {
     background-color: #eaecf3;
-    padding: 40px 0 80px;
+    padding: clamp(2rem, 4vw, 4rem) 0 var(--section-padding-block);
 }
 
 .smart-cards-main {
@@ -812,7 +833,7 @@ ul {
     min-width: 180px;
     background: #ffffff;
     border-radius: 4px;
-    padding: 32px 24px 28px;
+    padding: var(--card-padding);
     position: relative;
     overflow: hidden;
 }
@@ -859,7 +880,7 @@ ul {
 .smart-card-letter {
     display: block;
     margin-bottom: 12px;
-    font-size: 1.8rem;
+    font-size: var(--fs-h3);
     font-weight: 700;
     line-height: 1;
     color: #d12a2a;
@@ -979,7 +1000,6 @@ ul {
 
 @media (max-width: 768px) {
     .section-smart-cards {
-        padding: 100px 0 52px;
         overflow: visible;
     }
     .section-smart-cards .strategy-intro {
@@ -1050,7 +1070,7 @@ ul {
 }
 
 .industries-heading {
-    font-size: 32px;
+    font-size: var(--fs-h1);
     font-weight: 400;
     line-height: 1.12;
     color: #ffffff;
@@ -1075,7 +1095,7 @@ ul {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 10px;
-    padding: 32px 20px 28px;
+    padding: var(--card-padding);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1128,7 +1148,6 @@ ul {
         gap: 12px;
     }
     .industry-card {
-        padding: 24px 18px;
         gap: 14px;
         min-width: 0;
     }
@@ -1160,7 +1179,6 @@ ul {
         gap: 10px;
     }
     .industry-card {
-        padding: 28px 20px;
         gap: 16px;
         align-items: center;
         text-align: center;
@@ -1315,7 +1333,7 @@ ul {
 
 .hero-label {
     display: inline-block;
-    font-size: 14px;
+    font-size: var(--fs-label);
     letter-spacing: 0.1em;
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
@@ -1333,7 +1351,7 @@ ul {
 }
 
 .hero-desc {
-    font-size: 22px;
+    font-size: var(--fs-h2);
     line-height: 1.55;
     color: rgba(255, 255, 255, 0.95);
     margin-bottom: 24px;
@@ -1486,7 +1504,7 @@ ul {
 }
 
 .company-container {
-    padding: 16px var(--container-padding) 64px;
+    padding: clamp(1rem, 2vw, 2rem) var(--container-padding) var(--section-padding-block);
     max-width: var(--container-width);
     margin: 0 auto;
 }
@@ -1501,7 +1519,7 @@ ul {
 .company-two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    gap: var(--gap-section);
     align-items: start;
 }
 
@@ -1524,7 +1542,7 @@ ul {
 }
 
 .company-title {
-    font-size: 32px;
+    font-size: var(--fs-h1);
     font-weight: 400;
     line-height: 1.25;
     color: var(--color-text-dark);
@@ -1705,7 +1723,7 @@ ul {
 }
 
 .intro-title {
-    font-size: 24px;
+    font-size: var(--fs-h2);
     font-weight: 500;
     line-height: 1.45;
     color: var(--color-text-dark);
@@ -1783,7 +1801,7 @@ ul {
 }
 
 .intro-badge-text {
-    font-size: 15px;
+    font-size: var(--fs-label);
     font-weight: 600;
     color: #111111;
     text-align: center;
@@ -1851,7 +1869,7 @@ ul {
 }
 
 .intro-badge-mirror-text {
-    font-size: 15px;
+    font-size: var(--fs-label);
     font-weight: 600;
     text-align: center;
     letter-spacing: 0.01em;
@@ -2401,10 +2419,10 @@ ul {
 .section-spacer-inner {
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: 80px var(--container-padding) 48px var(--container-padding);
+    padding: var(--section-padding-block) var(--container-padding) clamp(2rem, 5vw, 4rem) var(--container-padding);
     display: flex;
     align-items: center;
-    gap: 48px;
+    gap: var(--gap-section);
     position: relative;
 }
 
@@ -2420,7 +2438,7 @@ ul {
 /* Текст секции-разделителя — как intro-title */
 .section-spacer-text,
 .spacer-lead {
-    font-size: 24px;
+    font-size: var(--fs-h2);
     font-weight: 500;
     line-height: 1.45;
     color: var(--color-text-dark);
@@ -2475,18 +2493,11 @@ ul {
 /* Мобильный */
 @media (max-width: 768px) {
     .section-spacer-inner {
-        padding: 52px var(--container-padding) 36px var(--container-padding);
-        gap: 24px;
         align-items: flex-start;
     }
 
     .spacer-side-label {
         display: none;
-    }
-
-    .spacer-lead {
-        font-size: 18px;
-        font-weight: 500;
     }
 }
 
@@ -2708,7 +2719,7 @@ ul {
 
 .advantages-heading {
     font-family: var(--font-primary);
-    font-size: 24px;
+    font-size: var(--fs-h2);
     font-weight: 600;
     line-height: 1.25;
     color: #222222;
@@ -2736,7 +2747,7 @@ ul {
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: none;
-    padding: 32px 24px 36px;
+    padding: var(--card-padding);
     position: relative;
 }
 
@@ -3909,7 +3920,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .stages-section .section-heading.stages-experience-title {
-    font-size: 32px;
+    font-size: var(--fs-h1);
 }
 
 /* Вертикальный лейбл справа — sticky на десктопе (как stage-card на мобильной) */
@@ -5693,7 +5704,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .pd-error h2 {
-    font-size: 1.8rem;
+    font-size: var(--fs-h3);
     font-weight: 600;
     color: rgba(77, 76, 76, 0.5);
     margin-bottom: 24px;
@@ -6177,7 +6188,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .contact-block-line {
-    font-size: 0.875rem;
+    font-size: var(--fs-body);
     color: #555555;
     line-height: 1.55;
 }
@@ -6895,130 +6906,38 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
    strategy-heading, approach-title
    ===================================================== */
 
-/* 1024–1280px */
-@media (max-width: 1280px) {
-    .spacer-lead,
-    .section-spacer-text,
-    .intro-title {
-        font-size: 22px;
-        font-weight: 500;
-    }
-    .strategy-heading {
-        font-size: 28px;
-        font-weight: 500;
-    }
-    .stages-section .section-heading.stages-experience-title {
-        font-size: 28px;
-        font-weight: 500;
-    }
-    .industries-heading {
-        font-size: 28px;
-        font-weight: 400;
-    }
-    .approach-text-block .approach-title {
-        font-size: 28px;
-        font-weight: 500;
-    }
-}
-
-/* 768–1024px */
-@media (max-width: 1024px) {
-    .spacer-lead,
-    .section-spacer-text,
-    .intro-title {
-        font-size: 20px;
-        font-weight: 500;
-    }
-    .strategy-heading {
-        font-size: 26px;
-        font-weight: 500;
-    }
-    .stages-section .section-heading.stages-experience-title {
-        font-size: 26px;
-        font-weight: 500;
-    }
-    .industries-heading {
-        font-size: 26px;
-        font-weight: 400;
-    }
-    .approach-text-block .approach-title {
-        font-size: 26px;
-        font-weight: 500;
-    }
-}
-
 /* до 768px */
 @media (max-width: 768px) {
-    .spacer-lead,
-    .section-spacer-text,
-    .intro-title {
-        font-size: 18px;
-        font-weight: 500;
-    }
-    .strategy-heading {
-        font-size: 24px;
-        font-weight: 500;
-    }
+    /* font-sizes handled by clamp() in :root */
     .stages-section .section-heading.stages-experience-title {
-        font-size: 24px;
         font-weight: 600;
     }
-    .industries-heading {
-        font-size: 22px;
-        font-weight: 500;
-    }
-    .approach-text-block .approach-title {
-        font-size: 22px;
-        font-weight: 500;
-    }
 
-    /* Index page mobile typography (match services.html style) */
+    /* Index page mobile typography */
     .hero.hero-home .hero-title {
         letter-spacing: -0.02em;
         line-height: 1.15;
-    }
-    .hero.hero-home .hero-desc {
-        font-size: 16px;
     }
     .section-intro .intro-title {
         line-height: 1.45;
     }
     .section-intro .intro-desc {
-        font-size: 16px;
         line-height: 1.6;
     }
     .section-company .company-title {
-        font-size: 22px;
         line-height: 1.3;
         max-width: 100%;
-    }
-    .section-company .company-subtitle {
-        font-size: 16px;
     }
     .section-company .stat-number {
         font-size: 2rem;
     }
     .clients-divider-text {
         white-space: normal;
-        font-size: 0.8rem;
         padding: 8px 16px;
         text-align: center;
     }
-    .section-advantages .advantages-heading {
-        font-size: 22px;
-    }
-    .section-advantages .advantage-card-title {
-        font-size: 1.05rem;
-    }
     .section-advantages .advantage-card-desc {
-        font-size: 15px;
         line-height: 1.55;
-    }
-    .section-cta .cta-heading {
-        font-size: 22px;
-    }
-    .section-cta .cta-desc {
-        font-size: 15px;
     }
     .section-cta a.cta-btn.action-btn {
         width: 100%;
