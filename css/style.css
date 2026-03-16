@@ -11,14 +11,14 @@
     --container-padding: 40px;
 
     /* Type scale */
-    --fs-display:   clamp(2.5rem, 5vw, 4rem);
-    --fs-h1:        clamp(1.75rem, 4vw, 3.5rem);
-    --fs-h2:        clamp(1.375rem, 3vw, 2.5rem);
-    --fs-h3:        clamp(1.125rem, 2.5vw, 1.875rem);
-    --fs-lead:      clamp(0.875rem, 1.5vw, 1.125rem);
-    --fs-body:      clamp(0.875rem, 1.5vw, 1.125rem);
-    --fs-secondary: clamp(0.875rem, 1.5vw, 1.125rem);
-    --fs-label:     clamp(0.75rem, 1.2vw, 0.875rem);
+    --fs-display:   clamp(2.5rem, 5vw, 4rem);        /* hero: 40→64px */
+    --fs-h1:        clamp(1.375rem, 2.2vw, 2rem);    /* 22→32px */
+    --fs-h2:        clamp(1.125rem, 1.65vw, 1.5rem); /* 18→24px */
+    --fs-h3:        clamp(1rem, 1.25vw, 1.125rem);   /* 16→18px */
+    --fs-lead:      clamp(0.9375rem, 1.1vw, 1.0625rem); /* 15→17px */
+    --fs-body:      clamp(0.9375rem, 1.1vw, 1rem);   /* 15→16px */
+    --fs-secondary: clamp(0.9375rem, 1.1vw, 1rem);   /* 15→16px */
+    --fs-label:     clamp(0.75rem, 0.85vw, 0.875rem);/* 12→14px */
     --fs-micro:     0.65rem;
 
     /* Fluid spacing */
@@ -52,7 +52,7 @@
 /* Мобильные */
 @media (max-width: 768px) {
     :root {
-        --container-padding: 20px;
+        --container-padding: 12px;
     }
 }
 
@@ -2438,7 +2438,7 @@ ul {
 /* Текст секции-разделителя — как intro-title */
 .section-spacer-text,
 .spacer-lead {
-    font-size: var(--fs-h2);
+    font-size: var(--fs-h3);
     font-weight: 500;
     line-height: 1.45;
     color: var(--color-text-dark);
@@ -3920,7 +3920,10 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .stages-section .section-heading.stages-experience-title {
-    font-size: var(--fs-h1);
+    font-size: var(--fs-h3);
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--color-text-dark);
 }
 
 /* Вертикальный лейбл справа — sticky на десктопе (как stage-card на мобильной) */
@@ -6910,7 +6913,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 @media (max-width: 768px) {
     /* font-sizes handled by clamp() in :root */
     .stages-section .section-heading.stages-experience-title {
-        font-weight: 600;
+        font-weight: 500;
+        line-height: 1.45;
     }
 
     /* Index page mobile typography */
