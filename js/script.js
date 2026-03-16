@@ -1,18 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Hero animation: play on first visit OR manual page reload, skip on link navigation
-    const navEntryHero = performance.getEntriesByType('navigation')[0];
-    const isReloadHero = navEntryHero && navEntryHero.type === 'reload';
-
-    // hero-home (index.html)
-    const heroSection = document.querySelector('.hero.hero-home');
-    if (heroSection) {
-        const isFirstVisit = !sessionStorage.getItem('heroAnimPlayed');
-        if (isFirstVisit || isReloadHero) {
-            heroSection.classList.add('hero-animated');
-            sessionStorage.setItem('heroAnimPlayed', '1');
-        }
-    }
-
+    // hero-home: hero-animated в HTML, анимация при каждой загрузке
     // hero-services (services.html) — анимация при каждом посещении
     const heroServices = document.querySelector('.hero.hero-services');
     if (heroServices) {
@@ -31,34 +18,42 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenuToggle.classList.remove('active');
         mainNav.classList.remove('is-open');
         if (menuOverlay) menuOverlay.classList.remove('is-active');
-        document.body.style.overflow = '';
+        lockScroll(false);
     }
 
-    // Mobile menu toggle
+    function lockScroll(lock) {
+        document.documentElement.style.overflow = lock ? 'hidden' : '';
+        document.body.style.overflow = lock ? 'hidden' : '';
+        document.body.classList.toggle('menu-open', lock);
+    }
+
+    document.addEventListener('touchmove', (e) => {
+        if (mainNav && mainNav.classList.contains('is-open') && !mainNav.contains(e.target)) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
+    // Mobile menu toggle — сначала оверлей (затемнение + blur), затем меню сбоку
     if (mobileMenuToggle && mainNav) {
         mobileMenuToggle.addEventListener('click', () => {
             const isOpen = mainNav.classList.toggle('is-open');
             mobileMenuToggle.classList.toggle('active', isOpen);
             if (menuOverlay) menuOverlay.classList.toggle('is-active', isOpen);
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            lockScroll(isOpen);
         });
 
         // Close menu when clicking on a link
         links.forEach(link => {
-            link.addEventListener('click', () => closeMenu());
+            link.addEventListener('click', (e) => {
+                const isActive = link.classList.contains('active') || link.closest('li')?.classList.contains('active');
+                if (isActive) {
+                    e.preventDefault();
+                    closeMenu();
+                } else {
+                    closeMenu();
+                }
+            });
         });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mainNav.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-                closeMenu();
-            }
-        });
-
-        // Close menu when clicking the overlay
-        if (menuOverlay) {
-            menuOverlay.addEventListener('click', () => closeMenu());
-        }
     }
 
     links.forEach((link) => {
@@ -109,9 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.classList.remove('is-hidden');
             } else if (diff > threshold) {
                 header.classList.add('is-hidden');
-                if (mobileMenuToggle && mainNav) {
-                    closeMenu();
-                }
             } else if (diff < -threshold) {
                 header.classList.remove('is-hidden');
             }
@@ -186,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const aboutIntro = document.querySelector('.section-intro');
         if (aboutIntro) {
             const aboutEls = aboutIntro.querySelectorAll(
-                '.intro-title, .intro-desc, .intro-semicircle, .intro-circle'
+                '.intro-title, .intro-desc, .intro-photo-wrap, .intro-badge-mirror'
             );
             aboutEls.forEach((el) => {
                 el.style.transition = 'none';
@@ -306,9 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * (например, при нажатии кнопки "Назад" в некоторых браузерах)
      */
     window.addEventListener('pageshow', function (e) {
-        // e.persisted === true означает, что страница восстановлена из кэша браузера
         if (e.persisted) {
             showScrollSectionsWithoutAnim();
+            // Hero: при восстановлении из bfcache показываем контент сразу, без повторной анимации
+            const heroHome = document.querySelector('.hero.hero-home');
+            if (heroHome) {
+                heroHome.classList.add('hero-restored');
+            }
         }
     });
 
@@ -438,7 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (sectionAboutIntro) {
         const aboutAnimatedEls = sectionAboutIntro.querySelectorAll(
-            '.intro-title, .intro-desc, .intro-semicircle, .intro-circle'
+            '.intro-title, .intro-desc, .intro-photo-wrap, .intro-badge-mirror'
         );
 
         if (shouldPlayScrollAnimations) {
