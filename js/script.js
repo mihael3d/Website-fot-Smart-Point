@@ -695,23 +695,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // stages header (staggered)
+        // stages header (staggered) — триггер при ~15% видимости (раньше 50% — элемент успевает появиться до полной прокрутки)
         const stagesHeaderEls = document.querySelectorAll('.stages-experience-title, .stages-experience-text, .stages-side-label');
         if (stagesHeaderEls.length) {
-            const stagesHeaderTrigger = stagesHeaderEls[0].closest('.stages-main, .stages-with-label') || stagesHeaderEls[0].parentElement;
-            let stagesHeaderFired = false;
             const stagesHeaderObs = new IntersectionObserver((entries, obs) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && !stagesHeaderFired) {
-                        stagesHeaderFired = true;
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('srv-in-view');
                         obs.unobserve(entry.target);
-                        stagesHeaderEls.forEach((el, i) => {
-                            setTimeout(() => el.classList.add('srv-in-view'), i * 150);
-                        });
                     }
                 });
-            }, { threshold: 0.05, rootMargin: srvRootMargin });
-            stagesHeaderObs.observe(stagesHeaderTrigger);
+            }, { threshold: 0.15, rootMargin: '0px 0px 0px 0px' });
+            stagesHeaderEls.forEach((el, i) => {
+                stagesHeaderObs.observe(el);
+            });
         }
 
         // section-stages — cards: каждая карточка анимируется при входе в viewport
@@ -909,7 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const stagesHeaderRow = document.querySelector('.stages-header-row');
             const sideLabel = document.querySelector('.stages-section .stages-side-label');
             const stagesSection = document.querySelector('.stages-section');
-            const HEADER_HEIGHT = 80;
+            const HEADER_HEIGHT = 64;
             let lastScrollY = window.scrollY;
 
             // Смещаем sticky-элементы вниз под меню когда секция у верха экрана и скроллим вверх
@@ -1510,5 +1507,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // Кнопка «Наверх» — появляется когда футер виден
+    const footer = document.querySelector('.site-footer');
+    const scrollToTopBtn = document.createElement('button');
+    scrollToTopBtn.className = 'scroll-to-top';
+    scrollToTopBtn.setAttribute('aria-label', 'Прокрутить наверх');
+    scrollToTopBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>';
+    document.body.appendChild(scrollToTopBtn);
+
+    if (footer) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                scrollToTopBtn.classList.toggle('is-visible', entry.isIntersecting);
+            });
+        }, { threshold: 0.3 });
+        observer.observe(footer);
+    }
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
 });

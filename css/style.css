@@ -108,7 +108,7 @@ ul {
     background-color: #1A1A1A;
     transform: translateY(0);
     transition: transform 0.25s ease, background-color 0.35s ease, box-shadow 0.35s ease;
-    height: 80px;
+    height: 64px;
 }
 
 /* Transparent header on services2 / career / projects / contacts page — только вверху */
@@ -166,7 +166,7 @@ ul {
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    height: 80px;
+    height: 64px;
 }
 
 /* Thin line spanning full width under the menu */
@@ -183,7 +183,7 @@ ul {
 
 .logo {
     position: relative;
-    height: 80px;
+    height: 64px;
     display: flex;
     align-items: center;
     z-index: 1001;
@@ -1162,10 +1162,12 @@ ul {
     .section-industries {
         padding: 52px 0;
         background-attachment: scroll; /* fixed некорректен на iOS */
+        overflow: visible; /* шестая карточка не обрезается */
     }
     .industries-wrap {
         flex-direction: column;
         gap: 32px;
+        align-items: stretch;
     }
     .industries-left {
         flex: none;
@@ -3270,11 +3272,11 @@ ul {
 
     .main-nav {
         position: fixed;
-        top: 80px;
+        top: 64px;
         right: 0;
         left: auto;
-        width: min(50%, 360px);
-        height: calc(100vh - 80px);
+        width: 66.666%;
+        height: calc(100vh - 64px);
         max-height: none;
         background-color: #ffffff;
         box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
@@ -3294,11 +3296,11 @@ ul {
 
     .menu-overlay {
         position: fixed;
-        top: calc(80px - 20vh);
+        top: calc(64px - 20vh);
         left: 0;
         right: 0;
         bottom: auto;
-        height: calc(100vh - 80px + 40vh);
+        height: calc(100vh - 64px + 40vh);
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
@@ -3318,6 +3320,17 @@ ul {
         transition-delay: 0.4s;
     }
 
+    /* При уменьшенной высоте хедера (is-scrolled) — меню и оверлей без щели */
+    .main-header.is-scrolled .main-nav {
+        top: 64px;
+        height: calc(100vh - 64px);
+    }
+
+    .main-header.is-scrolled ~ .menu-overlay {
+        top: calc(64px - 20vh);
+        height: calc(100vh - 64px + 40vh);
+    }
+
     .main-nav.is-open {
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
     }
@@ -3329,7 +3342,7 @@ ul {
     .main-nav ul {
         flex-direction: column;
         gap: 0;
-        padding: 0 0 24px 0;
+        padding: 32px 0 24px 0;
         align-items: stretch;
         justify-content: flex-start;
         align-self: flex-start;
@@ -3359,6 +3372,7 @@ ul {
         width: 100%;
         padding: 18px 24px;
         font-size: 16px;
+        font-weight: 400;
         text-align: right;
         color: #111111;
         text-decoration: none;
@@ -3778,6 +3792,45 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: rgba(77, 76, 76, 0.6);
 }
 
+/* Кнопка «Наверх» — круглая, справа на уровне футера */
+.scroll-to-top {
+    position: fixed;
+    right: var(--container-padding);
+    bottom: 120px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 800;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease;
+}
+
+.scroll-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-to-top svg {
+    width: 20px;
+    height: 20px;
+    color: #111111;
+}
+
 @media (max-width: 768px) {
     .site-footer {
         padding: 30px 0 20px;
@@ -3842,6 +3895,18 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
     .footer-copyright {
         font-size: 0.8rem;
+    }
+
+    .scroll-to-top {
+        right: var(--container-padding);
+        bottom: 80px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .scroll-to-top svg {
+        width: 18px;
+        height: 18px;
     }
 }
 
@@ -4028,7 +4093,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 .stage-card-wrap {
     position: sticky;
     background: var(--color-shade-fill);
-    border-radius: 10px;
+    border-radius: 0;
     border: 1px solid var(--color-shade-border);
     margin-bottom: 48px;
     overflow: visible;
@@ -4058,7 +4123,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 .stage-card {
     position: relative;
     background: #ffffff;
-    border-radius: 10px;
+    border-radius: 0;
     border: none;
     box-shadow: none;
     padding: 32px 36px 36px 32px;
@@ -4247,7 +4312,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         position: absolute;
         right: 0;
         top: 48px;
-        height: calc(100% - 80px);
+        height: calc(100% - 64px);
         align-items: flex-start;
     }
     /* Все обёртки — block, overflow: visible чтобы sticky работал */
@@ -4279,11 +4344,12 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     .stage-card-wrap {
         position: sticky;
         width: 100%;
+        border-radius: 0;
         max-width: 100%;
         box-sizing: border-box;
         margin-bottom: 32px;
         background: var(--color-shade-fill);
-        border-radius: 10px;
+        border-radius: 0;
     }
     .stage-card-wrap:last-child {
         margin-bottom: 0;
@@ -4298,7 +4364,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         margin-bottom: 16px;
         background: #ffffff;
         border: 1px solid #eeeeee;
-        border-radius: 10px;
+        border-radius: 0;
         box-shadow: none;
         overflow: hidden;
     }
@@ -4997,11 +5063,12 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     .stage-card-wrap {
         position: sticky;
         width: 100%;
+        border-radius: 0;
         max-width: 100%;
         box-sizing: border-box;
         margin-bottom: 32px;
         background: var(--color-shade-fill);
-        border-radius: 10px;
+        border-radius: 0;
     }
 
     .stage-card-wrap:nth-child(1) { top: 16px; z-index: 1; }
@@ -5022,7 +5089,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         margin-bottom: 16px;
         background: #ffffff;
         border: 1px solid #eeeeee;
-        border-radius: 10px;
+        border-radius: 0;
         box-shadow: none;
         overflow: hidden;
     }
@@ -5126,7 +5193,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     .stage-img-mobile {
         display: block;
         position: absolute;
-        top: 16px;
+        top: 32px;
         right: 16px;
         width: 160px;
         height: auto;
@@ -5976,17 +6043,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 .stages-side-label.srv-in-view {
     opacity: 1;
     transform: translateY(0);
-}
-
-/* На мобильных и смартфонах — всегда видимы, анимация не нужна */
-@media (max-width: 768px) {
-    .stages-experience-title,
-    .stages-experience-text,
-    .stages-side-label {
-        opacity: 1;
-        transform: translateY(0);
-        transition: none;
-    }
 }
 
 /* --- stages-section cards --- */
