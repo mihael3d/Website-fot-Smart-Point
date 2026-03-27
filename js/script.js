@@ -1,9 +1,29 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // hero-home: hero-animated в HTML, анимация при каждой загрузке
-    // hero-services (services.html) — анимация при каждом посещении
+
+    // ── Флаг анимаций — вычисляем первым, до любого hero-кода ──────
+    const _navEntry = performance.getEntriesByType('navigation')[0];
+    const _navType  = _navEntry ? _navEntry.type : '';
+    const _isBackForward = _navType === 'back_forward';
+    let _cameFromDetail = false;
+    try {
+        _cameFromDetail = sessionStorage.getItem('skipAnim_fromDetail') === '1';
+        if (_cameFromDetail) sessionStorage.removeItem('skipAnim_fromDetail');
+    } catch (_) {}
+    // true  → анимации  |  false → мгновенный показ
+    const _shouldAnim = !_isBackForward && !_cameFromDetail;
+
+    // ── Hero верхние секции ─────────────────────────────────────────
+    // hero-services: hero-animated добавляем только если играем анимации
     const heroServices = document.querySelector('.hero.hero-services');
     if (heroServices) {
-        heroServices.classList.add('hero-animated');
+        if (_shouldAnim) heroServices.classList.add('hero-animated');
+    }
+
+    // hero-home уже имеет hero-animated в HTML;
+    // при мгновенном показе гасим анимацию через hero-restored
+    const heroHome = document.querySelector('.hero.hero-home');
+    if (heroHome && !_shouldAnim) {
+        heroHome.classList.add('hero-restored');
     }
 
     // Hero section logic handled above
@@ -126,52 +146,41 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach((card) => observer.observe(card));
     }
 
-    /* 
+    /*
      * Система анимаций при скролле:
-     * - Анимации запускаются ТОЛЬКО при первом посещении страницы в сессии
-     * - При возврате назад (back_forward) или повторном посещении - контент сразу виден
-     * - Используем sessionStorage для отслеживания в рамках одной сессии браузера
+     * - Анимации играют при первом заходе и при переходе через меню
+     * - Мгновенный показ (без анимаций):
+     *     • кнопка «Назад» браузера (back_forward)
+     *     • кнопка «← Все проекты» на странице project-detail.html
      */
 
-    const navEntry = performance.getEntriesByType('navigation')[0];
-    const navType = navEntry ? navEntry.type : '';
-    const isReload = navType === 'reload';
-    const isBackForward = navType === 'back_forward';
+    // Используем флаг, вычисленный в самом начале DOMContentLoaded
+    // (до этого места sessionStorage уже был прочитан и очищен)
+    const shouldPlayScrollAnimations = _shouldAnim;
 
-    const pageKey = 'scrollAnimPlayed_' + (location.pathname || location.href);
-
-    let pageVisited = false;
-    try {
-        pageVisited = sessionStorage.getItem(pageKey) === '1';
-    } catch (e) {
-        console.warn('SessionStorage недоступен:', e);
-    }
-
-    // Анимации появления показываются всегда, при любом сценарии посещения
-    const shouldPlayScrollAnimations = true;
-
-    // При повторном посещении — показываем сразу без анимации
+    // Мгновенный показ при !shouldPlayScrollAnimations — вызываем после
+    // определения функции showScrollSectionsWithoutAnim (ниже по коду)
+    // через requestAnimationFrame чтобы DOM успел построиться
     if (!shouldPlayScrollAnimations) {
-        // Вызов после загрузки DOM
-        document.addEventListener('DOMContentLoaded', showScrollSectionsWithoutAnim);
-        // Подстраховка если DOMContentLoaded уже сработал
-        if (document.readyState !== 'loading') showScrollSectionsWithoutAnim();
-    }
-
-
-    // Отмечаем страницу как посещенную
-    if (!pageVisited) {
-        try {
-            sessionStorage.setItem(pageKey, '1');
-        } catch (e) {
-            console.warn('Не удалось сохранить в sessionStorage:', e);
-        }
+        requestAnimationFrame(() => showScrollSectionsWithoutAnim());
     }
 
     /**
      * Функция для мгновенного показа всех анимируемых элементов без анимации
      */
     function showScrollSectionsWithoutAnim() {
+        // Hero верхних секций — мгновенный показ
+        document.querySelectorAll('.hero.hero-home').forEach(el => el.classList.add('hero-restored'));
+        const hs = document.querySelector('.hero.hero-services');
+        if (hs) {
+            hs.classList.remove('hero-animated');
+            hs.querySelectorAll('.hero-title, .hero-label, .hero-desc, .hero-buttons, .title-lines span, .hero-bg')
+              .forEach(el => { el.style.transition = 'none'; el.style.animation = 'none'; el.style.opacity = '1'; el.style.transform = 'none'; });
+            requestAnimationFrame(() => {
+                hs.querySelectorAll('.hero-title, .hero-label, .hero-desc, .hero-buttons, .title-lines span, .hero-bg')
+                  .forEach(el => { el.style.transition = ''; el.style.animation = ''; });
+            });
+        }
 
 
         // Показываем элементы секции about-intro
@@ -214,11 +223,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Показываем секцию clients-marquee
         const clientsMarquee = document.querySelector('.section-clients-marquee');
+        const clientsDividerEl = document.querySelector('.clients-divider');
+        const clientsTrackWrap = document.querySelector('.clients-track-wrap');
         if (clientsMarquee) {
             clientsMarquee.style.transition = 'none';
+            clientsDividerEl && (clientsDividerEl.style.transition = 'none');
+            clientsTrackWrap && (clientsTrackWrap.style.transition = 'none');
             clientsMarquee.classList.add('clients-marquee-in-view');
+            clientsDividerEl?.classList.add('clients-divider-in-view');
             requestAnimationFrame(() => {
                 clientsMarquee.style.transition = '';
+                clientsDividerEl && (clientsDividerEl.style.transition = '');
+                clientsTrackWrap && (clientsTrackWrap.style.transition = '');
             });
         }
 
@@ -230,6 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.forEach((el) => {
                 el.style.transition = 'none';
                 el.classList.add('advantages-in-view');
+                if (el.classList.contains('advantage-card')) {
+                    el.classList.add('advantages-animation-done');
+                }
             });
 
             requestAnimationFrame(() => {
@@ -251,6 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const srvSelectors = [
             '.spacer-lead', '.spacer-rule', '.spacer-sub', '.spacer-side-label',
             '.strategy-intro .company-label', '.strategy-heading', '.strategy-intro-bold', '.strategy-intro-text', '.strategy-card-wrap', '.smart-card',
+            '.section-smart-cards .smart-cards-label',
             '.industries-heading', '.industry-card',
             '.stages-experience-title', '.stages-experience-text', '.stages-side-label', '.stage-card-wrap',
             '.approach-label', '.approach-title', '.approach-text', '.approach-cta',
@@ -352,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctaContainer = document.querySelector('.section-cta .cta-container');
     if (ctaContainer) {
         if (shouldPlayScrollAnimations) {
-            const isMobile = window.innerWidth <= 768;
+            const isMobile = window.innerWidth <= 568;
             const ctaRootMargin = isMobile ? '0px 0px 60% 0px' : '0px 0px 18% 0px';
             const ctaObserver = new IntersectionObserver((entries, obs) => {
                 entries.forEach((entry) => {
@@ -447,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }, {
                 threshold: 0.05,
-                rootMargin: window.innerWidth <= 768 ? '0px 0px -8% 0px' : '0px 0px 12% 0px'
+                rootMargin: window.innerWidth <= 568 ? '0px 0px -8% 0px' : '0px 0px 12% 0px'
             });
 
             aboutAnimatedEls.forEach((el) => aboutObserver.observe(el));
@@ -466,10 +486,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const sectionD6 = document.querySelector('.section-advantages');
 
     if (sectionD6) {
-        const d6Animated = sectionD6.querySelectorAll('.advantages-divider, .advantages-heading, .advantage-cards .advantage-card, .advantages-image');
+        const d6Animated = sectionD6.querySelectorAll('.advantages-divider');
+        const advantagesHeading = sectionD6.querySelector('.advantages-heading');
+        const advantagesImage = sectionD6.querySelector('.advantages-image');
+        const advantageCards = sectionD6.querySelectorAll('.advantage-cards .advantage-card');
 
         if (shouldPlayScrollAnimations) {
-            // Запускаем анимации через IntersectionObserver
+            // Progressive disclosure: карточки — триггер при 50% видимости каждой
+            advantageCards.forEach((card) => {
+                const cardObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            el.classList.add('advantages-in-view');
+                            obs.unobserve(el);
+                            el.addEventListener('transitionend', function onDone(e) {
+                                if (e.propertyName === 'transform' || e.propertyName === 'opacity') {
+                                    el.classList.add('advantages-animation-done');
+                                    el.removeEventListener('transitionend', onDone);
+                                }
+                            });
+                        }
+                    });
+                }, { threshold: 0.5 });
+                cardObserver.observe(card);
+            });
+
+            // Progressive disclosure: заголовок — триггер при 50% видимости
+            if (advantagesHeading) {
+                const headingObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('advantages-in-view');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                headingObserver.observe(advantagesHeading);
+            }
+
+            // Progressive disclosure: картинка — триггер при 50% видимости
+            if (advantagesImage) {
+                const imageObserver = new IntersectionObserver((entries, obs) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('advantages-in-view');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                imageObserver.observe(advantagesImage);
+            }
+
+            // Остальные элементы секции
             const d6Observer = new IntersectionObserver((entries, obs) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
@@ -485,42 +554,51 @@ document.addEventListener('DOMContentLoaded', () => {
             d6Animated.forEach((el) => d6Observer.observe(el));
         } else {
             // Сразу показываем все элементы БЕЗ анимации
-            // ВАЖНО: Отключаем transitions перед добавлением классов!
             d6Animated.forEach((el) => {
-                // Временно отключаем transition
                 el.style.transition = 'none';
-                // Добавляем класс (элемент станет видимым)
                 el.classList.add('advantages-in-view');
             });
-
-            // Возвращаем transitions после рендеринга
+            advantageCards.forEach((el) => {
+                el.style.transition = 'none';
+                el.classList.add('advantages-in-view', 'advantages-animation-done');
+            });
+            if (advantagesHeading) {
+                advantagesHeading.style.transition = 'none';
+                advantagesHeading.classList.add('advantages-in-view');
+            }
+            if (advantagesImage) {
+                advantagesImage.style.transition = 'none';
+                advantagesImage.classList.add('advantages-in-view');
+            }
             requestAnimationFrame(() => {
-                d6Animated.forEach((el) => {
-                    el.style.transition = '';
-                });
+                d6Animated.forEach((el) => { el.style.transition = ''; });
+                advantageCards.forEach((el) => { el.style.transition = ''; });
+                advantagesHeading && (advantagesHeading.style.transition = '');
+                advantagesImage && (advantagesImage.style.transition = '');
             });
         }
     }
 
-    // ========== Анимация секции clients-marquee ==========
+    // ========== Анимация секции clients-marquee (триггер — clients-divider, 50% видимости) ==========
     const sectionClientsMarquee = document.querySelector('.section-clients-marquee');
+    const clientsDivider = document.querySelector('.clients-divider');
 
-    if (sectionClientsMarquee) {
+    if (sectionClientsMarquee && clientsDivider) {
         if (shouldPlayScrollAnimations) {
-            const isMobileMarquee = window.innerWidth <= 768;
-            const marqueeRootMargin = isMobileMarquee ? '0px 0px 60% 0px' : '0px 0px 18% 0px';
-            const marqueeObserver = new IntersectionObserver((entries, obs) => {
+            const dividerObserver = new IntersectionObserver((entries, obs) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('clients-marquee-in-view');
+                        entry.target.classList.add('clients-divider-in-view');
+                        sectionClientsMarquee.classList.add('clients-marquee-in-view');
                         obs.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.05, rootMargin: marqueeRootMargin });
-            marqueeObserver.observe(sectionClientsMarquee);
+            }, { threshold: 0.5 });
+            dividerObserver.observe(clientsDivider);
         } else {
             sectionClientsMarquee.style.transition = 'none';
             sectionClientsMarquee.classList.add('clients-marquee-in-view');
+            clientsDivider.classList.add('clients-divider-in-view');
             requestAnimationFrame(() => {
                 sectionClientsMarquee.style.transition = '';
             });
@@ -560,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (shouldPlayScrollAnimations) {
-        const isMobileSrv = window.innerWidth <= 768;
+        const isMobileSrv = window.innerWidth <= 568;
         const srvRootMargin = isMobileSrv ? '0px 0px 60% 0px' : '0px 0px 8% 0px';
 
         const makeSrvObserver = () => new IntersectionObserver((entries, obs) => {
@@ -576,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // section-strategy и section-smart-cards — intro (каждый блок при 50% видимости)
         const strategyIntroOpts = { threshold: 0.5, rootMargin: srvRootMargin };
-        const strategyIntroEls = document.querySelectorAll('.strategy-intro .company-label, .strategy-heading, .strategy-intro-bold, .strategy-intro-text');
+        const strategyIntroEls = document.querySelectorAll('.strategy-intro .company-label, .strategy-heading, .strategy-intro-bold, .strategy-intro-text, .section-smart-cards .smart-cards-label');
         const smartSideLabel = document.querySelector('.section-smart-cards .smart-side-label');
         if (strategyIntroEls.length || smartSideLabel) {
             const strategyIntroObs = new IntersectionObserver((entries, obs) => {
@@ -667,20 +745,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const smartCards = smartCardsSection.querySelectorAll('.smart-card');
             const isWide = window.innerWidth > 1024;
             if (smartCards.length) {
-                if (isWide && smartCardsGrid) {
-                    let smartCardsFired = false;
+                if (window.innerWidth <= 1024) {
+                    // Мобайл/планшет: карусель управляет видимостью, observer не нужен — сразу показываем
+                    smartCards.forEach((card) => {
+                        card.style.transition = 'none';
+                        card.classList.add('srv-in-view');
+                        requestAnimationFrame(() => { card.style.transition = ''; });
+                    });
+                } else if (isWide) {
+                    // Десктоп: каждая карточка появляется когда 50% её видно на экране
                     const smartCardsObs = new IntersectionObserver((entries, obs) => {
                         entries.forEach((entry) => {
-                            if (entry.isIntersecting && !smartCardsFired) {
-                                smartCardsFired = true;
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('srv-in-view');
                                 obs.unobserve(entry.target);
-                                smartCards.forEach((card, i) => {
-                                    setTimeout(() => card.classList.add('srv-in-view'), i * 200);
-                                });
                             }
                         });
-                    }, smartCardsOpts);
-                    smartCardsObs.observe(smartCardsGrid);
+                    }, { threshold: 0.5 });
+                    smartCards.forEach((card) => smartCardsObs.observe(card));
                 } else {
                     const smartCardsObs = new IntersectionObserver((entries, obs) => {
                         entries.forEach((entry) => {
@@ -746,92 +828,47 @@ document.addEventListener('DOMContentLoaded', () => {
             individualEls.forEach((el) => obs.observe(el));
         }
 
-        // career-why-section (career.html) — триггер: 5% для heading/items, 1% для circle
-        const careerWhyEls = document.querySelectorAll('.cw-heading, .cw-item');
-        const careerCircleWrap = document.querySelector('.cw-circle-wrap');
-        if (careerWhyEls.length) {
-            const careerWhyObs = new IntersectionObserver((entries, obs) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('srv-in-view');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.05 });
-            careerWhyEls.forEach((el) => careerWhyObs.observe(el));
-        }
-        if (careerCircleWrap) {
-            const circleObs = new IntersectionObserver((entries, obs) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('srv-in-view');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.01, rootMargin: '0px 0px 15% 0px' });
-            circleObs.observe(careerCircleWrap);
-        }
-    }
+        // career-why-section — только career-page.
+        // Заголовок: translateX в CSS → rootMargin слева. Круг/карточки (≤568): translateY → rootMargin снизу.
+        // На орбите ≥1025 карточки translateX — без лишнего rootMargin.
+        const careerSection = document.body.classList.contains('career-page')
+            ? document.querySelector('.career-why-section')
+            : null;
+        if (careerSection) {
+            const careerShiftYOpts = { threshold: 0, rootMargin: '0px 0px 260px 0px' };
+            const careerHeadingOpts = { threshold: 0, rootMargin: '0px 0px 0px 160px' };
+            const careerOrbitItemOpts = { threshold: 0.05, rootMargin: '0px 0px 0px 0px' };
+            const isCareerOrbitWide = window.innerWidth >= 1025;
 
-    /* Why Choose Us Tabs */
-    const wcuTabs = document.querySelectorAll('.wcu-tab');
-    const wcuContents = document.querySelectorAll('.wcu-content');
+            const careerHeading = careerSection.querySelector('.cw-heading');
+            const careerItems = careerSection.querySelectorAll('.cw-item');
+            const careerCircleWrap = careerSection.querySelector('.cw-circle-wrap');
 
-    if (wcuTabs.length > 0) {
-        wcuTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const targetId = tab.getAttribute('data-target');
-                const targetContent = document.getElementById(targetId);
-
-                // If already active, do nothing
-                if (tab.classList.contains('active')) return;
-
-                // 1. Find currently active tab & content
-                const currentTab = document.querySelector('.wcu-tab.active');
-                const currentContent = document.querySelector('.wcu-content.active');
-
-                // Update Tabs immediately for responsiveness
-                if (currentTab) currentTab.classList.remove('active');
-                tab.classList.add('active');
-
-                // 2. Handle Content Animation
-                const isMobile = window.innerWidth <= 768;
-                const wrapper = document.querySelector('.wcu-content-wrapper');
-
-                if (currentContent) {
-                    if (isMobile) {
-                        // Mobile: fix height, instant switch
-                        if (wrapper) wrapper.style.minHeight = wrapper.offsetHeight + 'px';
-                        currentContent.classList.remove('active');
-                        if (targetContent) {
-                            targetContent.classList.add('active');
+            const attachObs = (el, opts) => {
+                if (!el) return;
+                const obs = new IntersectionObserver((entries, o) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('srv-in-view');
+                            o.unobserve(entry.target);
                         }
-                        // Release fixed height after paint
-                        requestAnimationFrame(() => {
-                            if (wrapper) wrapper.style.minHeight = '';
-                        });
-                    } else {
-                        // Desktop: animated transition
-                        currentContent.classList.remove('active');
-                        currentContent.classList.add('leaving');
+                    });
+                }, opts);
+                obs.observe(el);
+            };
 
-                        // Wait for smokeOut animation (500ms)
-                        setTimeout(() => {
-                            currentContent.classList.remove('leaving');
-                            // Show new content
-                            if (targetContent) {
-                                targetContent.classList.add('active');
-                            }
-                        }, 480);
-                    }
-                } else {
-                    // No current content? Just show new one (initial load safety)
-                    if (targetContent) {
-                        targetContent.classList.add('active');
-                    }
-                }
-            });
-        });
+            attachObs(careerHeading, careerHeadingOpts);
+            attachObs(careerCircleWrap, { threshold: 0.01, rootMargin: '0px 0px 260px 0px' });
+
+            // 568–1024px: translateX-анимация на иконке → триггер при 50% видимости элемента
+            // ≤568px: translateY(240px) → нужен ранний запуск (260px запас)
+            const careerTabletItemOpts = { threshold: 0.5, rootMargin: '0px' };
+            const isTablet = !isCareerOrbitWide && window.innerWidth > 568;
+            const itemOpts = isCareerOrbitWide ? careerOrbitItemOpts
+                           : isTablet          ? careerTabletItemOpts
+                           :                     careerShiftYOpts;
+            careerItems.forEach((el) => attachObs(el, itemOpts));
+        }
     }
 
     const stagesMedia = document.querySelector('.stages-media');
@@ -906,7 +943,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const stagesHeaderRow = document.querySelector('.stages-header-row');
             const sideLabel = document.querySelector('.stages-section .stages-side-label');
             const stagesSection = document.querySelector('.stages-section');
-            const HEADER_HEIGHT = 64;
+            const HEADER_HEIGHT = parseInt(
+                getComputedStyle(document.documentElement).getPropertyValue('--header-height')
+            ) || 52;
             let lastScrollY = window.scrollY;
 
             // Смещаем sticky-элементы вниз под меню когда секция у верха экрана и скроллим вверх
@@ -1275,11 +1314,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function openProjectDetail(projectId) {
-        // Navigate to project detail page with project ID
-        window.location.href = `project-detail.html?id=${projectId}`;
-    }
-
     // ========== Clients marquee: drag-to-scroll + auto-scroll ==========
     const clientsTrackWrap = document.querySelector('.clients-track-wrap');
     const clientsTrack = document.querySelector('.clients-track');
@@ -1528,5 +1562,287 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // ── Карусель SMART-карточек (мобайл ≤568px и планшет 569–1024px) ────────
+    function initSmartCarousel() {
+        if (window.innerWidth > 1024) return;
+        const grid = document.querySelector('.smart-cards-grid');
+        if (!grid) return;
+        const cards = [...grid.querySelectorAll('.smart-card')];
+        if (!cards.length) return;
+
+        const isTablet = window.innerWidth > 568;
+
+        // Снимаем начальное анимационное состояние (opacity:0 / translateY)
+        cards.forEach(c => c.classList.add('srv-in-view'));
+
+        // Dot-навигация
+        const dotsWrap = document.querySelector('.smart-carousel-dots');
+        if (dotsWrap) {
+            cards.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'dot' + (i === 0 ? ' active' : '');
+                btn.setAttribute('aria-label', `Карточка ${i + 1}`);
+                btn.addEventListener('click', () => {
+                    let target;
+                    if (isTablet) {
+                        const maxScroll = grid.scrollWidth - grid.offsetWidth;
+                        target = (i >= cards.length - 2)
+                            ? maxScroll
+                            : i * (cardW + gapPx);
+                    } else {
+                        target = padL + i * (cardW + gapPx) + cardW / 2 - gridW / 2;
+                    }
+                    grid.scrollTo({ left: target, behavior: 'smooth' });
+                });
+                dotsWrap.appendChild(btn);
+            });
+        }
+
+        // Геометрия карусели (вычисляется один раз, стабильна)
+        const gcs    = getComputedStyle(grid);
+        const padL   = parseFloat(gcs.paddingLeft);
+        const gapPx  = parseFloat(gcs.gap) || 12;
+        const cardW  = cards[0].offsetWidth;   // offsetWidth до первого scroll-события
+        const gridW  = grid.offsetWidth;
+
+        // Планшет: последняя позиция — R и T по центру экрана.
+        // Используем margin-right на последней карточке (не влияет на flex %-ширину),
+        // чтобы maxScroll = позиция центрирования последних двух карточек.
+        if (isTablet && cards.length >= 2) {
+            const step       = cardW + gapPx;
+            const twoCardsW  = 2 * cardW + gapPx;
+            const centerOff  = Math.max(0, (gridW - twoCardsW) / 2);
+            const targetLast = Math.max(0, padL + (cards.length - 2) * step - centerOff);
+            const neededScrollW = targetLast + gridW;
+            const extraMargin = Math.max(0, neededScrollW - grid.scrollWidth);
+            if (extraMargin > 0) {
+                const lastCard = cards[cards.length - 1];
+                const curMar = parseFloat(getComputedStyle(lastCard).marginRight) || 0;
+                lastCard.style.marginRight = (curMar + extraMargin) + 'px';
+            }
+        }
+
+        // Обновление состояния карусели (3D-эффект для всех диапазонов)
+        function updateCards() {
+            let activeIdx = 0;
+            let minDist   = Infinity;
+            const maxDist = cardW + gapPx;
+
+            if (isTablet) {
+                // Планшет: плавный 3D — от 90° (полностью за краем) до 0° (полностью видима)
+                const step    = cardW + gapPx;
+                const visLeft  = grid.scrollLeft;
+                const visRight = grid.scrollLeft + gridW;
+                activeIdx = Math.round(grid.scrollLeft / step);
+
+                cards.forEach((card, i) => {
+                    const cLeft  = padL + i * step;
+                    const cRight = cLeft + cardW;
+                    let t;
+                    if (cLeft >= visLeft && cRight <= visRight) {
+                        t = 0; // полностью видима — строго плоская
+                    } else if (cRight <= visLeft) {
+                        t = (cRight - visLeft) / step; // слева от вьюпорта (отрицательное)
+                    } else if (cLeft >= visRight) {
+                        t = (cLeft - visRight) / step; // справа от вьюпорта (положительное)
+                    } else if (cLeft < visLeft) {
+                        t = (cLeft - visLeft) / step;  // частично слева
+                    } else {
+                        t = (cRight - visRight) / step; // частично справа
+                    }
+                    t = Math.max(-1.2, Math.min(1.2, t));
+                    const rotY  = t * 90;
+                    const scale = 1 - Math.abs(t) * 0.13;
+                    const alpha = Math.max(0.65, 1 - Math.abs(t) * 0.35);
+                    const tx    = -t * Math.min(30, gridW * 0.08);
+                    card.style.transform = `translateX(${tx}px) perspective(1200px) rotateY(${rotY}deg) scale(${scale})`;
+                    card.style.opacity   = alpha;
+                });
+            } else {
+                // Мобайл: центр вьюпорта
+                const viewMid = grid.scrollLeft + gridW / 2;
+
+                cards.forEach((card, i) => {
+                    const cardCenter = padL + i * (cardW + gapPx) + cardW / 2;
+                    const dist       = cardCenter - viewMid;
+                    const t          = Math.max(-1.2, Math.min(1.2, dist / maxDist));
+                    const rotY  = t * 55;
+                    const scale = 1 - Math.abs(t) * 0.13;
+                    const alpha = Math.max(0.65, 1 - Math.abs(t) * 0.35);
+                    const tx    = -t * Math.min(30, gridW * 0.08);
+                    card.style.transform = `translateX(${tx}px) perspective(1200px) rotateY(${rotY}deg) scale(${scale})`;
+                    card.style.opacity   = alpha;
+                    if (Math.abs(dist) < minDist) { minDist = Math.abs(dist); activeIdx = i; }
+                });
+            }
+
+            if (dotsWrap) {
+                dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
+                    d.classList.toggle('active', i === activeIdx)
+                );
+            }
+        }
+
+        // rAF-обёртка: гарантирует вызов updateCards ровно 1 раз за кадр (60fps)
+        let rafPending = false;
+        function scheduleUpdate() {
+            if (rafPending) return;
+            rafPending = true;
+            requestAnimationFrame(() => { rafPending = false; updateCards(); });
+        }
+
+        grid.addEventListener('scroll', scheduleUpdate, { passive: true });
+        grid.addEventListener('scrollend', scheduleUpdate, { passive: true });
+
+        // Планшет: последние карточки докручиваются до упора (без peek слева)
+        if (isTablet) {
+            grid.addEventListener('scrollend', () => {
+                const step     = cardW + gapPx;
+                const snapIdx  = Math.round(grid.scrollLeft / step);
+                const maxScroll = grid.scrollWidth - grid.offsetWidth;
+                if (snapIdx >= cards.length - 2 && grid.scrollLeft < maxScroll - 1) {
+                    grid.scrollTo({ left: maxScroll, behavior: 'smooth' });
+                }
+            }, { passive: true });
+        }
+
+        updateCards();
+
+        // Drag-поддержка мышью (удобно на тачпаде)
+        let isDown = false, startX = 0, startScroll = 0;
+        grid.addEventListener('mousedown', e => {
+            isDown = true; startX = e.pageX; startScroll = grid.scrollLeft;
+        });
+        window.addEventListener('mouseup', () => { isDown = false; });
+        grid.addEventListener('mousemove', e => {
+            if (!isDown) return;
+            e.preventDefault();
+            grid.scrollLeft = startScroll - (e.pageX - startX);
+        }, { passive: false });
+    }
+    initSmartCarousel();
+
+    // ── Карьера: кружки на окружности большого круга (568–1024px) ────────────
+    function positionCwItemsOnCircle() {
+        const section = document.querySelector('.career-why-section');
+        if (!section) return;
+
+        const iw        = window.innerWidth;
+        const orbGroup  = section.querySelector('.cw-orbital-group');
+        const circleWrap = section.querySelector('.cw-circle-wrap');
+        const items     = [...section.querySelectorAll('.cw-item')];
+
+        if (!orbGroup || !circleWrap || !items.length) return;
+
+        // Вне диапазона 568–1024 — сбрасываем inline-стили JS
+        if (iw <= 568 || iw > 1024) {
+            items.forEach(item => {
+                item.style.cssText = '';
+                const textEl = item.querySelector('.cw-text');
+                if (textEl) textEl.style.cssText = '';
+            });
+            orbGroup.style.height = '';
+            return;
+        }
+
+        // Реальный центр круга относительно orbGroup (учитывает transform translateX(-50%))
+        // Используем offsetTop/offsetWidth — они НЕ зависят от CSS-анимаций (transform).
+        // getBoundingClientRect() учитывает translateY из начального анимационного состояния
+        // (.srv-in-view ещё не добавлен), что даёт неверный cy и огромный нижний отступ.
+        const r     = circleWrap.offsetWidth / 2;
+        const orbW  = orbGroup.offsetWidth;
+
+        // Геометрический центр круга в координатах orbGroup:
+        //   CSS: left:0, translateX(-50%)  →  визуальный центр X = 0 от левого края orbGroup
+        //   CSS: top:40px                  →  центр Y = offsetTop + r (без учёта анимационных трансформов)
+        const cx = 0;
+        const cy = circleWrap.offsetTop + r;
+
+        const iconSz   = 54;
+        const iconHalf = iconSz / 2; // = 27
+        const gap      = 12;
+
+        // Углы 5 кружков вдоль правого полукруга (градусы от 3 часов)
+        // отрицательные = вверх, положительные = вниз
+        const angleDeg = [-68, -30, 5, 35, 70];
+
+        items.forEach((item, i) => {
+            const rad = angleDeg[i] * Math.PI / 180;
+            const px  = cx + r * Math.cos(rad); // X центра иконки на окружности
+            const py  = cy + r * Math.sin(rad); // Y центра иконки на окружности
+
+            const itemLeft = px - iconHalf;
+            const itemW    = orbW - itemLeft - 16;
+            const textMaxW = orbW - (px + iconHalf + gap) - 16;
+
+            item.style.position  = 'absolute';
+            item.style.left      = itemLeft + 'px';
+            item.style.top       = py + 'px';
+            item.style.transform = 'translateY(-50%)';
+            item.style.margin    = '0';
+            item.style.width     = itemW + 'px';
+
+            const textEl = item.querySelector('.cw-text');
+            if (textEl) textEl.style.maxWidth = Math.max(textMaxW, 120) + 'px';
+        });
+
+        // Высота orbGroup — рассчитываем через стабильные layout-значения (не BoundingClientRect)
+        // чтобы не зависеть от позиции скролла и анимационных трансформов
+        requestAnimationFrame(() => {
+            let maxBottom = cy + r + 24; // минимум = нижняя точка круга
+            items.forEach(item => {
+                // item.style.top — это наш py; transform: translateY(-50%) центрирует по Y
+                const itemCenterY = parseFloat(item.style.top);
+                const itemBottom  = itemCenterY + item.offsetHeight / 2;
+                if (itemBottom > maxBottom) maxBottom = itemBottom;
+            });
+            orbGroup.style.height = (maxBottom + 24) + 'px';
+        });
+    }
+
+    positionCwItemsOnCircle();
+
+    let _cwResizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(_cwResizeTimer);
+        _cwResizeTimer = setTimeout(positionCwItemsOnCircle, 80);
+    }, { passive: true });
+
+    // ─── Разрешение окна браузера (viewport) ───────────────────────────────────
+    (function initViewportInfo() {
+        const el = document.getElementById('viewportInfo');
+        if (!el) return;
+
+        function update() {
+            el.textContent = `Окно браузера: ширина ${window.innerWidth}px, высота ${window.innerHeight}px`;
+        }
+        update();
+        window.addEventListener('resize', update);
+    })();
+
+    // ─── Тёмная тема ─────────────────────────────────────────────────────────
+    /* initTheme — временно отключено
+    (function initTheme() {
+        const html = document.documentElement;
+        const btn  = document.querySelector('.theme-toggle');
+        if (!btn) return;
+
+        function applyTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            localStorage.setItem('sp-theme', theme);
+        }
+
+        btn.addEventListener('click', () => {
+            applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        });
+
+        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('sp-theme')) {
+                html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+            }
+        });
+    })();
+    */
 
 });

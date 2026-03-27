@@ -9,6 +9,7 @@
     --color-shade-border: #c8c8c8;
     --container-width: 1400px;
     --container-padding: 40px;
+    --header-height: 52px;
 
     /* Type scale */
     --fs-display:   clamp(2.5rem, 5vw, 4rem);        /* hero: 40→64px */
@@ -23,7 +24,6 @@
 
     /* Fluid spacing */
     --section-padding-block:  clamp(3rem, 8vw, 8rem);
-    --section-padding-inline: clamp(1rem, 5vw, 4rem);
     --gap-section:            clamp(1rem, 3vw, 2.5rem);
     --card-padding:           1rem;
 }
@@ -36,7 +36,7 @@
 }
 
 /* Планшеты: card-padding */
-@media (min-width: 768px) {
+@media (min-width: 568px) {
     :root {
         --card-padding: 1.5rem;
     }
@@ -50,7 +50,7 @@
 }
 
 /* Мобильные */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     :root {
         --container-padding: 12px;
     }
@@ -108,7 +108,7 @@ ul {
     background-color: #1A1A1A;
     transform: translateY(0);
     transition: transform 0.25s ease, background-color 0.35s ease, box-shadow 0.35s ease;
-    height: 64px;
+    height: var(--header-height);
 }
 
 /* Transparent header on services2 / career / projects / contacts page — только вверху */
@@ -166,7 +166,7 @@ ul {
     justify-content: flex-start;
     align-items: center;
     position: relative;
-    height: 64px;
+    height: var(--header-height);
 }
 
 /* Thin line spanning full width under the menu */
@@ -183,7 +183,7 @@ ul {
 
 .logo {
     position: relative;
-    height: 64px;
+    height: var(--header-height);
     display: flex;
     align-items: center;
     z-index: 1001;
@@ -191,7 +191,7 @@ ul {
 
 .logo img.logo-desktop,
 .logo img.logo-mobile {
-    height: 40px;
+    height: 32px;
     transition: opacity 0.3s ease;
 }
 
@@ -207,7 +207,7 @@ ul {
 .logo img.logo-desktop-scrolled,
 .logo img.logo-mobile-scrolled {
     display: none;
-    height: 40px;
+    height: 32px;
 }
 
 /* Scrolled: показываем цветные логотипы */
@@ -220,7 +220,7 @@ ul {
 }
 
 /* Мобильная версия: показываем logo-mobile вместо logo-desktop */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .logo img.logo-desktop,
     .logo img.logo-desktop-scrolled {
         display: none !important;
@@ -340,10 +340,10 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    min-height: 40px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    min-height: 36px;
     background: transparent;
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
@@ -369,11 +369,11 @@ ul {
 }
 
 .mobile-menu-toggle::before {
-    top: 14px;
+    top: 12px;
 }
 
 .mobile-menu-toggle::after {
-    bottom: 14px;
+    bottom: 12px;
 }
 
 .mobile-menu-toggle span {
@@ -397,12 +397,12 @@ ul {
 }
 
 .mobile-menu-toggle.active::before {
-    top: 19px;
+    top: 17px;
     transform: rotate(45deg);
 }
 
 .mobile-menu-toggle.active::after {
-    bottom: 19px;
+    bottom: 17px;
     transform: rotate(-45deg);
 }
 
@@ -502,7 +502,7 @@ ul {
 
 .strategy-heading {
     font-size: var(--fs-h1);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.2;
     color: var(--color-text-dark);
     margin: 16px 0 0 0;
@@ -511,7 +511,7 @@ ul {
 
 .strategy-intro-left .company-label {
     font-size: var(--fs-micro);
-    font-weight: 700;
+    font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #FF4433;
@@ -692,7 +692,7 @@ ul {
     .strategy-card-wrap:nth-child(5) { top: 96px; z-index: 5; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .section-strategy {
         padding: 24px 0 52px;
         overflow: visible;
@@ -790,7 +790,7 @@ ul {
    ===================================================== */
 .section-smart-cards {
     background-color: #eaecf3;
-    padding: clamp(2rem, 4vw, 4rem) 0 var(--section-padding-block);
+    padding: clamp(0.5rem, 1vw, 1rem) 0 var(--section-padding-block);
 }
 
 .smart-cards-main {
@@ -816,10 +816,21 @@ ul {
 
 .section-smart-cards .strategy-intro {
     grid-template-columns: minmax(0, 1fr) minmax(0, calc(1fr + 56px));
+    margin-top: 0;
+    margin-bottom: 12px;
 }
 
 .section-smart-cards .strategy-intro-right {
     padding-right: 56px;
+}
+
+.section-smart-cards .smart-cards-label {
+    font-size: var(--fs-micro);
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FF4433;
+    margin: 0 0 8px 0;
 }
 
 .smart-cards-grid {
@@ -880,7 +891,7 @@ ul {
 .smart-card-letter {
     display: block;
     margin-bottom: 12px;
-    font-size: var(--fs-h3);
+    font-size: var(--fs-h1);
     font-weight: 700;
     line-height: 1;
     color: #d12a2a;
@@ -941,6 +952,8 @@ ul {
     color: #ffffff;
 }
 
+.smart-carousel-dots { display: none; }
+
 @media (max-width: 1280px) {
     .smart-cards-grid {
         display: flex;
@@ -976,8 +989,8 @@ ul {
     }
 }
 
-/* 768–1024: заголовок 50%, правый блок на всю ширину */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* 568–1024: заголовок 50%, правый блок на всю ширину */
+@media (min-width: 568.1px) and (max-width: 1024px) {
     .section-smart-cards .strategy-intro {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -998,35 +1011,187 @@ ul {
     }
 }
 
-@media (max-width: 768px) {
+/* ── Smart-cards carousel 569–1024px: 2 карточки + peek ── */
+@media (min-width: 569px) and (max-width: 1024px) {
     .section-smart-cards {
-        overflow: visible;
+        overflow: hidden;
+    }
+
+    .smart-cards-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        scroll-padding-left: 16px;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding: 12px 16px 28px;
+        margin-left: calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        cursor: grab;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .smart-cards-grid::-webkit-scrollbar { display: none; }
+    .smart-cards-grid:active { cursor: grabbing; }
+
+    .section-smart-cards .smart-card {
+        flex: 0 0 calc(43% - 16px);
+        max-width: none;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        position: static;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+        will-change: transform, opacity;
+        transition: transform 0.06s ease-out, opacity 0.06s ease-out, box-shadow 0.3s ease;
+    }
+
+    .section-smart-cards .smart-card:nth-child(1),
+    .section-smart-cards .smart-card:nth-child(2),
+    .section-smart-cards .smart-card:nth-child(3),
+    .section-smart-cards .smart-card:nth-child(4),
+    .section-smart-cards .smart-card:nth-child(5) { z-index: auto; }
+
+    .section-smart-cards .smart-card,
+    .section-smart-cards .smart-card.srv-in-view {
+        opacity: 1;
+        transform: none;
+        animation: none;
+    }
+
+    .smart-carousel-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+        margin-top: 4px;
+    }
+    .smart-carousel-dots .dot {
+        height: 7px;
+        width: 7px;
+        border-radius: 4px;
+        background: rgba(17, 17, 17, 0.18);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: background 0.3s ease, width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+    }
+    .smart-carousel-dots .dot.active {
+        background: #d12a2a;
+        width: 22px;
+    }
+}
+
+@media (max-width: 568px) {
+    /* ── Секция ── */
+    .section-smart-cards {
+        overflow: hidden;
+        padding-bottom: 40px;
     }
     .section-smart-cards .strategy-intro {
-        margin-bottom: 48px;
+        margin-bottom: 12px;
     }
     .section-smart-cards .strategy-intro-right {
         padding-right: 0;
-        position: sticky;
-        top: 16px;
-        z-index: 2;
+        position: static;
     }
     .section-smart-cards .section-label.smart-side-label {
         display: none;
     }
-    .section-smart-cards .smart-card {
-        flex: 0 0 100%;
-        position: sticky;
-        top: 16px;
-        border: 1px solid rgba(0, 0, 0, 0.06);
-        box-sizing: border-box;
-        box-shadow: 0 -4px 16px -4px rgba(0, 0, 0, 0.08), 0 6px 16px -4px rgba(0, 0, 0, 0.1);
+
+    /* ── Карусель-трек ── */
+    .smart-cards-grid {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;   /* сбрасываем justify-content: center из 1280px-брейкпоинта */
+        overflow-x: scroll;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 4px;
+        padding: 12px 16vw 28px;
+        margin-left:  calc(-1 * var(--container-padding));
+        margin-right: calc(-1 * var(--container-padding));
+        cursor: grab;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
-    .section-smart-cards .smart-card:nth-child(1) { z-index: 1; }
-    .section-smart-cards .smart-card:nth-child(2) { z-index: 2; }
-    .section-smart-cards .smart-card:nth-child(3) { z-index: 3; }
-    .section-smart-cards .smart-card:nth-child(4) { z-index: 4; }
-    .section-smart-cards .smart-card:nth-child(5) { z-index: 5; }
+    .smart-cards-grid::-webkit-scrollbar { display: none; }
+    .smart-cards-grid:active { cursor: grabbing; }
+
+    /* ── Карточка ── */
+    .section-smart-cards .smart-card {
+        flex: 0 0 68vw;
+        max-width: none;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+        position: static;
+        border: 1px solid rgba(0, 0, 0, 0.07);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+        will-change: transform, opacity;
+        transform-origin: center center;
+        /* Плавное сглаживание поворота между scroll-событиями */
+        transition: transform 0.06s ease-out, opacity 0.06s ease-out, box-shadow 0.3s ease;
+    }
+    /* Убираем стековые z-index */
+    .section-smart-cards .smart-card:nth-child(1),
+    .section-smart-cards .smart-card:nth-child(2),
+    .section-smart-cards .smart-card:nth-child(3),
+    .section-smart-cards .smart-card:nth-child(4),
+    .section-smart-cards .smart-card:nth-child(5) { z-index: auto; }
+
+    /* ── Анимация появления: полностью отключаем на мобайле ── */
+    .section-smart-cards .smart-card,
+    .section-smart-cards .smart-card.srv-in-view {
+        opacity: 1;
+        transform: none;
+        animation: none;
+        /* transition не переопределяем — используем из карточки выше (0.06s для плавного поворота) */
+    }
+
+    .section-smart-cards .smart-card-letter {
+        font-size: 1.75rem;
+    }
+
+    /* ── Точки-индикаторы ── */
+    .smart-carousel-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 7px;
+        margin-top: 4px;
+    }
+    .smart-carousel-dots .dot {
+        height: 7px;
+        width: 7px;
+        border-radius: 4px;
+        background: rgba(17, 17, 17, 0.18);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: background 0.3s ease, width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+    }
+    .smart-carousel-dots .dot.active {
+        background: #d12a2a;
+        width: 22px;
+    }
+}
+
+/* ─────────────────────────────────────────────────────
+   Samsung Galaxy Z Fold 7 — узкий cover-screen (≤360px)
+   Отдельный брекпоинт, не трогает ничего выше
+   ───────────────────────────────────────────────────── */
+/* ── Smart-cards carousel ≤360px (Z Fold cover-screen) ── */
+@media (max-width: 360px) {
+    .smart-cards-grid {
+        gap: 6px;
+        padding: 12px 11vw 28px;
+    }
+    .section-smart-cards .smart-card {
+        flex: 0 0 78vw;
+    }
 }
 
 
@@ -1157,8 +1322,8 @@ ul {
     }
 }
 
-/* ---- Мобильный 768px: вертикальный стек ---- */
-@media (max-width: 768px) {
+/* ---- Мобильный 568px: вертикальный стек ---- */
+@media (max-width: 568px) {
     .section-industries {
         padding: 52px 0;
         background-attachment: scroll; /* fixed некорректен на iOS */
@@ -1725,7 +1890,7 @@ ul {
 }
 
 .intro-title {
-    font-size: var(--fs-h2);
+    font-size: var(--fs-h3);
     font-weight: 500;
     line-height: 1.45;
     color: var(--color-text-dark);
@@ -2007,9 +2172,9 @@ ul {
 }
 
 /* =====================================================
-   МОБИЛЬНЫЙ (max-width: 768px) — вертикальная компоновка
+   МОБИЛЬНЫЙ (max-width: 568px) — вертикальная компоновка
    ===================================================== */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .section-intro {
         padding: 36px 0 60px;
     }
@@ -2119,7 +2284,7 @@ ul {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .hero-bg {
         transform: scale(1.3);
     }
@@ -2294,13 +2459,6 @@ ul {
     .hero-animated .hero-buttons {
         animation-name: heroSlideInUp;
     }
-
-    .hero-animated .hero-title,
-    .hero-animated .hero-label,
-    .hero-animated .hero-desc,
-    .hero-animated .hero-buttons {
-        animation-name: heroSlideInUp;
-    }
 }
 
 
@@ -2403,13 +2561,17 @@ ul {
     100% { opacity: 1; transform: translateY(0); }
 }
 
-/* bfcache restore: показываем hero сразу, без повторной анимации */
-.hero.hero-home.hero-restored .hero-label,
-.hero.hero-home.hero-restored .hero-desc,
-.hero.hero-home.hero-restored .title-lines span {
+/* Мгновенный показ hero: кнопка «Назад» / «← Все проекты» */
+.hero.hero-restored .hero-label,
+.hero.hero-restored .hero-desc,
+.hero.hero-restored .hero-title,
+.hero.hero-restored .hero-buttons,
+.hero.hero-restored .title-lines span,
+.hero.hero-restored .hero-bg {
     opacity: 1 !important;
     transform: none !important;
     animation: none !important;
+    transition: none !important;
 }
 
 .section-spacer {
@@ -2421,7 +2583,7 @@ ul {
 .section-spacer-inner {
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: var(--section-padding-block) var(--container-padding) clamp(2rem, 5vw, 4rem) var(--container-padding);
+    padding: clamp(1.5rem, 4vw, 3rem) var(--container-padding) clamp(2rem, 5vw, 4rem) var(--container-padding);
     display: flex;
     align-items: center;
     gap: var(--gap-section);
@@ -2475,6 +2637,14 @@ ul {
     border-radius: 1px;
 }
 
+/* Разрешение окна браузера (для отладки) */
+.viewport-info {
+    font-size: 0.8rem;
+    color: rgba(77, 76, 76, 0.5);
+    margin: 12px 0 0 0;
+    padding-left: 20px;
+}
+
 /* Вертикальная декоративная надпись справа */
 .spacer-side-label {
     writing-mode: vertical-rl;
@@ -2493,7 +2663,7 @@ ul {
 
 
 /* Мобильный */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .section-spacer-inner {
         align-items: flex-start;
     }
@@ -2510,15 +2680,6 @@ ul {
     background-color: #ffffff;
     padding: 0 0 56px;
     overflow: hidden;
-    opacity: 0;
-    transform: translateY(260px);
-    transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), transform 1.9s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: 200ms;
-}
-
-.section-clients-marquee.clients-marquee-in-view {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* --- Разделитель с текстом по центру --- */
@@ -2528,6 +2689,20 @@ ul {
     align-items: center;
     justify-content: center;
     margin: 0 0 48px;
+    opacity: 0;
+    transform: translateY(120px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.clients-divider.clients-divider-in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-clients-marquee.clients-marquee-in-view .clients-track-wrap {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Горизонтальная линия на весь контейнер */
@@ -2552,7 +2727,7 @@ ul {
     border-radius: 999px;
     font-size: var(--fs-label);
     font-weight: 500;
-    color: rgba(255, 68, 51, 1);
+    color: #555555;
     letter-spacing: 0.02em;
     white-space: nowrap;
 }
@@ -2561,6 +2736,10 @@ ul {
 .clients-track-wrap {
     overflow: hidden;
     width: 100%;
+    opacity: 0;
+    transform: translateY(120px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
     /* Мягкое затухание по краям через mask */
     -webkit-mask-image: linear-gradient(
         to right,
@@ -2628,7 +2807,7 @@ ul {
 }
 
 /* --- @media: мобильная версия — увеличенная высота секции и содержимого --- */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .section-clients-marquee {
         padding: 48px 0 72px;
     }
@@ -2834,45 +3013,43 @@ ul {
     text-align: left;
 }
 
-/* Секция design6: анимация появления при скролле (как в section-company) */
-.section-advantages .advantages-divider,
-.section-advantages .advantages-heading,
-.section-advantages .advantage-card,
-.section-advantages .advantages-image {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1), transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Линия: прорисовка слева направо */
+/* Линия: появляется и прорисовывается слева направо */
 .section-advantages .advantages-divider {
+    opacity: 0;
     transform: scaleX(0);
     transform-origin: left center;
     transition: opacity 1s ease-out, transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: 0ms;
 }
 
+/* Progressive disclosure / Scroll storytelling — заголовок */
 .section-advantages .advantages-heading {
-    transition-delay: 0ms;
-}
-
-/* Карточки d6: выезд слева направо, по очереди.
-   — Длина пути: меняй translateX ниже (например -120px = длиннее путь).
-   — Очерёдность: nth-child(1) = первая карточка, (2) = вторая, (3) = третья; поменяй delay между ними, чтобы изменить порядок появления.
-   — Задержки: transition-delay задаёт паузу до старта анимации каждой карточки; увеличь шаг (например 120ms, 240ms, 360ms), чтобы интервал между карточками был больше. */
-.section-advantages .advantage-cards .advantage-card {
-    transform: translateX(-60px);
-}
-
-.section-advantages .advantage-cards .advantage-card:nth-child(1),
-.section-advantages .advantage-cards .advantage-card:nth-child(2),
-.section-advantages .advantage-cards .advantage-card:nth-child(3) {
-    transition-delay: 0ms;
-}
-
-.section-advantages .advantages-image {
+    opacity: 0;
     transform: translateY(120px);
-    transition-delay: 0ms;
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Progressive disclosure: карточки — выезд слева направо, триггер при 50% видимости */
+.section-advantages .advantage-cards .advantage-card {
+    opacity: 0;
+    transform: translateX(-180px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ≥1280px: появление по очереди */
+@media (min-width: 1280px) {
+    .section-advantages .advantage-cards .advantage-card:nth-child(1) { transition-delay: 0ms; }
+    .section-advantages .advantage-cards .advantage-card:nth-child(2) { transition-delay: 150ms; }
+    .section-advantages .advantage-cards .advantage-card:nth-child(3) { transition-delay: 300ms; }
+}
+
+/* Progressive disclosure: картинка — выезд справа из за экрана влево */
+.section-advantages .advantages-image {
+    opacity: 0;
+    transform: translateX(120px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .section-advantages .advantages-divider.advantages-in-view {
@@ -2880,20 +3057,29 @@ ul {
     transform: scaleX(1);
 }
 
-.section-advantages .advantages-heading.advantages-in-view,
-.section-advantages .advantages-image.advantages-in-view {
+.section-advantages .advantages-heading.advantages-in-view {
     opacity: 1;
     transform: translateY(0);
+}
+
+.section-advantages .advantages-image.advantages-in-view {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .section-advantages .advantage-card.advantages-in-view {
     opacity: 1;
     transform: translateX(0);
     transform-origin: bottom;
-    transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s ease, box-shadow 0.35s ease;
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.35s ease, box-shadow 0.35s ease;
+    pointer-events: none;
 }
 
-.section-advantages .advantage-card.advantages-in-view:hover {
+.section-advantages .advantage-card.advantages-in-view.advantages-animation-done {
+    pointer-events: auto;
+}
+
+.section-advantages .advantage-card.advantages-in-view.advantages-animation-done:hover {
     transform: scale(1.08);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
@@ -2988,7 +3174,7 @@ ul {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .section-advantages .advantage-cards {
         flex-direction: column;
     }
@@ -3182,34 +3368,6 @@ ul {
     border-radius: 6px;
 }
 
-.stat-item {
-    color: var(--color-text-light);
-    /* White text for contrast on dark mountain */
-    opacity: 0;
-    animation: slideInLeft 0.8s ease-out 0.5s forwards;
-    /* 1.2s delay to start after paragraph (0.5+0.6=1.1s) */
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.stat-item::before {
-    content: "";
-    display: block;
-    width: 85%;
-    height: 1px;
-    margin-bottom: 18px;
-    background: rgba(255, 255, 255, 0.85);
-}
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
@@ -3245,7 +3403,7 @@ ul {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .logo {
         position: relative;
         left: 0;
@@ -3272,11 +3430,11 @@ ul {
 
     .main-nav {
         position: fixed;
-        top: 64px;
+        top: var(--header-height);
         right: 0;
         left: auto;
         width: 66.666%;
-        height: calc(100vh - 64px);
+        height: calc(100vh - var(--header-height));
         max-height: none;
         background-color: #ffffff;
         box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
@@ -3296,11 +3454,11 @@ ul {
 
     .menu-overlay {
         position: fixed;
-        top: calc(64px - 20vh);
+        top: calc(var(--header-height) - 20vh);
         left: 0;
         right: 0;
         bottom: auto;
-        height: calc(100vh - 64px + 40vh);
+        height: calc(100vh - var(--header-height) + 40vh);
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
@@ -3322,13 +3480,13 @@ ul {
 
     /* При уменьшенной высоте хедера (is-scrolled) — меню и оверлей без щели */
     .main-header.is-scrolled .main-nav {
-        top: 64px;
-        height: calc(100vh - 64px);
+        top: var(--header-height);
+        height: calc(100vh - var(--header-height));
     }
 
     .main-header.is-scrolled ~ .menu-overlay {
-        top: calc(64px - 20vh);
-        height: calc(100vh - 64px + 40vh);
+        top: calc(var(--header-height) - 20vh);
+        height: calc(100vh - var(--header-height) + 40vh);
     }
 
     .main-nav.is-open {
@@ -3408,7 +3566,7 @@ ul {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
 
     /* === Unified hero for both pages === */
     .hero {
@@ -3686,8 +3844,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     a.cta-btn.action-btn { max-width: 480px; }
 }
 
-/* ---- Мобильный 768px ---- */
-@media (max-width: 768px) {
+/* ---- Мобильный 568px ---- */
+@media (max-width: 568px) {
     .section-cta > .container { padding-top: 20px; }
     .cta-inner { min-height: 0; }
     .cta-inner-box {
@@ -3831,7 +3989,40 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #111111;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 569px) and (max-width: 1024px) {
+    .footer-top {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: start;
+        gap: 20px;
+        flex-wrap: unset;
+        justify-content: unset;
+    }
+
+    .footer-brand {
+        max-width: 100%;
+    }
+
+    .footer-nav {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .footer-nav ul {
+        align-items: center;
+    }
+
+    .footer-contact {
+        text-align: right;
+    }
+
+    .footer-contact ul {
+        align-items: flex-end;
+    }
+}
+
+@media (max-width: 568px) {
     .site-footer {
         padding: 30px 0 20px;
         width: 100%;
@@ -3912,7 +4103,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* Stages Section */
 .stages-section {
-    padding: 48px 0 160px; /* +100px: компенсация margin-bottom -100px у stages-layout */
+    padding: 24px 0 160px; /* +100px: компенсация margin-bottom -100px у stages-layout */
     background-color: #eaecf3;
     /* Match body bg */
 }
@@ -3985,10 +4176,12 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .stages-section .section-heading.stages-experience-title {
-    font-size: var(--fs-h3);
-    font-weight: 500;
-    line-height: 1.45;
+    font-size: var(--fs-h1);
+    font-weight: 400;
+    line-height: 1.2;
     color: var(--color-text-dark);
+    margin: 16px 0 0 0;
+    letter-spacing: -0.02em;
 }
 
 /* Вертикальный лейбл справа — sticky на десктопе (как stage-card на мобильной) */
@@ -4290,12 +4483,12 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         max-width: none;
     }
 
-    /* ── Планшет: full-width sticky-карточки (как на <768px) ──────────────── */
+    /* ── Планшет: full-width sticky-карточки (как на <568px) ──────────────── */
 
     /* overflow: visible нужен чтобы position: sticky карточек работал */
     .stages-section {
         overflow: visible;
-        padding: 48px 0 32px;
+        padding: 24px 0 32px;
     }
     .stages-section .container {
         overflow: visible;
@@ -4311,7 +4504,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     .stages-section .section-label.stages-side-label {
         position: absolute;
         right: 0;
-        top: 48px;
+        top: 24px;
         height: calc(100% - 64px);
         align-items: flex-start;
     }
@@ -4566,7 +4759,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .section-approach {
         padding: 0 0 36px;
     }
@@ -4868,7 +5061,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .career-apply-content,
     .career-apply-photo {
         opacity: 1;
@@ -4898,7 +5091,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .mobile-br {
         display: inline;
     }
@@ -4926,8 +5119,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 }
 
-/* 768–1024: увеличенные изображения, обрезка по границам карточки */
-@media (min-width: 769px) and (max-width: 1024px) {
+/* 641–1024: увеличенные изображения, обрезка по границам карточки */
+@media (min-width: 568.1px) and (max-width: 1024px) {
     .stage-card-wrap .stage-card {
         overflow: hidden;
     }
@@ -4966,10 +5159,89 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 }
 
-@media (max-width: 768px) {
+/* ─────────────────────────────────────────────────────────────
+   Stages section — планшет 569–1024px: layout как у мобильной (flex-wrap)
+   ───────────────────────────────────────────────────────────── */
+@media (min-width: 569px) and (max-width: 1024px) {
+
+    /* Карточка: padding ближе к мобильному */
+    .stage-card {
+        padding: 24px 24px 28px;
+    }
+
+    /* flex-wrap layout: каждый элемент занимает полную строку */
+    .stage-card-body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    /* Строка 1 — номер + иконка (правый отступ = ширина картинки) */
+    .stage-number-row {
+        order: 1;
+        flex: 0 0 100%;
+        padding-right: calc(clamp(185px, 30%, 240px) + 24px);
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 0;
+    }
+
+    /* Иконка — встроенная в поток (не absolute) */
+    .stage-card-icon {
+        position: static;
+        flex: 0 0 auto;
+    }
+
+    .stage-card-icon img {
+        height: 64px;
+        max-width: 140px;
+    }
+
+    .stage-card-wrap:nth-child(5) .stage-card-icon img {
+        height: 52px;
+        max-width: 110px;
+    }
+
+    /* Строка 2 — заголовок */
+    .stage-title {
+        order: 2;
+        flex: 0 0 100%;
+        padding-right: calc(clamp(185px, 30%, 240px) + 24px);
+        margin-top: 14px;
+        margin-bottom: 0;
+    }
+
+    /* Строка 3 — описание */
+    .stage-desc {
+        order: 3;
+        flex: 0 0 100%;
+        padding-right: calc(clamp(185px, 30%, 240px) + 24px);
+        margin-top: 12px;
+        margin-bottom: 14px;
+    }
+
+    /* Строка 4 — список */
+    .stage-list {
+        order: 4;
+        flex: 0 0 100%;
+        margin-top: 4px;
+    }
+
+    /* Абсолютная картинка — масштабируется динамически с карточкой */
+    .stage-img-mobile {
+        top: 24px;
+        right: 16px;
+        width: clamp(185px, 30%, 240px);
+    }
+}
+
+@media (max-width: 568px) {
     .stages-section {
         overflow: visible;
-        padding: 48px 0 32px;
+        padding: 24px 0 32px;
     }
 
     .stages-section .container {
@@ -5222,7 +5494,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 
     .stage-card-wrap:nth-child(4) .stage-img-mobile {
-        right: 0;
+        right: -5px;
     }
     .stage-card-wrap:nth-child(4) .stage-img-mobile.is-visible {
         opacity: 1;
@@ -5230,13 +5502,87 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 
     .stage-card-wrap:nth-child(5) .stage-img-mobile {
-        right: 0;
+        right: -5px;
     }
     .stage-card-wrap:nth-child(5) .stage-img-mobile.is-visible {
         opacity: 1;
         transform: rotate(-90deg);
     }
 
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Stages section — узкий/длинный экран ≤360px
+   (идёт ПОСЛЕ блока 568px, чтобы переопределить его стили)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 360px) {
+    /* Сокращаем боковые отступы контейнера */
+    .stages-section .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Карточка: 2-колоночный grid (левый: текст, правый: картинка) */
+    .stage-card {
+        padding: 16px 12px 20px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 10px;
+        align-items: start;
+        overflow: hidden;
+    }
+
+    /* display:contents делает .stage-card-body «прозрачным» для grid —
+       его дети (number-row, title, desc, list) становятся прямыми grid-items */
+    .stage-card-body {
+        display: contents;
+    }
+
+    /* Строка с номером и иконкой — левый столбец */
+    .stage-number-row {
+        grid-column: 1;
+        padding-right: 0;
+    }
+
+    /* Заголовок — левый столбец */
+    .stage-title {
+        grid-column: 1;
+        padding-right: 0;
+        margin-top: 8px;
+    }
+
+    /* Описание и список — НА ВСЮ ШИРИНУ (оба столбца) */
+    .stage-desc {
+        grid-column: 1 / -1;
+        padding-right: 0;
+        margin-top: 12px;
+    }
+
+    .stage-list {
+        grid-column: 1 / -1;
+    }
+
+    /* Декоративная картинка — правый столбец, рядом с номером и заголовком */
+    .stage-img-mobile {
+        position: static;
+        grid-column: 2;
+        grid-row: 1 / 3; /* занимает строки number-row и title */
+        align-self: start;
+        top: auto;
+        right: auto;
+    }
+
+    /* Иконка слева — компактнее */
+    .stage-card-icon img {
+        height: 44px;
+        max-width: 72px;
+    }
+
+    /* Карточка 5 — широкая иконка (две пиктограммы), дополнительно сжимаем */
+    .stage-card-wrap:nth-child(5) .stage-card-icon img {
+        height: 44px;
+        max-width: 90px;
+    }
 }
 
 /* ─── Portfolio Section ─────────────────────────────────────── */
@@ -5480,7 +5826,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .portfolio-section {
         padding: 48px 0 56px;
     }
@@ -5814,7 +6160,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .pd-hero {
         height: 56vh;
         min-height: 360px;
@@ -5986,24 +6332,29 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 /* --- section-smart-cards — текстовые блоки и карточки: 1.6s, easing cubic-bezier --- */
-.section-smart-cards .strategy-intro .company-label,
 .section-smart-cards .strategy-heading,
 .section-smart-cards .strategy-intro-bold,
 .section-smart-cards .strategy-intro-text,
-.section-smart-cards .smart-side-label {
+.section-smart-cards .smart-side-label,
+.section-smart-cards .smart-cards-label {
     transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.section-smart-cards .smart-cards-label {
+    opacity: 0;
+    transform: translateY(120px);
 }
 
 .smart-side-label {
     opacity: 0;
     transform: translateY(120px);
 }
-.section-smart-cards .strategy-intro .company-label.srv-in-view,
 .section-smart-cards .strategy-heading.srv-in-view,
 .section-smart-cards .strategy-intro-bold.srv-in-view,
 .section-smart-cards .strategy-intro-text.srv-in-view,
-.section-smart-cards .smart-side-label.srv-in-view {
+.section-smart-cards .smart-side-label.srv-in-view,
+.section-smart-cards .smart-cards-label.srv-in-view {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
@@ -6014,6 +6365,13 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 .section-smart-cards .smart-card {
     transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Планшет: быстрый transition для 3D-эффекта карусели */
+@media (min-width: 569px) and (max-width: 1024px) {
+    .section-smart-cards .smart-card {
+        transition: transform 0.06s ease-out, opacity 0.06s ease-out, box-shadow 0.3s ease;
+    }
 }
 
 .smart-card {
@@ -6059,11 +6417,25 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     transform: translateY(0);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
+    .section-smart-cards .smart-cards-label {
+        font-weight: 600;
+        text-align: center;
+    }
     .stage-card-wrap {
         opacity: 1;
         transform: none;
         transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    /* Карусель: карточки видны сразу, JS управляет transform/opacity */
+    .smart-card {
+        opacity: 1;
+        transform: none;
+        transition: box-shadow 0.3s ease;
+    }
+    .smart-card.srv-in-view {
+        opacity: 1;
+        transform: none;
     }
 }
 
@@ -6098,7 +6470,19 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 
 /* --- career-why-section (career.html) — scroll reveal --- */
-.cw-heading,
+/* Заголовок: вылет слева направо (только h2.cw-heading) */
+.career-why-section .cw-heading {
+    opacity: 0;
+    transform: translateX(-120px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: 0ms;
+}
+.career-why-section .cw-heading.srv-in-view {
+    opacity: 1;
+    transform: translateX(0);
+}
+
 .cw-circle-wrap,
 .cw-item {
     opacity: 0;
@@ -6106,7 +6490,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.cw-heading,
 .cw-circle-wrap,
 .cw-item--1,
 .cw-item--2,
@@ -6114,7 +6497,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 .cw-item--4,
 .cw-item--5       { transition-delay: 0ms; }
 
-.cw-heading.srv-in-view,
 .cw-circle-wrap.srv-in-view,
 .cw-item.srv-in-view {
     opacity: 1;
@@ -6209,7 +6591,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     transform: translateX(0);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .contact-info-left,
     .contact-form-card {
         opacity: 1;
@@ -6475,7 +6857,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 /* ── Адаптив: мобильный ── */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
     .contact-info-section {
         padding: 48px 0 56px;
     }
@@ -6748,48 +7130,35 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     .cw-icon img { width: 34px; height: 34px; margin: -4px; }
 }
 
+
 /* ═══════════════════════════════════════════════════
-   769–1024px — полный круг слева, карточки справа
+   568–1024px — полукруг слева, карточки справа
    ═══════════════════════════════════════════════════ */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .career-why-section { padding: 48px 0 60px; }
+@media (min-width: 568.1px) and (max-width: 1024px) {
+    .career-why-section { padding: 48px 0 60px; overflow: visible; }
 
-    .cw-orbit {
-        gap: 32px;
-        align-items: flex-start;
-    }
+    .cw-orbit { gap: 32px; align-items: flex-start; }
 
-    .cw-heading {
-        max-width: 100%;
-        text-align: left;
-        margin-top: -16px;
-    }
+    .cw-heading { max-width: 100%; text-align: left; margin-top: -16px; }
 
-    /* Сетка: левая колонка = половина круга, правая — список карточек */
+    /* Контейнер — позиционирующий блок, высота задаётся JS */
     .cw-orbital-group {
-        position: static;
-        height: auto;
+        position: relative;
+        height: 650px; /* fallback, JS пересчитает */
         margin-top: 0;
         margin-left: calc(-1 * var(--container-padding));
         width: calc(100% + var(--container-padding));
-        display: grid;
-        grid-template-columns: 284px 1fr;
-        grid-template-rows: repeat(5, auto);
-        column-gap: 32px;
-        row-gap: 20px;
+        display: block;
         padding: 0;
-        align-items: start;
+        overflow: visible;
     }
 
-    /* Круг сдвинут влево на 50% — видна только правая половина */
+    /* Круг — абсолютный, уходит влево на 50% своей ширины */
     .cw-circle-wrap {
-        position: relative;
-        left: auto; top: auto;
-        grid-column: 1;
-        grid-row: 1 / span 5;
-        align-self: center;
-        width: 567px;
-        height: 567px;
+        position: absolute;
+        left: 0;
+        top: 40px;
+        width: 567px; height: 567px;
         min-height: unset;
         aspect-ratio: 1;
         border-radius: 50%;
@@ -6802,68 +7171,72 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
     .cw-circle-wrap.srv-in-view { transform: translateY(0) translateX(-50%); }
 
-    /* Фото — круговое */
     .career-why-section .cw-circle-photo {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        overflow: hidden;
+        width: 100%; height: 100%;
+        border-radius: 50%; overflow: hidden;
         box-shadow: 0 6px 48px rgba(0, 0, 0, 0.14);
     }
     .career-why-section .cw-circle-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center top;
-        border-radius: 0;
+        width: 100%; height: 100%;
+        object-fit: cover; object-position: center top; border-radius: 0;
     }
 
-    /* Все карточки — правая колонка, иконка слева */
+    /* Кружки — JS ставит position:absolute и координаты */
     .cw-item {
-        position: static;
-        left: auto; right: auto; top: auto;
         flex-direction: row;
         text-align: left;
-        align-items: flex-start;
-        gap: 14px;
+        align-items: center;
+        gap: 12px;
     }
+    .cw-item--1 .cw-text { margin-top: 0; }
 
-    .cw-item--1 {
-        grid-column: 2; grid-row: 1;
+    /* Анимация появления: иконка вылетает справа + текст плавно показывается.
+       JS-inline-стиль фиксирует transform:translateY(-50%) на .cw-item,
+       поэтому анимируем дочерние элементы, а не сам .cw-item. */
+    .cw-item {
+        opacity: 1;      /* родительский fade отключён — дети анимируются сами */
+        transition: none;
     }
-    .cw-item--1.srv-in-view { transform: translateY(0) translateX(-180px); }
-    .cw-item--1 .cw-text { margin-top: 0; max-width: 100%; }
-
-    .cw-item--2 {
-        grid-column: 2; grid-row: 2;
+    .cw-icon {
+        width: 54px; height: 54px; flex-shrink: 0;
+        transform: translateX(60px);
+        opacity: 0;
+        transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                    opacity   0.8s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .cw-item--2.srv-in-view { transform: translateY(0) translateX(-100px); }
-    .cw-item--3 {
-        grid-column: 2; grid-row: 3;
-    }
-    .cw-item--3.srv-in-view { transform: translateY(0) translateX(-50px); }
-
-    .cw-item--4 {
-        grid-column: 2; grid-row: 4;
-        flex-direction: row; text-align: left;
-    }
-    .cw-item--4.srv-in-view { transform: translateY(0) translateX(-70px); }
-
-    .cw-item--5 {
-        grid-column: 2; grid-row: 5;
-        flex-direction: row; text-align: left;
-    }
-    .cw-item--5.srv-in-view { transform: translateY(0) translateX(-150px); }
-
-    .cw-text { max-width: 100%; }
-    .cw-icon { width: 54px; height: 54px; }
     .cw-icon img { width: 29px; height: 29px; margin: 0; }
+
+    .cw-item.srv-in-view .cw-icon {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    .cw-text {
+        max-width: 260px;
+        opacity: 0;
+        transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .cw-item.srv-in-view .cw-text {
+        opacity: 1;
+    }
+
+    /* Ступенчатые задержки — как у десктопных карточек */
+    .cw-item--1 .cw-icon { transition-delay:   0ms; }
+    .cw-item--1 .cw-text { transition-delay:  80ms; }
+    .cw-item--2 .cw-icon { transition-delay: 180ms; }
+    .cw-item--2 .cw-text { transition-delay: 260ms; }
+    .cw-item--3 .cw-icon { transition-delay: 360ms; }
+    .cw-item--3 .cw-text { transition-delay: 440ms; }
+    .cw-item--4 .cw-icon { transition-delay: 540ms; }
+    .cw-item--4 .cw-text { transition-delay: 620ms; }
+    .cw-item--5 .cw-icon { transition-delay: 720ms; }
+    .cw-item--5 .cw-text { transition-delay: 800ms; }
 }
 
 /* ═══════════════════════════════════════════════════
-   ≤768px — карточки на фоне, одна колонка
+   ≤568px — карточки на фоне, одна колонка
    ═══════════════════════════════════════════════════ */
-@media (max-width: 768px) {
+@media (max-width: 568px) {
 
     /* Секция — тёмный фон с фото (та же картинка, что в кругу) */
     .career-why-section {
@@ -6965,12 +7338,12 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
    strategy-heading, approach-title
    ===================================================== */
 
-/* до 768px */
-@media (max-width: 768px) {
+/* до 568px */
+@media (max-width: 568px) {
     /* font-sizes handled by clamp() in :root */
     .stages-section .section-heading.stages-experience-title {
-        font-weight: 500;
-        line-height: 1.45;
+        font-weight: 400;
+        line-height: 1.2;
     }
 
     /* Index page mobile typography */
@@ -7003,4 +7376,623 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         width: 100%;
         max-width: 100%;
     }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ (.theme-toggle)
+   ═══════════════════════════════════════════════════════════ */
+.theme-toggle {
+    display: none; /* временно отключено */
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    padding: 0;
+    color: #ffffff;
+    position: absolute;
+    right: max(var(--container-padding), calc((100vw - var(--container-width)) / 2 + var(--container-padding)));
+    top: 50%;
+    transform: translateY(-50%);
+    transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+    z-index: 1002;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:hover {
+    border-color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* В scrolled-состоянии — тёмная рамка */
+.main-header.is-scrolled .theme-toggle {
+    border-color: rgba(0, 0, 0, 0.22);
+    color: #111111;
+}
+
+.main-header.is-scrolled .theme-toggle:hover {
+    border-color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Иконки: по умолчанию показываем луну (мы в светлой теме), прячем солнце */
+.theme-icon--sun  { display: none; }
+.theme-icon--moon { display: block; }
+
+/* В тёмной теме — прячем луну, показываем солнце */
+[data-theme="dark"] .theme-icon--sun  { display: block; }
+[data-theme="dark"] .theme-icon--moon { display: none; }
+
+@media (max-width: 1024px) {
+    .theme-toggle {
+        right: calc(var(--container-padding) + 52px); /* отступ от края + место для hamburger */
+    }
+}
+
+@media (max-width: 568px) {
+    .theme-toggle {
+        right: calc(var(--container-padding) + 52px);
+        width: 36px;
+        height: 36px;
+    }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   ТЁМНАЯ ТЕМА  — [data-theme="dark"]
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Палитра: нейтральный тёмный без синего оттенка ── */
+[data-theme="dark"] {
+    --color-text-dark:   #e4e4e4;
+    --color-text-light:  #ffffff;
+    --color-gray:        #888888;
+    --color-shade-fill:  #2a2a2a;
+    --color-shade-border:#3a3a3a;
+    --dt-bg:      #141414;
+    --dt-surface: #1c1c1c;
+    --dt-card:    #242424;
+    --dt-border:  rgba(255,255,255,0.08);
+}
+
+/* ── Body ── */
+[data-theme="dark"] body {
+    background-color: var(--dt-bg);
+    color: #e4e4e4;
+}
+
+/* ── Хедер: scrolled-состояние ── */
+[data-theme="dark"] .main-header.is-scrolled {
+    background-color: rgba(20,20,20,0.96);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+[data-theme="dark"] .main-header.is-scrolled::after {
+    background-color: var(--dt-border);
+}
+
+/* Навигация в scrolled */
+[data-theme="dark"] .main-header.is-scrolled .main-nav a,
+[data-theme="dark"] .main-header.is-scrolled .main-nav a span {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .main-header.is-scrolled .main-nav a:hover,
+[data-theme="dark"] .main-header.is-scrolled .main-nav a:hover span,
+[data-theme="dark"] .main-header.is-scrolled .main-nav a.active,
+[data-theme="dark"] .main-header.is-scrolled .main-nav a.active span {
+    color: #d12a2a;
+}
+[data-theme="dark"] .main-header.is-scrolled .main-nav li::after {
+    background-color: #d12a2a;
+}
+
+/* Кнопка-гамбургер в scrolled тёмной теме */
+[data-theme="dark"] .main-header.is-scrolled .mobile-menu-toggle {
+    border-color: rgba(255,255,255,0.28);
+}
+[data-theme="dark"] .main-header.is-scrolled .mobile-menu-toggle::before,
+[data-theme="dark"] .main-header.is-scrolled .mobile-menu-toggle::after,
+[data-theme="dark"] .main-header.is-scrolled .mobile-menu-toggle span {
+    background-color: #e4e4e4;
+}
+[data-theme="dark"] .main-header.is-scrolled .mobile-menu-toggle.active {
+    border-color: rgba(255,255,255,0.6);
+}
+
+/* Кнопка темы в scrolled */
+[data-theme="dark"] .main-header.is-scrolled .theme-toggle {
+    border-color: rgba(255,255,255,0.28);
+    color: #e4e4e4;
+}
+[data-theme="dark"] .main-header.is-scrolled .theme-toggle:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.07);
+}
+
+/* Логотип: в тёмной теме scrolled показываем белый вариант */
+[data-theme="dark"] .main-header.is-scrolled .logo img.logo-desktop-scrolled { display: none; }
+[data-theme="dark"] .main-header.is-scrolled .logo img.logo-desktop           { display: block; }
+@media (max-width: 568px) {
+    [data-theme="dark"] .main-header.is-scrolled .logo img.logo-mobile-scrolled { display: none !important; }
+    [data-theme="dark"] .main-header.is-scrolled .logo img.logo-mobile           { display: block !important; }
+}
+
+/* ── Мобильное меню ── */
+[data-theme="dark"] .main-nav {
+    background-color: #1c1c1c !important;
+}
+[data-theme="dark"] .main-nav a {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .main-nav a:hover,
+[data-theme="dark"] .main-nav a.active {
+    color: #d12a2a;
+}
+[data-theme="dark"] .menu-overlay {
+    background: rgba(0,0,0,0.72);
+}
+
+/* ── Section-intro ── */
+[data-theme="dark"] .section-intro {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .intro-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .intro-desc {
+    color: #888;
+}
+[data-theme="dark"] .intro-badge-mirror {
+    background-color: var(--dt-card);
+    border-color: var(--dt-border);
+}
+[data-theme="dark"] .intro-badge-mirror::before {
+    background-color: var(--dt-card);
+}
+[data-theme="dark"] .intro-badge-mirror-number {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .intro-badge-mirror-text {
+    color: #888;
+}
+
+/* ── Section-clients-marquee ── */
+[data-theme="dark"] .section-clients-marquee {
+    background-color: var(--dt-surface);
+}
+[data-theme="dark"] .clients-divider::before {
+    background-color: rgba(255,255,255,0.1);
+}
+[data-theme="dark"] .clients-divider-text {
+    background-color: var(--dt-surface);
+    border-color: rgba(255,255,255,0.1);
+    color: #888;
+}
+[data-theme="dark"] .clients-item img {
+    filter: brightness(0) invert(1) opacity(0.4);
+}
+
+/* ── Section-advantages ── */
+[data-theme="dark"] .section-advantages,
+[data-theme="dark"] .section-advantages .advantages-wrap {
+    background-color: var(--dt-surface);
+}
+[data-theme="dark"] .advantages-heading {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .advantages-divider {
+    background-color: rgba(255,255,255,0.12);
+}
+[data-theme="dark"] .advantage-card {
+    background-color: var(--dt-card);
+    border-color: var(--dt-border);
+}
+[data-theme="dark"] .advantage-card-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .advantage-card-desc {
+    color: #888;
+}
+
+/* ── Section-company ── */
+[data-theme="dark"] .section-company {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .company-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .company-subtitle {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .company-text {
+    color: #999;
+}
+/* Акцентный абзац «За два десятка лет...» */
+[data-theme="dark"] .company-text-block .company-text:nth-child(2) {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ccc;
+    border-left-color: #d12a2a;
+}
+[data-theme="dark"] .stat-number {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .stat-label {
+    color: #888;
+}
+[data-theme="dark"] .company-stats {
+    border-color: var(--dt-border);
+}
+[data-theme="dark"] .stat-item {
+    border-color: var(--dt-border);
+}
+
+/* ── Section-spacer ── */
+[data-theme="dark"] .section-spacer {
+    background-color: var(--dt-surface);
+}
+[data-theme="dark"] .section-spacer-text,
+[data-theme="dark"] .spacer-lead {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .spacer-sub {
+    color: #888;
+}
+[data-theme="dark"] .viewport-info {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Section-strategy ── */
+[data-theme="dark"] .section-strategy {
+    background-color: var(--dt-surface);
+}
+[data-theme="dark"] .strategy-heading,
+[data-theme="dark"] .strategy-intro-left .company-label,
+[data-theme="dark"] .section-smart-cards .smart-cards-label {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .strategy-intro-bold {
+    color: #c0c0c0;
+}
+[data-theme="dark"] .strategy-intro-text {
+    color: #888;
+}
+
+/* ── Section-smart-cards ── */
+[data-theme="dark"] .section-smart-cards {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .smart-card {
+    background: var(--dt-card);
+    border-color: var(--dt-border) !important;
+}
+[data-theme="dark"] .smart-card-letter {
+    color: #d12a2a;
+}
+[data-theme="dark"] .smart-card .smart-card-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .smart-card .smart-card-title span {
+    color: #888;
+}
+[data-theme="dark"] .smart-card .smart-card-desc {
+    color: #888;
+}
+[data-theme="dark"] .smart-card-icon img {
+    filter: brightness(0) saturate(100%) invert(27%) sepia(98%) saturate(5000%) hue-rotate(350deg) brightness(0.95) contrast(0.9);
+}
+
+/* ── Section-stages ── */
+[data-theme="dark"] .stages-section {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .stage-card-wrap {
+    background-color: var(--dt-card);
+    border-color: var(--dt-border);
+}
+/* Сама карточка внутри wrap */
+[data-theme="dark"] .stage-card {
+    background: var(--dt-card);
+}
+[data-theme="dark"] .stage-number {
+    color: rgba(228,228,228,0.4);
+}
+[data-theme="dark"] .stage-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .stage-desc {
+    color: #b0b0b0;
+}
+[data-theme="dark"] .stage-list li {
+    color: rgba(228,228,228,0.7);
+}
+[data-theme="dark"] .stage-card-icon img {
+    filter: brightness(0) invert(1) opacity(0.55);
+}
+/* Старые имена (если используются) */
+[data-theme="dark"] .stage-card-title,
+[data-theme="dark"] .stages-experience-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .stage-card-desc,
+[data-theme="dark"] .stages-experience-text {
+    color: #888;
+}
+[data-theme="dark"] .stage-card-number {
+    color: rgba(255,255,255,0.05);
+}
+
+/* ── Section-approach ── */
+[data-theme="dark"] .section-approach {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .approach-card,
+[data-theme="dark"] .approach-card-content {
+    background-color: var(--dt-card);
+}
+[data-theme="dark"] .approach-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .approach-desc {
+    color: #888;
+}
+[data-theme="dark"] .approach-side-label {
+    color: rgba(255,255,255,0.05);
+}
+
+/* ── Section-industries ── */
+[data-theme="dark"] .section-industries::before {
+    background: rgba(0,0,0,0.55);
+}
+[data-theme="dark"] .industry-card {
+    border-color: rgba(255,255,255,0.12);
+}
+[data-theme="dark"] .industry-card:hover {
+    background-color: rgba(255,255,255,0.08);
+}
+
+/* ── Section-portfolio ── */
+[data-theme="dark"] .portfolio-section {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .project-card {
+    background-color: var(--dt-card);
+}
+[data-theme="dark"] .project-card-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .project-card-desc {
+    color: #888;
+}
+[data-theme="dark"] .filter-btn {
+    border-color: rgba(255,255,255,0.14);
+    color: rgba(228,228,228,0.45);
+}
+[data-theme="dark"] .filter-btn:hover {
+    color: #e4e4e4;
+    border-color: rgba(255,255,255,0.4);
+}
+[data-theme="dark"] .filter-btn.active {
+    background-color: #e4e4e4;
+    color: #141414;
+    border-color: transparent;
+}
+
+/* ── CTA section ── */
+[data-theme="dark"] .section-cta {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .cta-inner-box {
+    background-color: #2a2a2a;
+    border-color: rgba(255,255,255,0.1);
+}
+[data-theme="dark"] .cta-inner-box::before {
+    opacity: 0.12;
+}
+[data-theme="dark"] .cta-heading {
+    color: #f0f0f0;
+}
+[data-theme="dark"] .cta-desc {
+    color: #b0b0b0;
+}
+[data-theme="dark"] .cta-stripe {
+    background-color: #222;
+    border-color: rgba(255,255,255,0.08);
+}
+[data-theme="dark"] a.cta-btn.action-btn {
+    background-color: #1c1c1c;
+    border-color: rgba(255,255,255,0.18);
+    color: #e4e4e4;
+}
+[data-theme="dark"] a.cta-btn.action-btn:hover {
+    color: #ffffff;
+    border-color: transparent;
+}
+
+/* ── Project-detail page ── */
+[data-theme="dark"] .pd-content {
+    background-color: var(--dt-bg);
+}
+[data-theme="dark"] .pd-section {
+    background: var(--dt-card);
+}
+[data-theme="dark"] .pd-section-title,
+[data-theme="dark"] .pd-section-label {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .pd-section-text {
+    color: #888;
+}
+[data-theme="dark"] .pd-meta-card {
+    background: var(--dt-card);
+}
+[data-theme="dark"] .pd-meta-item {
+    border-bottom-color: var(--dt-border);
+}
+[data-theme="dark"] .pd-back {
+    color: rgba(228,228,228,0.4);
+}
+[data-theme="dark"] .pd-back:hover {
+    color: #d12a2a;
+}
+
+/* ── Contacts page ── */
+[data-theme="dark"] .contact-info-section {
+    background-color: var(--dt-surface);
+}
+[data-theme="dark"] .contact-form-card {
+    background-color: var(--dt-card);
+    box-shadow: 0 2px 24px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .contact-form-title,
+[data-theme="dark"] .contact-info-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .contact-info-text,
+[data-theme="dark"] .contact-info-value {
+    color: #888;
+}
+[data-theme="dark"] .form-group label {
+    color: #666;
+}
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group textarea,
+[data-theme="dark"] .form-group .form-select {
+    color: #e4e4e4;
+    border-bottom-color: rgba(255,255,255,0.15);
+}
+[data-theme="dark"] .form-group input::placeholder,
+[data-theme="dark"] .form-group textarea::placeholder {
+    color: #444;
+}
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group textarea:focus,
+[data-theme="dark"] .form-group .form-select:focus {
+    border-bottom-color: rgba(255,255,255,0.5);
+}
+[data-theme="dark"] .form-group .form-select option {
+    color: #141414;
+    background-color: #e4e4e4;
+}
+[data-theme="dark"] .contact-submit-btn {
+    background-color: #2a2a2a;
+    color: #e4e4e4;
+}
+[data-theme="dark"] .contact-social-link {
+    border-color: rgba(255,255,255,0.18);
+    color: #888;
+}
+[data-theme="dark"] .contact-social-link:hover {
+    border-color: #e4e4e4;
+    background-color: #e4e4e4;
+    color: #141414;
+}
+
+/* ── Career page ── */
+[data-theme="dark"] .career-section,
+[data-theme="dark"] .career-apply-section {
+    background-color: var(--dt-surface);
+}
+[data-theme="dark"] .career-title,
+[data-theme="dark"] .career-role-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .career-desc,
+[data-theme="dark"] .career-role-desc {
+    color: #888;
+}
+[data-theme="dark"] .career-card {
+    background-color: var(--dt-card);
+    border-color: var(--dt-border);
+}
+[data-theme="dark"] .career-card-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .career-card-desc {
+    color: #888;
+}
+[data-theme="dark"] .cf-label {
+    color: #666;
+}
+[data-theme="dark"] .cf-input {
+    color: #e4e4e4;
+    border-bottom-color: rgba(255,255,255,0.15);
+    background: transparent;
+}
+[data-theme="dark"] .cf-input::placeholder {
+    color: #444;
+}
+[data-theme="dark"] .cf-input:focus {
+    border-bottom-color: rgba(255,255,255,0.5);
+}
+[data-theme="dark"] .cf-submit-btn,
+[data-theme="dark"] .cf-file-btn {
+    background-color: #2a2a2a;
+    color: #e4e4e4;
+}
+
+/* ── Footer ── */
+[data-theme="dark"] .site-footer {
+    background-color: #0e0e0e;
+    color: #e4e4e4;
+}
+[data-theme="dark"] .footer-title {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .footer-desc,
+[data-theme="dark"] .footer-nav a,
+[data-theme="dark"] .footer-contact a,
+[data-theme="dark"] .footer-contact li {
+    color: rgba(136,136,136,0.9);
+}
+[data-theme="dark"] .footer-nav a:hover,
+[data-theme="dark"] .footer-contact a:hover {
+    color: #d12a2a;
+}
+[data-theme="dark"] .footer-bottom {
+    border-color: rgba(255,255,255,0.08);
+}
+[data-theme="dark"] .footer-copyright {
+    color: rgba(136,136,136,0.6);
+}
+
+/* ── Scroll-to-top button ── */
+[data-theme="dark"] .scroll-to-top {
+    background-color: var(--dt-card);
+    border-color: var(--dt-border);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+}
+[data-theme="dark"] .scroll-to-top svg {
+    color: #e4e4e4;
+}
+
+/* ── Боковые надписи ── */
+[data-theme="dark"] .section-label {
+    color: rgba(255,255,255,0.06);
+}
+
+/* ── Плавное переключение ── */
+body,
+.main-header, .main-nav,
+.section-intro,
+.section-clients-marquee, .clients-divider-text,
+.section-advantages, .advantages-wrap, .advantage-card,
+.section-company, .section-spacer, .section-strategy,
+.section-smart-cards, .smart-card,
+.stages-section, .stage-card-wrap,
+.section-approach, .approach-card, .approach-card-content,
+.section-industries,
+.portfolio-section, .project-card, .filter-btn,
+.section-cta, .cta-inner-box, .cta-stripe,
+.contact-info-section, .contact-form-card, .contact-submit-btn,
+.career-section, .career-apply-section, .career-card,
+.site-footer,
+.scroll-to-top,
+.pd-content, .pd-section, .pd-meta-card {
+    transition-property: background-color, color, border-color, box-shadow;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
 }

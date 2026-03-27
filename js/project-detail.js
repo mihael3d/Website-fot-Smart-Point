@@ -2,6 +2,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.project-detail-page')) return;
     loadProjectDetail();
+
+    // Ставим флаг перед переходом «← Все проекты»
+    // чтобы projects.html знал — анимации не нужны
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a[href="projects.html"]');
+        if (link) {
+            try { sessionStorage.setItem('skipAnim_fromDetail', '1'); } catch (_) {}
+        }
+    });
 });
 
 async function loadProjectDetail() {
