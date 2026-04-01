@@ -1,0 +1,50 @@
+{
+  "page.title": "Smartpoint — Engineering Consulting",
+
+  "aria.menu_open":    "Open menu",
+  "aria.theme_toggle": "Toggle theme",
+  "aria.lang_switcher": "Select language",
+
+  "nav.about":    "About",
+  "nav.services": "Services",
+  "nav.projects": "Projects",
+  "nav.career":   "Career",
+  "nav.contacts": "Contacts",
+
+  "hero.label":   "Smart Point — engineering consulting",
+  "hero.title_1": "Your success",
+  "hero.title_2": "is our mission",
+  "hero.desc":    "We develop tailored solutions to help you reach new heights.",
+  "hero.cta":     "Completed projects",
+
+  "intro.title":      "Smart Point is an engineering and consulting company that helps clients deliver their ambitious projects and solve complex technical challenges.",
+  "intro.desc":       "We specialise in working with industrial and technology companies, offering comprehensive engineering solutions from concept development to full project delivery.",
+  "intro.badge_text": "years of experience",
+
+  "clients.divider": "Proven track record",
+
+  "advantages.heading":     "Why clients choose Smart Point",
+  "advantages.card1_title": "Comprehensive approach",
+  "advantages.card1_desc":  "We offer a full-cycle service — from strategic analysis and feasibility studies to the implementation of innovative technologies and post-project support. One partner at every stage means saved time and guaranteed consistency of decisions.",
+  "advantages.card2_title": "Personalisation & results",
+  "advantages.card2_desc":  "Universal methods don't work for unique challenges. We develop solutions tailored to a specific business, its characteristics and ambitions. Our goal is measurable results: improved efficiency, revenue growth, sustainable development.",
+  "advantages.card3_title": "Working with business and government",
+  "advantages.card3_desc":  "Experience delivering projects for both the private sector and government bodies allows us to understand the requirements of both sides and find optimal solutions within different regulatory environments.",
+
+  "company.title":    "We don't just deliver projects — we build partnerships based on results",
+  "company.subtitle": "A company that grew alongside its clients",
+  "company.text1":    "Smart Point was founded in 2006 by a group of engineers and consultants who saw the market's need for a comprehensive approach to the delivery of technical projects. We started with small infrastructure projects but quickly expanded our range of services thanks to growing client trust and our ability to find effective solutions to complex challenges.",
+  "company.text2":    "Over two decades of work we have evolved from a local consulting company to a recognised partner in project management, technology transfer and digital transformation. The geography of our projects has expanded beyond Kazakhstan — we have worked with clients from various CIS countries.",
+  "company.text3":    "Today Smart Point's portfolio includes dozens of successfully delivered projects in digitalisation, infrastructure, industry and energy. We continue to grow, adopting modern methodologies while preserving what mattered from day one — accountability for results and partnerships built on trust.",
+  "company.stat1_label": "Years of<br>experience",
+  "company.stat2_label": "Projects<br>in our portfolio",
+
+  "cta.heading": "Let's work together",
+  "cta.desc":    "If you need not just a contractor but a partner<br>who is accountable for results — we're ready to talk",
+  "cta.btn":     "Discuss a project",
+
+  "footer.desc":          "Comprehensive engineering and consulting<br>solutions for your business.",
+  "footer.contact_title": "Contacts",
+  "footer.location":      "Almaty, Kazakhstan",
+  "footer.copyright":     "© 2026 Smartpoint. All rights reserved."
+}

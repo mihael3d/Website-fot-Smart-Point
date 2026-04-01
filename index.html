@@ -23,18 +23,27 @@
                 <img src="assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
                 <img src="assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
             </a>
-            <button class="mobile-menu-toggle" aria-label="Открыть меню"><span></span></button>
-            <button class="theme-toggle" aria-label="Переключить тему">
+            <button class="mobile-menu-toggle"
+                aria-label="Открыть меню"
+                data-i18n-attr="aria-label:aria.menu_open"><span></span></button>
+            <button class="theme-toggle"
+                aria-label="Переключить тему"
+                data-i18n-attr="aria-label:aria.theme_toggle">
                 <svg class="theme-icon theme-icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 <svg class="theme-icon theme-icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             </button>
+            <div class="lang-switcher" aria-label="Выбрать язык">
+                <button class="lang-btn is-active" data-lang="ru">РУ</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="kk">ҚАЗ</button>
+            </div>
             <nav class="main-nav">
                 <ul>
-                    <li class="active"><a href="index.html" class="active">О нас</a></li>
-                    <li><a href="services.html">Услуги</a></li>
-                    <li><a href="projects.html">Проекты</a></li>
-                    <li><a href="career.html">Карьера</a></li>
-                    <li><a href="contacts.html">Контакты</a></li>
+                    <li class="active"><a href="index.html" class="active" data-i18n="nav.about">О нас</a></li>
+                    <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                    <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                    <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
                 </ul>
             </nav>
         </div>
@@ -47,17 +56,17 @@
         <div class="hero-overlay"></div>
         <div class="container hero-home-container">
             <div class="hero-home-content">
-                <span class="hero-label">Smart Point — инженерный консалтинг</span>
+                <span class="hero-label" data-i18n="hero.label">Smart Point — инженерный консалтинг</span>
                 <h1 class="title-lines hero-title">
-                    <span>Ваш успех</span>
-                    <span>— наша миссия</span>
+                    <span data-i18n="hero.title_1">Ваш успех</span>
+                    <span data-i18n="hero.title_2">— наша миссия</span>
                 </h1>
-                <p class="hero-desc">
+                <p class="hero-desc" data-i18n="hero.desc">
                     Мы разрабатываем индивидуальные решения чтобы помочь достигать новых высот.
                 </p>
                 <div class="hero-buttons">
                     <a href="projects.html" class="action-btn action-btn--primary">
-                        <span class="action-btn-text">Реализованные проекты</span>
+                        <span class="action-btn-text" data-i18n="hero.cta">Реализованные проекты</span>
                         <span class="action-btn-icon"></span>
                     </a>
                 </div>
@@ -69,15 +78,15 @@
     <section class="section-intro">
         <div class="container intro-container">
             <div class="intro-text-col">
-                <p class="intro-title">Smart Point - это инженерно-консалтинговая компания, которая помогает клиентам реализовывать мх амбициозные проекты и решать технически сложные задачи.</p>
-                <p class="intro-desc">Мы специализируемся на работе с промышленными и технологическими компаниями, предлагая комплексные инженерные решения от разработки концепции до полной реализации проекта.</p>
+                <p class="intro-title" data-i18n="intro.title">Smart Point — это инженерно-консалтинговая компания, которая помогает клиентам реализовывать их амбициозные проекты и решать технически сложные задачи.</p>
+                <p class="intro-desc" data-i18n="intro.desc">Мы специализируемся на работе с промышленными и технологическими компаниями, предлагая комплексные инженерные решения от разработки концепции до полной реализации проекта.</p>
             </div>
             <div class="intro-graphic-col">
                 <div class="intro-photo-wrap">
                     <img src="assets/images/advanteges1.jpg" alt="Smart Point — экспертиза" class="intro-photo-img">
                     <div class="intro-badge-mirror" aria-hidden="true">
                         <span class="intro-badge-mirror-number">20</span>
-                        <span class="intro-badge-mirror-text">лет опыта</span>
+                        <span class="intro-badge-mirror-text" data-i18n="intro.badge_text">лет опыта</span>
                     </div>
                 </div>
             </div>
@@ -89,7 +98,7 @@
         <div class="container clients-marquee-container">
             <!-- Разделитель с текстом -->
             <div class="clients-divider">
-                <span class="clients-divider-text">Успешный опыт сотрудничества</span>
+                <span class="clients-divider-text" data-i18n="clients.divider">Успешный опыт сотрудничества</span>
             </div>
             <!-- Бегущая строка логотипов -->
             <div class="clients-track-wrap" aria-hidden="true">
@@ -122,30 +131,30 @@
         <div class="advantages-wrap">
             <div class="advantages-content">
                 <div class="advantages-divider"></div>
-                <h2 class="advantages-heading">Почему клиенты выбирают Smart Point</h2>
+                <h2 class="advantages-heading" data-i18n="advantages.heading">Почему клиенты выбирают Smart Point</h2>
                 <div class="advantage-cards">
                     <article class="advantage-card">
                         <div class="advantage-card-icon"><img src="assets/icons/advanteges-1.svg" alt="" width="56"
                                 height="56"></div>
-                        <h3 class="advantage-card-title">Комплексный подход</h3>
-                        <p class="advantage-card-desc">Мы предлагаем полный цикл услуг - от стратегического анализа и
+                        <h3 class="advantage-card-title" data-i18n="advantages.card1_title">Комплексный подход</h3>
+                        <p class="advantage-card-desc" data-i18n="advantages.card1_desc">Мы предлагаем полный цикл услуг — от стратегического анализа и
                             технико-экономического обоснования до внедрения инновационных технологий и постпроектного
-                            сопровождения. Один партнёр на всех этапах - это экономия времени и гарантия согласованности
+                            сопровождения. Один партнёр на всех этапах — это экономия времени и гарантия согласованности
                             решений.</p>
                     </article>
                     <article class="advantage-card">
                         <div class="advantage-card-icon"><img src="assets/icons/advanteges-2.svg" alt="" width="56"
                                 height="56"></div>
-                        <h3 class="advantage-card-title">Персонализация и результат</h3>
-                        <p class="advantage-card-desc">Универсальные методики не работают с уникальными задачами. 
-                        Мы разрабатываем решения под конкретный бизнес, под его особенности и амбиции. 
-                        Наша цель - измеримый результат: повышение эффективности, рост прибыли, устойчивое развитие.</p>
+                        <h3 class="advantage-card-title" data-i18n="advantages.card2_title">Персонализация и результат</h3>
+                        <p class="advantage-card-desc" data-i18n="advantages.card2_desc">Универсальные методики не работают с уникальными задачами.
+                        Мы разрабатываем решения под конкретный бизнес, под его особенности и амбиции.
+                        Наша цель — измеримый результат: повышение эффективности, рост прибыли, устойчивое развитие.</p>
                     </article>
                     <article class="advantage-card">
                         <div class="advantage-card-icon"><img src="assets/icons/advanteges-3.svg" alt="" width="56"
                                 height="56"></div>
-                        <h3 class="advantage-card-title">Работа с бизнесом и государством</h3>
-                        <p class="advantage-card-desc">Опыт реализации проектов как для частного сектора, так и для
+                        <h3 class="advantage-card-title" data-i18n="advantages.card3_title">Работа с бизнесом и государством</h3>
+                        <p class="advantage-card-desc" data-i18n="advantages.card3_desc">Опыт реализации проектов как для частного сектора, так и для
                             государственных структур позволяет нам понимать требования обеих сторон и находить
                             оптимальные решения в условиях различных регуляторных сред.</p>
                     </article>
@@ -160,8 +169,7 @@
     <!-- ═══ Секция: О компании — история и статистика ═══ -->
     <section class="section-spacer section-company">
         <div class="container company-container">
-            <h2 class="company-title">Мы реализуем не просто проекты, мы строим партнёрства на
-                результатах</h2>
+            <h2 class="company-title" data-i18n="company.title">Мы реализуем не просто проекты, мы строим партнёрства на результатах</h2>
             <div class="company-two-col">
                 <div class="company-col-left">
                     <figure class="company-image-wrap company-image-overlay">
@@ -170,18 +178,18 @@
                     </figure>
                 </div>
                 <div class="company-col-right">
-                    <h3 class="company-subtitle">Компания, которая выросла вместе со своими клиентами</h3>
+                    <h3 class="company-subtitle" data-i18n="company.subtitle">Компания, которая выросла вместе со своими клиентами</h3>
                     <div class="company-text-block">
-                        <p class="company-text">Smart Point была основана в 2006 году группой инженеров и
+                        <p class="company-text" data-i18n="company.text1">Smart Point была основана в 2006 году группой инженеров и
                             консультантов, которые видели потребность рынка в комплексном подходе к реализации
                             технических проектов. Мы начинали с небольших инфраструктурных проектов, но быстро расширили
                             спектр услуг благодаря растущему доверию клиентов и способности находить эффективные решения
                             для сложных задач.</p>
-                        <p class="company-text">За два десятка лет работы мы прошли путь от локальной
+                        <p class="company-text" data-i18n="company.text2">За два десятка лет работы мы прошли путь от локальной
                             консалтинговой компании до признанного партнёра в области управления проектами, трансфера
                             технологий и цифровой трансформации. География наших проектов расширилась за пределы
                             Казахстана — мы работали с клиентами из разных стран СНГ.</p>
-                        <p class="company-text">Сегодня в портфолио Smart Point несколько десятков успешно
+                        <p class="company-text" data-i18n="company.text3">Сегодня в портфолио Smart Point несколько десятков успешно
                             реализованных проектов в цифровизации, инфраструктуре, промышленности и энергетике. Мы
                             продолжаем развиваться, внедряя современные методологии и сохраняя то, что было важно с
                             первого дня — ответственность за результат и партнёрские отношения, построенные на доверии.
@@ -197,14 +205,14 @@
                                 <img src="assets/icons/Experience.svg" alt="" class="stat-icon">
                                 <span class="stat-number" data-end="20" data-suffix="">20</span>
                             </div>
-                            <p class="stat-label">Лет опыта<br>в различных областях</p>
+                            <p class="stat-label" data-i18n-html="company.stat1_label">Лет опыта<br>в различных областях</p>
                         </div>
                         <div class="stat-item">
                             <div class="stat-icon-number">
                                 <img src="assets/icons/Projects.svg" alt="" class="stat-icon">
                                 <span class="stat-number" data-end="30" data-suffix="+">30+</span>
                             </div>
-                            <p class="stat-label">Реализованных проектов<br>в портфолио компании</p>
+                            <p class="stat-label" data-i18n-html="company.stat2_label">Реализованных проектов<br>в портфолио компании</p>
                         </div>
                     </div>
                 </div>
@@ -219,10 +227,10 @@
             <div class="cta-inner">
                 <div class="cta-inner-box">
                     <div class="cta-content">
-                        <h2 class="cta-heading">Приглашаем к сотрудничеству</h2>
-                        <p class="cta-desc">Если вам нужен не просто подрядчик, а партнёр,<br>который отвечает за результат, мы готовы к разговору</p>
+                        <h2 class="cta-heading" data-i18n="cta.heading">Приглашаем к сотрудничеству</h2>
+                        <p class="cta-desc" data-i18n-html="cta.desc">Если вам нужен не просто подрядчик, а партнёр,<br>который отвечает за результат, мы готовы к разговору</p>
                         <a href="contacts.html" class="action-btn action-btn--primary cta-btn">
-                            <span class="action-btn-text">Обсудить проект</span>
+                            <span class="action-btn-text" data-i18n="cta.btn">Обсудить проект</span>
                             <span class="action-btn-icon"></span>
                         </a>
                     </div>
@@ -241,37 +249,37 @@
                     <a href="index.html" class="footer-logo">
                         <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint">
                     </a>
-                    <p class="footer-desc">
+                    <p class="footer-desc" data-i18n-html="footer.desc">
                         Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
                     </p>
                 </div>
                 <div class="footer-nav">
                     <ul>
-
-                        <li><a href="index.html">О нас</a></li>
-                        <li><a href="services.html">Услуги</a></li>
-                        <li><a href="projects.html">Проекты</a></li>
-                        <li><a href="career.html">Карьера</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
+                        <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                        <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                        <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                        <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                        <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
-                    <h4 class="footer-title">Контакты</h4>
+                    <h4 class="footer-title" data-i18n="footer.contact_title">Контакты</h4>
                     <ul>
                         <li><a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a></li>
                         <li><a href="tel:+77773888333">+7 (777) 3-888-333</a></li>
-                        <li>Алматы, Казахстан</li>
+                        <li data-i18n="footer.location">Алматы, Казахстан</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div class="footer-copyright">
+                <div class="footer-copyright" data-i18n-html="footer.copyright">
                     &copy; 2026 Smartpoint. Все права защищены.
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script src="js/script.js?v=4.1"></script>
 </body>
 

@@ -76,17 +76,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    links.forEach((link) => {
-        const text = link.textContent.trim() || '';
-        link.textContent = '';
-
-        Array.from(text).forEach((char, index) => {
-            const span = document.createElement('span');
-            span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.transitionDelay = `${index * 40}ms`;
-            link.appendChild(span);
+    // Оборачиваем символы после применения переводов,
+    // чтобы анимация работала с уже переведённым текстом
+    document.addEventListener('i18n:ready', () => {
+        links.forEach((link) => {
+            const text = link.textContent.trim() || '';
+            link.textContent = '';
+            Array.from(text).forEach((char, index) => {
+                const span = document.createElement('span');
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.style.transitionDelay = `${index * 40}ms`;
+                link.appendChild(span);
+            });
         });
-    });
+    }, { once: true });
 
     if (header) {
         let lastScrollY = window.scrollY;

@@ -238,6 +238,10 @@ ul {
     .main-header.is-scrolled .logo img.logo-mobile-scrolled {
         display: block !important;
     }
+
+    .lang-switcher {
+        margin-left: 0;
+    }
 }
 
 .main-nav {
@@ -425,6 +429,56 @@ ul {
 
 .main-header.is-scrolled .mobile-menu-toggle.active {
     border-color: #111111;
+}
+
+/* ── Language Switcher ──────────────────────────────────── */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    border-left: 1px solid transparent;
+    color: rgba(255, 255, 255, 0.45);
+    font-family: var(--font-primary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    padding: 5px 9px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.lang-btn + .lang-btn {
+    border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.lang-btn:hover {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.lang-btn.is-active {
+    color: var(--color-accent);
+}
+
+.main-header.is-scrolled .lang-btn {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.main-header.is-scrolled .lang-btn + .lang-btn {
+    border-left-color: rgba(0, 0, 0, 0.15);
+}
+
+.main-header.is-scrolled .lang-btn:hover {
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.main-header.is-scrolled .lang-btn.is-active {
+    color: var(--color-accent);
 }
 
 /* Hero Section */
@@ -7548,6 +7602,20 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .main-header.is-scrolled .theme-toggle:hover {
     border-color: rgba(255,255,255,0.6);
     background: rgba(255,255,255,0.07);
+}
+
+/* Переключатель языка в scrolled тёмной теме */
+[data-theme="dark"] .main-header.is-scrolled .lang-btn {
+    color: rgba(255, 255, 255, 0.45);
+}
+[data-theme="dark"] .main-header.is-scrolled .lang-btn + .lang-btn {
+    border-left-color: rgba(255, 255, 255, 0.2);
+}
+[data-theme="dark"] .main-header.is-scrolled .lang-btn:hover {
+    color: rgba(255, 255, 255, 0.85);
+}
+[data-theme="dark"] .main-header.is-scrolled .lang-btn.is-active {
+    color: var(--color-accent);
 }
 
 /* Логотип: в тёмной теме scrolled показываем белый вариант */
