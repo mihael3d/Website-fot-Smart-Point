@@ -4,6 +4,7 @@
     --color-text-dark: #111111;
     --color-text-light: #FFFFFF;
     --color-gray: #666666;
+    --color-accent: var(--color-accent);
     /* Псевдо-тень карточек (stage-card, cta-stripe и др.) */
     --color-shade-fill: #eaeaea;
     --color-shade-border: #c8c8c8;
@@ -515,7 +516,7 @@ ul {
     font-weight: 500;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #FF4433;
+    color: var(--color-accent);
     margin-bottom: 16px;
 }
 
@@ -830,8 +831,8 @@ ul {
     font-weight: 400;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: #FF4433;
-    margin: 0 0 8px 0;
+    color: var(--color-accent);
+    margin-bottom: 8px;
 }
 
 .smart-cards-grid {
@@ -1506,7 +1507,7 @@ ul {
     color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
     margin-bottom: 20px;
-    border-left: 2px solid #FF4433;
+    border-left: 2px solid var(--color-accent);
     padding-left: 12px;
 }
 
@@ -1582,7 +1583,7 @@ ul {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background-color: #FF4433;
+    background-color: var(--color-accent);
     flex-shrink: 0;
     transition: transform 0.5s ease;
     z-index: 1;
@@ -1679,7 +1680,7 @@ ul {
 
 .company-label {
     font-size: var(--fs-label);
-    color: #FF4433;
+    color: var(--color-accent);
     margin-bottom: 28px;
     font-weight: 600;
 }
@@ -2370,7 +2371,7 @@ ul {
         letter-spacing: 0.08em;
         margin-bottom: 24px;
         color: rgba(255, 255, 255, 0.65);
-        border-left: 2px solid #FF4433;
+        border-left: 2px solid var(--color-accent);
         padding-left: 10px;
     }
 
@@ -2464,7 +2465,7 @@ ul {
     /* Подзаголовок — акцентная красная полоса слева */
     .company-subtitle {
         font-weight: 700;
-        border-left: 2px solid #FF4433;
+        border-left: 2px solid var(--color-accent);
         padding-left: 14px;
         margin-bottom: 1.2rem;
         line-height: 1.35;
@@ -2473,7 +2474,7 @@ ul {
     /* Второй абзац — акцентный блок */
     .company-text-block .company-text:nth-child(2) {
         background: #f5f5f5;
-        border-left: 2px solid #FF4433;
+        border-left: 2px solid var(--color-accent);
         padding: 16px 18px;
         border-radius: 0 8px 8px 0;
         margin: 1.2em 0;
@@ -4896,7 +4897,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     bottom: -10px;
     width: calc(100% + 64px);
     height: 1px;
-    background-color: #FF4433;
+    background-color: var(--color-accent);
 }
 
 .career-apply-lead {
@@ -5334,7 +5335,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     /* Текст — вертикальная красная линия слева на высоту текста */
     .stages-section .stages-header-right .section-text.stages-experience-text {
         margin-top: 0;
-        border-left: 2px solid #FF4433;
+        border-left: 2px solid var(--color-accent);
         padding-left: 16px;
         margin-bottom: 32px;
     }
@@ -6686,7 +6687,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .contact-block-note {
-    color: #FF4433;
+    color: var(--color-accent);
     font-size: 0.8rem;
     font-style: italic;
 }
@@ -6839,7 +6840,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-color: #FF4433;
+    background-color: var(--color-accent);
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
@@ -6868,7 +6869,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     justify-content: center;
     width: 52px;
     height: 52px;
-    background-color: #FF4433;
+    background-color: var(--color-accent);
     flex-shrink: 0;
     position: relative;
     z-index: 2;
