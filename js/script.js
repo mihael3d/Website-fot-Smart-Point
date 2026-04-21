@@ -28,6 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Hero section logic handled above
 
+    // ── Подсветка текущей страницы в футере ──────────────────────
+    (function () {
+        const page = location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.footer-nav a').forEach(a => {
+            const href = a.getAttribute('href').split('?')[0];
+            if (href === page || (page === '' && href === 'index.html')) {
+                a.classList.add('is-current');
+            }
+        });
+    })();
+
     const header = document.querySelector('.main-header');
     const links = document.querySelectorAll('.main-nav a');
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -831,48 +842,112 @@ document.addEventListener('DOMContentLoaded', () => {
             individualEls.forEach((el) => obs.observe(el));
         }
 
-        // career-why-section — только career-page.
-        // Заголовок: translateX в CSS → rootMargin слева. Круг/карточки (≤568): translateY → rootMargin снизу.
-        // На орбите ≥1025 карточки translateX — без лишнего rootMargin.
-        const careerSection = document.body.classList.contains('career-page')
-            ? document.querySelector('.career-why-section')
-            : null;
-        if (careerSection) {
-            const careerShiftYOpts = { threshold: 0, rootMargin: '0px 0px 260px 0px' };
-            const careerHeadingOpts = { threshold: 0, rootMargin: '0px 0px 0px 160px' };
-            const careerOrbitItemOpts = { threshold: 0.05, rootMargin: '0px 0px 0px 0px' };
-            const isCareerOrbitWide = window.innerWidth >= 1025;
-
-            const careerHeading = careerSection.querySelector('.cw-heading');
-            const careerItems = careerSection.querySelectorAll('.cw-item');
-            const careerCircleWrap = careerSection.querySelector('.cw-circle-wrap');
-
-            const attachObs = (el, opts) => {
-                if (!el) return;
-                const obs = new IntersectionObserver((entries, o) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('srv-in-view');
-                            o.unobserve(entry.target);
-                        }
-                    });
-                }, opts);
-                obs.observe(el);
-            };
-
-            attachObs(careerHeading, careerHeadingOpts);
-            attachObs(careerCircleWrap, { threshold: 0.01, rootMargin: '0px 0px 260px 0px' });
-
-            // 568–1024px: translateX-анимация на иконке → триггер при 50% видимости элемента
-            // ≤568px: translateY(240px) → нужен ранний запуск (260px запас)
-            const careerTabletItemOpts = { threshold: 0.5, rootMargin: '0px' };
-            const isTablet = !isCareerOrbitWide && window.innerWidth > 568;
-            const itemOpts = isCareerOrbitWide ? careerOrbitItemOpts
-                           : isTablet          ? careerTabletItemOpts
-                           :                     careerShiftYOpts;
-            careerItems.forEach((el) => attachObs(el, itemOpts));
-        }
     }
+
+    // career-why-section (career.html) — scroll-reveal для орбитального блока
+    const careerSection = document.querySelector('.career-why-section');
+    if (careerSection && careerSection.querySelector('.cw-orbit')) {
+        const careerShiftYOpts    = { threshold: 0, rootMargin: '0px 0px 260px 0px' };
+        const careerHeadingOpts   = { threshold: 0, rootMargin: '0px 0px 0px 160px' };
+        const careerOrbitItemOpts = { threshold: 0.05, rootMargin: '0px 0px 0px 0px' };
+        const isCareerOrbitWide   = window.innerWidth >= 1025;
+
+        const careerHeading    = careerSection.querySelector('.cw-heading');
+        const careerItems      = careerSection.querySelectorAll('.cw-item');
+        const careerCircleWrap = careerSection.querySelector('.cw-circle-wrap');
+
+        const attachObs = (el, opts) => {
+            if (!el) return;
+            const obs = new IntersectionObserver((entries, o) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('srv-in-view');
+                        o.unobserve(entry.target);
+                    }
+                });
+            }, opts);
+            obs.observe(el);
+        };
+
+        attachObs(careerHeading,    careerHeadingOpts);
+        attachObs(careerCircleWrap, { threshold: 0.01, rootMargin: '0px 0px 260px 0px' });
+
+        const careerTabletItemOpts = { threshold: 0.5, rootMargin: '0px' };
+        const isTablet = !isCareerOrbitWide && window.innerWidth > 568;
+        const itemOpts = isCareerOrbitWide ? careerOrbitItemOpts
+                       : isTablet          ? careerTabletItemOpts
+                       :                     careerShiftYOpts;
+        careerItems.forEach((el) => attachObs(el, itemOpts));
+    }
+
+    // career.html — позиционирование карточек на окружности (568–1024px)
+    function positionCwItemsOnCircle() {
+        const section = document.querySelector('.career-why-section');
+        if (!section) return;
+
+        const iw         = window.innerWidth;
+        const orbGroup   = section.querySelector('.cw-orbital-group');
+        const circleWrap = section.querySelector('.cw-circle-wrap');
+        const items      = [...section.querySelectorAll('.cw-item')];
+
+        if (!orbGroup || !circleWrap || !items.length) return;
+
+        if (iw <= 568 || iw > 1024) {
+            items.forEach(item => {
+                item.style.cssText = '';
+                const textEl = item.querySelector('.cw-text');
+                if (textEl) textEl.style.cssText = '';
+            });
+            orbGroup.style.height = '';
+            return;
+        }
+
+        const r    = circleWrap.offsetWidth / 2;
+        const orbW = orbGroup.offsetWidth;
+        const cx   = 0;
+        const cy   = circleWrap.offsetTop + r;
+
+        const iconSz   = 54;
+        const iconHalf = iconSz / 2;
+        const gap      = 12;
+        const angleDeg = [-68, -30, 5, 35, 70];
+
+        items.forEach((item, i) => {
+            const rad  = angleDeg[i] * Math.PI / 180;
+            const px   = cx + r * Math.cos(rad);
+            const py   = cy + r * Math.sin(rad);
+            const itemLeft = px - iconHalf;
+            const itemW    = orbW - itemLeft - 16;
+            const textMaxW = orbW - (px + iconHalf + gap) - 16;
+
+            item.style.position  = 'absolute';
+            item.style.left      = itemLeft + 'px';
+            item.style.top       = py + 'px';
+            item.style.transform = 'translateY(-50%)';
+            item.style.margin    = '0';
+            item.style.width     = itemW + 'px';
+
+            const textEl = item.querySelector('.cw-text');
+            if (textEl) textEl.style.maxWidth = Math.max(textMaxW, 120) + 'px';
+        });
+
+        requestAnimationFrame(() => {
+            let maxBottom = cy + r + 24;
+            items.forEach(item => {
+                const itemBottom = parseFloat(item.style.top) + item.offsetHeight / 2;
+                if (itemBottom > maxBottom) maxBottom = itemBottom;
+            });
+            orbGroup.style.height = (maxBottom + 24) + 'px';
+        });
+    }
+
+    positionCwItemsOnCircle();
+
+    let _cwResizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(_cwResizeTimer);
+        _cwResizeTimer = setTimeout(positionCwItemsOnCircle, 80);
+    }, { passive: true });
 
     const stagesMedia = document.querySelector('.stages-media');
     const stagesImages = stagesMedia ? Array.from(stagesMedia.querySelectorAll('.stages-image')) : [];
@@ -1183,10 +1258,42 @@ document.addEventListener('DOMContentLoaded', () => {
     let portfolioData = null;
     let selectedCategories = new Set();
 
+    // Возвращает поле проекта/категории на текущем языке
+    function projectField(obj, field) {
+        const lang = (typeof I18n !== 'undefined') ? I18n.lang : 'ru';
+        if (lang !== 'ru' && obj[field + '_' + lang] !== undefined) {
+            return obj[field + '_' + lang];
+        }
+        return obj[field] || '';
+    }
+
     // Initialize portfolio if on projects page
     const portfolioSection = document.querySelector('.portfolio-section');
     if (portfolioSection) {
+        // Отключаем автовосстановление скролла браузером — управляем сами
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+        // Кнопка «назад» браузера: bfcache — страница восстановлена из кеша
+        window.addEventListener('pageshow', e => {
+            if (e.persisted) {
+                const saved = sessionStorage.getItem('sp-projects-scroll');
+                if (saved !== null) {
+                    sessionStorage.removeItem('sp-projects-scroll');
+                    requestAnimationFrame(() => {
+                        window.scrollTo({ top: parseInt(saved, 10), behavior: 'instant' });
+                    });
+                }
+            }
+        });
+
         initPortfolio();
+        // При смене языка — перерисовываем фильтры и карточки
+        document.addEventListener('i18n:ready', () => {
+            if (portfolioData) {
+                renderCategoryFilters();
+                renderProjects();
+            }
+        });
     }
 
     async function initPortfolio() {
@@ -1201,11 +1308,22 @@ document.addEventListener('DOMContentLoaded', () => {
             // Render filters and projects
             renderCategoryFilters();
             renderProjects();
+
+            // Восстанавливаем позицию прокрутки при возврате со страницы проекта
+            const savedScroll = sessionStorage.getItem('sp-projects-scroll');
+            if (savedScroll !== null) {
+                sessionStorage.removeItem('sp-projects-scroll');
+                // requestAnimationFrame гарантирует, что layout уже рассчитан
+                requestAnimationFrame(() => {
+                    window.scrollTo({ top: parseInt(savedScroll, 10), behavior: 'instant' });
+                });
+            }
         } catch (error) {
             console.error('Error loading portfolio:', error);
             const grid = document.getElementById('projectsGrid');
             if (grid) {
-                grid.innerHTML = '<p style="text-align: center; color: rgba(77, 76, 76, 0.6);">Не удалось загрузить проекты. Пожалуйста, попробуйте позже.</p>';
+                const msg = (typeof I18n !== 'undefined') ? I18n.t('projects.error_load') : 'Не удалось загрузить проекты. Пожалуйста, попробуйте позже.';
+                grid.innerHTML = `<p style="text-align: center; color: rgba(77, 76, 76, 0.6);">${msg}</p>`;
             }
         }
     }
@@ -1214,13 +1332,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const filtersContainer = document.getElementById('categoryFilters');
         if (!filtersContainer || !portfolioData) return;
 
+        // Сохраняем активную категорию
+        const activeBtn = filtersContainer.querySelector('.filter-btn.active');
+        const activeCatId = activeBtn ? activeBtn.dataset.categoryId : 'all';
+
+        filtersContainer.innerHTML = '';
+
         // Add "All" button
-        const allButton = createFilterButton('all', 'Все', true);
+        const allLabel = (typeof I18n !== 'undefined') ? I18n.t('projects.filter_all') : 'Все';
+        const allButton = createFilterButton('all', allLabel, activeCatId === 'all');
         filtersContainer.appendChild(allButton);
 
         // Add category buttons
         portfolioData.categories.forEach(category => {
-            const button = createFilterButton(category.id, category.name, false);
+            const name = projectField(category, 'name');
+            const button = createFilterButton(category.id, name, activeCatId === category.id);
             filtersContainer.appendChild(button);
         });
     }
@@ -1266,6 +1392,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = createProjectCard(project, index);
             grid.appendChild(card);
         });
+
+        // Восстанавливаем фильтрацию после перерисовки
+        if (selectedCategories.size > 0) filterProjects();
+        else updateFeaturedCard();
     }
 
     function createProjectCard(project, index) {
@@ -1275,14 +1405,23 @@ document.addEventListener('DOMContentLoaded', () => {
         card.dataset.category = project.category;
         card.style.animationDelay = `${index * 0.08}s`;
 
-        // Get category name
+        // Сохраняем позицию прокрутки перед переходом на детальную страницу
+        card.addEventListener('click', () => {
+            sessionStorage.setItem('sp-projects-scroll', String(window.scrollY));
+        });
+
+        // Get category name in current language
         const category = portfolioData.categories.find(c => c.id === project.category);
-        const categoryName = category ? category.name : project.category;
+        const categoryName = category ? projectField(category, 'name') : project.category;
+
+        const title       = projectField(project, 'title');
+        const shortDesc   = projectField(project, 'shortDescription');
+        const moreLabel   = (typeof I18n !== 'undefined') ? I18n.t('projects.card_more') : 'Подробнее';
 
         card.innerHTML = `
             <div class="project-card-image">
-                <div class="project-card-image-placeholder"><span>${project.title.charAt(0)}</span></div>
-                <img src="${project.thumbnail}" alt="${project.title}"
+                <div class="project-card-image-placeholder"><span>${title.charAt(0)}</span></div>
+                <img src="${project.thumbnail}" alt="${title}"
                      onload="this.style.opacity='1'"
                      onerror="this.remove()"
                      style="opacity:0;transition:opacity 0.4s ease, transform 1s cubic-bezier(0.33, 1, 0.68, 1)">
@@ -1292,10 +1431,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="project-card-label">[+ ${categoryName.toUpperCase()}]</span>
                     <span class="project-card-year">${project.year}</span>
                 </div>
-                <h3 class="project-card-title">${project.title}</h3>
-                <p class="project-card-description">${project.shortDescription}</p>
+                <h3 class="project-card-title">${title}</h3>
+                <p class="project-card-description">${shortDesc}</p>
                 <div class="project-card-footer">
-                    <span class="project-card-arrow">Подробнее</span>
+                    <span class="project-card-arrow">${moreLabel}</span>
                 </div>
             </div>
         `;
@@ -1313,6 +1452,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.classList.remove('hidden');
             } else {
                 card.classList.add('hidden');
+            }
+        });
+
+        updateFeaturedCard();
+    }
+
+    function updateFeaturedCard() {
+        const cards = document.querySelectorAll('.project-card');
+        let assigned = false;
+        cards.forEach(card => {
+            card.classList.remove('featured');
+            if (!assigned && !card.classList.contains('hidden')) {
+                card.classList.add('featured');
+                assigned = true;
             }
         });
     }
@@ -1482,6 +1635,50 @@ document.addEventListener('DOMContentLoaded', () => {
         cfStatus.className = 'career-form-status';
         cfStatus.textContent = '';
     }
+
+    // ── Contacts: авто-выбор отрасли при переходе со страницы проекта ──
+    (function () {
+        const industrySelect = document.getElementById('contact-industry');
+        if (!industrySelect) return;
+
+        const params = new URLSearchParams(window.location.search);
+        const categoryId = params.get('industry');
+        if (!categoryId) return;
+
+        // Маппинг category id из projects.json → value опции в select
+        const categoryMap = {
+            'industry':       'Промышленность и производство',
+            'it':             'Информационные технологии',
+            'infrastructure': 'Строительство и инфраструктура',
+            'energy':         'Энергетика',
+            'finance':        'Финансы и банковское дело',
+            'telecom':        'Телекоммуникации',
+            'transport':      'Транспорт и логистика',
+            'government':     'Государственный сектор и управление',
+            'utilities':      'ЖКХ и коммунальная инфраструктура',
+        };
+
+        const targetValue = categoryMap[categoryId];
+        if (!targetValue) return;
+
+        // Ищем совпадающую опцию и выбираем её
+        for (const option of industrySelect.options) {
+            if (option.value === targetValue) {
+                option.selected = true;
+                // Снимаем disabled со placeholder-опции если она была выбрана
+                industrySelect.dispatchEvent(new Event('change'));
+                break;
+            }
+        }
+
+        // Плавно прокручиваем к форме
+        const formCard = document.querySelector('.contact-form-card');
+        if (formCard) {
+            setTimeout(() => {
+                formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+        }
+    })();
 
     // ═══ contacts page: отправка формы через Forminit SDK ═══
     const contactForm       = document.getElementById('contact-inquiry-form');
@@ -1726,91 +1923,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     initSmartCarousel();
 
-    // ── Карьера: кружки на окружности большого круга (568–1024px) ────────────
-    function positionCwItemsOnCircle() {
-        const section = document.querySelector('.career-why-section');
-        if (!section) return;
-
-        const iw        = window.innerWidth;
-        const orbGroup  = section.querySelector('.cw-orbital-group');
-        const circleWrap = section.querySelector('.cw-circle-wrap');
-        const items     = [...section.querySelectorAll('.cw-item')];
-
-        if (!orbGroup || !circleWrap || !items.length) return;
-
-        // Вне диапазона 568–1024 — сбрасываем inline-стили JS
-        if (iw <= 568 || iw > 1024) {
-            items.forEach(item => {
-                item.style.cssText = '';
-                const textEl = item.querySelector('.cw-text');
-                if (textEl) textEl.style.cssText = '';
-            });
-            orbGroup.style.height = '';
-            return;
-        }
-
-        // Реальный центр круга относительно orbGroup (учитывает transform translateX(-50%))
-        // Используем offsetTop/offsetWidth — они НЕ зависят от CSS-анимаций (transform).
-        // getBoundingClientRect() учитывает translateY из начального анимационного состояния
-        // (.srv-in-view ещё не добавлен), что даёт неверный cy и огромный нижний отступ.
-        const r     = circleWrap.offsetWidth / 2;
-        const orbW  = orbGroup.offsetWidth;
-
-        // Геометрический центр круга в координатах orbGroup:
-        //   CSS: left:0, translateX(-50%)  →  визуальный центр X = 0 от левого края orbGroup
-        //   CSS: top:40px                  →  центр Y = offsetTop + r (без учёта анимационных трансформов)
-        const cx = 0;
-        const cy = circleWrap.offsetTop + r;
-
-        const iconSz   = 54;
-        const iconHalf = iconSz / 2; // = 27
-        const gap      = 12;
-
-        // Углы 5 кружков вдоль правого полукруга (градусы от 3 часов)
-        // отрицательные = вверх, положительные = вниз
-        const angleDeg = [-68, -30, 5, 35, 70];
-
-        items.forEach((item, i) => {
-            const rad = angleDeg[i] * Math.PI / 180;
-            const px  = cx + r * Math.cos(rad); // X центра иконки на окружности
-            const py  = cy + r * Math.sin(rad); // Y центра иконки на окружности
-
-            const itemLeft = px - iconHalf;
-            const itemW    = orbW - itemLeft - 16;
-            const textMaxW = orbW - (px + iconHalf + gap) - 16;
-
-            item.style.position  = 'absolute';
-            item.style.left      = itemLeft + 'px';
-            item.style.top       = py + 'px';
-            item.style.transform = 'translateY(-50%)';
-            item.style.margin    = '0';
-            item.style.width     = itemW + 'px';
-
-            const textEl = item.querySelector('.cw-text');
-            if (textEl) textEl.style.maxWidth = Math.max(textMaxW, 120) + 'px';
-        });
-
-        // Высота orbGroup — рассчитываем через стабильные layout-значения (не BoundingClientRect)
-        // чтобы не зависеть от позиции скролла и анимационных трансформов
-        requestAnimationFrame(() => {
-            let maxBottom = cy + r + 24; // минимум = нижняя точка круга
-            items.forEach(item => {
-                // item.style.top — это наш py; transform: translateY(-50%) центрирует по Y
-                const itemCenterY = parseFloat(item.style.top);
-                const itemBottom  = itemCenterY + item.offsetHeight / 2;
-                if (itemBottom > maxBottom) maxBottom = itemBottom;
-            });
-            orbGroup.style.height = (maxBottom + 24) + 'px';
-        });
-    }
-
-    positionCwItemsOnCircle();
-
-    let _cwResizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(_cwResizeTimer);
-        _cwResizeTimer = setTimeout(positionCwItemsOnCircle, 80);
-    }, { passive: true });
 
     // ─── Разрешение окна браузера (viewport) ───────────────────────────────────
     (function initViewportInfo() {
@@ -1825,27 +1937,69 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
 
     // ─── Тёмная тема ─────────────────────────────────────────────────────────
-    /* initTheme — временно отключено
+    // По умолчанию — светлая; тема ОС не используется. Выбор пользователя
+    // хранится в localStorage (sp-theme) и подставляется на всех страницах.
     (function initTheme() {
-        const html = document.documentElement;
-        const btn  = document.querySelector('.theme-toggle');
-        if (!btn) return;
+        const html        = document.documentElement;
+        const btn         = document.querySelector('.theme-toggle');
+        const STORAGE_KEY = 'sp-theme';
 
         function applyTheme(theme) {
-            html.setAttribute('data-theme', theme);
-            localStorage.setItem('sp-theme', theme);
+            const t = theme === 'dark' ? 'dark' : 'light';
+            html.setAttribute('data-theme', t);
+            localStorage.setItem(STORAGE_KEY, t);
         }
 
-        btn.addEventListener('click', () => {
-            applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const current = html.getAttribute('data-theme') || 'light';
+                applyTheme(current === 'dark' ? 'light' : 'dark');
+            });
+        }
+    })();
+
+    // ── Lang dropdown: открытие/закрытие на < 1024px ─────────────
+    (function () {
+        const wraps = document.querySelectorAll('.lang-switcher-wrap');
+
+        function closeWrap(w) {
+            w.classList.remove('is-open');
+            w.style.minHeight = '';
+            w.style.minWidth  = '';
+        }
+
+        wraps.forEach(wrap => {
+            wrap.addEventListener('click', e => {
+                if (window.innerWidth > 1024) return;
+                const btn = e.target.closest('.lang-btn');
+                if (!btn) return;
+                if (btn.classList.contains('is-active')) {
+                    e.stopPropagation();
+                    if (!wrap.classList.contains('is-open')) {
+                        // Фиксируем размер до открытия: wrap не схлопывается → контейнер знает свою ширину
+                        wrap.style.minHeight = wrap.offsetHeight + 'px';
+                        wrap.style.minWidth  = wrap.offsetWidth  + 'px';
+                        wrap.classList.add('is-open');
+                    } else {
+                        closeWrap(wrap);
+                    }
+                } else {
+                    closeWrap(wrap);
+                }
+            });
         });
 
-        matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('sp-theme')) {
-                html.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        // pointerdown надёжно закрывает на тач-устройствах (iOS click-outside bug)
+        document.addEventListener('pointerdown', e => {
+            if (window.innerWidth > 1024) return;
+            if (!e.target.closest('.lang-switcher-wrap')) {
+                wraps.forEach(closeWrap);
             }
         });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) wraps.forEach(closeWrap);
+        });
     })();
-    */
 
 });

@@ -6747,55 +6747,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 
 
-/* --- career-why-section (career.html) — scroll reveal --- */
-/* Заголовок: вылет слева направо (только h2.cw-heading) */
-.career-why-section .cw-heading {
-    opacity: 0;
-    transform: translateX(-120px);
-    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: 0ms;
-}
-.career-why-section .cw-heading.srv-in-view {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.cw-circle-wrap,
-.cw-item {
-    opacity: 0;
-    transform: translateY(240px);
-    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.cw-circle-wrap,
-.cw-item--1,
-.cw-item--2,
-.cw-item--3,
-.cw-item--4,
-.cw-item--5       { transition-delay: 0ms; }
-
-.cw-circle-wrap.srv-in-view,
-.cw-item.srv-in-view {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ≥1025px — орбита: правые карточки вылетают справа, левые — слева */
-@media (min-width: 1025px) {
-    .cw-item--r {
-        transform: translateX(180px);
-    }
-    .cw-item--r.srv-in-view {
-        transform: translateX(0);
-    }
-    .cw-item--l {
-        transform: translateX(-180px);
-    }
-    .cw-item--l.srv-in-view {
-        transform: translateX(0);
-    }
-}
 
 
 /* ═══════════════════════════════════════════════════════════
@@ -7262,20 +7213,56 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 
 /* ╔═══════════════════════════════════════════════════════════
-   ║  CAREER WHY-SECTION  — Orbital Block
+   ║  CAREER WHY-SECTION  — общие стили
    ╚═══════════════════════════════════════════════════════════ */
 .career-why-section {
     background: #ffffff;
+}
+
+/* ── career.html: орбитальный макет ────────────────────────── */
+.career-page .career-why-section {
     padding: 56px 0 72px;
     overflow: hidden;
 }
 
-/* ═══════════════════════════════════════════════
-   DESKTOP  ≥1280px  — absolute orbital layout
-   cx=50%  cy=310px  ring_r=234px (icon centers)
-   ═══════════════════════════════════════════════ */
+/* Scroll-reveal: заголовок */
+.cw-orbit .cw-heading {
+    opacity: 0;
+    transform: translateX(-120px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cw-orbit .cw-heading.srv-in-view {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-/* Orbit: flex column — heading on top, orbital group below */
+/* Scroll-reveal: круг и карточки */
+.cw-circle-wrap,
+.cw-item {
+    opacity: 0;
+    transform: translateY(240px);
+    transition: opacity 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cw-circle-wrap,
+.cw-item--1, .cw-item--2, .cw-item--3,
+.cw-item--4, .cw-item--5 { transition-delay: 0ms; }
+
+.cw-circle-wrap.srv-in-view,
+.cw-item.srv-in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (min-width: 1025px) {
+    .cw-item--r            { transform: translateX(180px); }
+    .cw-item--r.srv-in-view { transform: translateX(0); }
+    .cw-item--l            { transform: translateX(-180px); }
+    .cw-item--l.srv-in-view { transform: translateX(0); }
+}
+
+/* Orbit flex */
 .cw-orbit {
     display: flex;
     flex-direction: column;
@@ -7283,8 +7270,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     gap: 0;
 }
 
-/* Heading — normal flow, left-aligned */
-.cw-heading {
+.cw-orbit .cw-heading {
     font-size: var(--fs-h2);
     font-weight: 500;
     line-height: 1.1;
@@ -7292,7 +7278,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     max-width: 560px;
 }
 
-/* Orbital group: positions the circle and items, centered on screen axis */
 .cw-orbital-group {
     position: relative;
     height: 760px;
@@ -7300,37 +7285,32 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     margin-top: 25px;
 }
 
-/* Circle + ring — cx=50%, cy=310px, outer-half=339px */
 .cw-circle-wrap {
     position: absolute;
     left: calc(50% - 339px);
-    top: -29px;                        /* cy - outer_half = 310 - 339 */
-    width: 650px;
-    height: 650px;
+    top: -29px;
+    width: 650px; height: 650px;
     border-radius: 50%;
     border: 1.5px solid rgba(0, 0, 0, 0.10);
     padding: 14px;
-    box-sizing: content-box;           /* total outer: 650+28 = 678px */
+    box-sizing: content-box;
     z-index: 1;
 }
 
 .cw-circle-photo {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 50%;
     overflow: hidden;
     box-shadow: 0 6px 48px rgba(0, 0, 0, 0.14);
 }
 
 .cw-circle-photo img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     object-position: center top;
     display: block;
 }
 
-/* ── Items shared ── */
 .cw-item {
     position: absolute;
     display: flex;
@@ -7338,181 +7318,81 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     gap: 14px;
     z-index: 2;
 }
-
-/* Right-side: icon → text */
 .cw-item--r { flex-direction: row; }
+.cw-item--l { flex-direction: row-reverse; text-align: right; }
 
-/* Left-side: text ← icon (row-reverse puts icon on right, text on left) */
-.cw-item--l {
-    flex-direction: row-reverse;
-    text-align: right;
-}
-
-/* Icon badge */
 .cw-icon {
-    width: 72px;
-    height: 72px;
+    width: 72px; height: 72px;
     flex-shrink: 0;
     border-radius: 50%;
     border: 1.5px solid rgba(0, 0, 0, 0.10);
     background: #f6f8fc;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     transition: background 0.25s ease;
 }
-
 .cw-item:hover .cw-icon { background: #edf0f8; }
+.cw-icon img { width: 40px; height: 40px; object-fit: contain; }
 
-.cw-icon img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-/* Text block */
 .cw-text {
     max-width: 220px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    display: flex; flex-direction: column; gap: 5px;
 }
-
 .cw-title {
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    line-height: 1.3;
-    color: var(--color-text-dark);
-    margin: 0;
+    font-size: var(--fs-h3); font-weight: 700;
+    line-height: 1.3; color: var(--color-text-dark); margin: 0;
 }
-
 .cw-desc {
-    font-size: var(--fs-secondary);
-    font-weight: 400;
-    line-height: 1.65;
-    color: var(--color-gray);
-    margin: 0;
+    font-size: var(--fs-secondary); font-weight: 400;
+    line-height: 1.65; color: var(--color-gray); margin: 0;
 }
 
-/* ═══════════════════════════════════════════════════
-   Item positions  (icon top-left = icon-center - 28)
-   cx=50%  cy=310px  r=300px  icon_hw=28px
-   r=300 = outer_half круга (572+28)/2
-   ═══════════════════════════════════════════════════ */
+/* Позиции карточек (desktop) */
+.cw-item--1 { left: calc(50% + 9px);   top: -52px; }
+.cw-item--1 .cw-text { margin-top: -55px; max-width: 340px; }
+.cw-item--2 { left: calc(50% + 288px); top: 228px; }
+.cw-item--3 { left: calc(50% + 161px); top: 576px; }
+.cw-item--4 { right: calc(50% + 161px); top: 576px; }
+.cw-item--5 { right: calc(50% + 288px); top: 181px; }
 
-/* 1. Инновационные — θ=30°  sin=0.500 cos=0.866
-      ix=50%+150  iy=50                             */
-.cw-item--1 {
-    left: calc(50% + 9px);
-    top: -52px;
-}
-
-/* Только текст item 1 — выше, чтобы не наезжать на круг; иконка на месте */
-.cw-item--1 .cw-text {
-    margin-top: -55px;
-    max-width: 340px;
-}
-
-/* 2. Индивидуальные — θ=78°  sin=0.978 cos=0.208
-      ix=50%+293  iy=248                            */
-.cw-item--2 {
-    left: calc(50% + 288px);
-    top: 228px;
-}
-
-/* 3. Креативные — θ=150°  sin=0.500 cos=-0.866
-      ix=50%+150  iy=570                            */
-.cw-item--3 {
-    left: calc(50% + 161px);
-    top: 576px;
-}
-
-/* 4. Гибкий — θ=210°  sin=-0.500 cos=-0.866
-      ix=50%-150  iy=570
-      right = 50%+150-28 = 50%+122                 */
-.cw-item--4 {
-    right: calc(50% + 161px);
-    top: 576px;
-}
-
-/* 5. Развитие — θ=288°  sin=-0.951 cos=0.309
-      ix=50%-285  iy=217
-      right = 50%+285-28 = 50%+257                 */
-.cw-item--5 {
-    right: calc(50% + 288px);
-    top: 181px;
-}
-
-
-/* ═══════════════════════════════════════════════════
-   ≤1280px — орбита уменьшена (круг 360px, r=192, cy=192)
-   ═══════════════════════════════════════════════════ */
 @media (max-width: 1280px) {
-    .career-why-section { padding-top: 12px; }
+    .career-page .career-why-section { padding-top: 12px; }
     .cw-orbital-group { height: 640px; }
-
-    /* Круг +50%: r=288 (было 192), outer=576px */
     .cw-circle-wrap {
-        position: absolute;
         width: 552px; height: 552px;
-        left: calc(50% - 288px); top: 0;
-        padding: 12px;
+        left: calc(50% - 288px); top: 0; padding: 12px;
     }
-
-    /* Позиции по орбите r=288, cy=288, icon_hw=36px */
-    .cw-item--1 { left: calc(50% + 108px);  top:  0; }
-    .cw-item--2 { left: calc(50% + 252px);  top:  156px; }
-    .cw-item--3 { left: calc(50% + 108px);  top:  495px; }
-    .cw-item--4 { right: calc(50% + 128px); top:  495px; }
-    .cw-item--5 { right: calc(50% + 242px); top:  185px; }
-
+    .cw-item--1 { left: calc(50% + 108px);  top: 0; }
+    .cw-item--2 { left: calc(50% + 252px);  top: 156px; }
+    .cw-item--3 { left: calc(50% + 108px);  top: 495px; }
+    .cw-item--4 { right: calc(50% + 128px); top: 495px; }
+    .cw-item--5 { right: calc(50% + 242px); top: 185px; }
     .cw-item--1 .cw-text { margin-top: -28px; max-width: 260px; }
     .cw-text { max-width: 260px; }
     .cw-icon { width: 64px; height: 64px; }
     .cw-icon img { width: 34px; height: 34px; margin: -4px; }
 }
 
-
-/* ═══════════════════════════════════════════════════
-   568–1024px — полукруг слева, карточки справа
-   ═══════════════════════════════════════════════════ */
 @media (min-width: 569px) and (max-width: 1024px) {
-    .career-why-section { padding: 48px 0 60px; overflow: visible; }
-
+    .career-page .career-why-section { padding: 48px 0 60px; overflow: visible; }
     .cw-orbit { gap: 32px; align-items: flex-start; }
-
-    .cw-heading { max-width: 100%; text-align: left; margin-top: -16px; }
-
-    /* Контейнер — позиционирующий блок, высота задаётся JS */
+    .cw-orbit .cw-heading { max-width: 100%; text-align: left; margin-top: -16px; }
     .cw-orbital-group {
-        position: relative;
-        height: 650px; /* fallback, JS пересчитает */
+        position: relative; height: 650px;
         margin-top: 0;
         margin-left: calc(-1 * var(--container-padding));
         width: calc(100% + var(--container-padding));
-        display: block;
-        padding: 0;
-        overflow: visible;
+        display: block; padding: 0; overflow: visible;
     }
-
-    /* Круг — абсолютный, уходит влево на 50% своей ширины */
     .cw-circle-wrap {
-        position: absolute;
-        left: 0;
-        top: 40px;
+        position: absolute; left: 0; top: 40px;
         width: 567px; height: 567px;
-        min-height: unset;
-        aspect-ratio: 1;
         border-radius: 50%;
         border: 1.5px solid rgba(0, 0, 0, 0.10);
-        padding: 12px;
-        box-sizing: border-box;
-        background: transparent;
-        overflow: hidden;
+        padding: 12px; box-sizing: border-box;
+        background: transparent; overflow: hidden;
         transform: translateX(-50%);
     }
     .cw-circle-wrap.srv-in-view { transform: translateY(0) translateX(-50%); }
-
     .career-why-section .cw-circle-photo {
         width: 100%; height: 100%;
         border-radius: 50%; overflow: hidden;
@@ -7522,156 +7402,265 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         width: 100%; height: 100%;
         object-fit: cover; object-position: center top; border-radius: 0;
     }
-
-    /* Кружки — JS ставит position:absolute и координаты */
     .cw-item {
-        flex-direction: row;
-        text-align: left;
-        align-items: center;
-        gap: 12px;
+        flex-direction: row; text-align: left;
+        align-items: center; gap: 12px;
+        opacity: 1; transition: none;
     }
     .cw-item--1 .cw-text { margin-top: 0; }
-
-    /* Анимация появления: иконка вылетает справа + текст плавно показывается.
-       JS-inline-стиль фиксирует transform:translateY(-50%) на .cw-item,
-       поэтому анимируем дочерние элементы, а не сам .cw-item. */
-    .cw-item {
-        opacity: 1;      /* родительский fade отключён — дети анимируются сами */
-        transition: none;
-    }
-    .cw-icon {
-        width: 54px; height: 54px; flex-shrink: 0;
-        transform: translateX(60px);
-        opacity: 0;
-        transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                    opacity   0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    }
+    .cw-icon { width: 54px; height: 54px; flex-shrink: 0; transform: none; opacity: 1; transition: none; }
     .cw-icon img { width: 29px; height: 29px; margin: 0; }
-
-    .cw-item.srv-in-view .cw-icon {
-        transform: translateX(0);
-        opacity: 1;
-    }
-
-    .cw-text {
-        max-width: 260px;
-        opacity: 0;
-        transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .cw-item.srv-in-view .cw-text {
-        opacity: 1;
-    }
-
-    /* Ступенчатые задержки — как у десктопных карточек */
-    .cw-item--1 .cw-icon { transition-delay:   0ms; }
-    .cw-item--1 .cw-text { transition-delay:  80ms; }
-    .cw-item--2 .cw-icon { transition-delay: 180ms; }
-    .cw-item--2 .cw-text { transition-delay: 260ms; }
-    .cw-item--3 .cw-icon { transition-delay: 360ms; }
-    .cw-item--3 .cw-text { transition-delay: 440ms; }
-    .cw-item--4 .cw-icon { transition-delay: 540ms; }
-    .cw-item--4 .cw-text { transition-delay: 620ms; }
-    .cw-item--5 .cw-icon { transition-delay: 720ms; }
-    .cw-item--5 .cw-text { transition-delay: 800ms; }
+    .cw-text { max-width: 260px; opacity: 1; transition: none; }
 }
 
-/* ═══════════════════════════════════════════════════
-   ≤568px — карточки на фоне, одна колонка
-   ═══════════════════════════════════════════════════ */
 @media (max-width: 568px) {
-
-    /* Секция — тёмный фон с фото (та же картинка, что в кругу) */
-    .career-why-section {
+    .career-page .career-why-section {
         padding: 52px 0;
         background-image: url('../assets/images/advanteges2.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: scroll;
+        background-size: cover; background-position: center;
+        background-repeat: no-repeat; background-attachment: scroll;
         position: relative;
     }
-
-    .career-why-section::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.72);
-        z-index: 0;
+    .career-page .career-why-section::before {
+        content: ''; position: absolute; inset: 0;
+        background: rgba(0, 0, 0, 0.72); z-index: 0;
     }
-
-    .career-why-section .container {
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Заголовок — белый */
-    .cw-heading {
-        color: #ffffff;
-        margin-bottom: 28px;
-    }
-
+    .career-page .career-why-section .container { position: relative; z-index: 1; }
+    .cw-orbit .cw-heading { color: #ffffff; margin-bottom: 28px; }
     .cw-orbit { gap: 0; }
-
-    /* Орбитальная группа — одна колонка */
-    .cw-orbital-group {
-        position: static; height: auto;
-        display: flex; flex-direction: column; gap: 10px;
-    }
-
-    /* Скрываем круговое фото — фон секции его заменяет */
+    .cw-orbital-group { position: static; height: auto; display: flex; flex-direction: column; gap: 10px; }
     .cw-circle-wrap { display: none; }
-
-    /* Все элементы в обычный поток */
     .cw-item--1, .cw-item--2, .cw-item--3,
-    .cw-item--4, .cw-item--5 {
-        position: static; left: auto; right: auto; top: auto;
-        transform: none;
-    }
-
-    /* Карточка — как industry-card */
+    .cw-item--4, .cw-item--5 { position: static; left: auto; right: auto; top: auto; transform: none; }
     .cw-item {
-        flex-direction: row;
-        align-items: center;
-        gap: 16px;
+        flex-direction: row; align-items: center; gap: 16px;
         background: rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 10px;
-        padding: 20px 18px;
+        border-radius: 10px; padding: 20px 18px;
     }
-
-    /* Иконка — белая, без круга и hover-эффекта */
-    .cw-icon {
-        width: 80px; height: 80px;
-        flex-shrink: 0;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-    }
-    .career-why-section .cw-item:hover .cw-icon {
-        background: transparent;
-    }
-    .cw-icon img {
-        width: 48px; height: 48px;
-        margin: 0;
-        filter: brightness(0) invert(1);
-        opacity: 0.9;
-    }
-
-    /* Текст — белый, левая выравнивание */
+    .cw-icon { width: 80px; height: 80px; flex-shrink: 0; background: transparent; border: none; border-radius: 0; }
+    .career-why-section .cw-item:hover .cw-icon { background: transparent; }
+    .cw-icon img { width: 48px; height: 48px; margin: 0; filter: brightness(0) invert(1); opacity: 0.9; }
     .cw-item--l { flex-direction: row; text-align: left; }
     .cw-item--1 .cw-text { margin-top: 0; max-width: 100%; }
     .cw-text { max-width: 100%; }
+    .cw-title { color: #ffffff; font-size: var(--fs-h3); font-weight: 700; }
+    .cw-desc { color: rgba(255, 255, 255, 0.75); font-size: var(--fs-secondary); }
+}
 
-    .cw-title {
-        color: #ffffff;
-        font-size: var(--fs-h3);
-        font-weight: 700;
+/* dark mode orbital */
+[data-theme="dark"] .cw-circle-wrap { border-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .cw-icon { background: #242424; border-color: rgba(255,255,255,0.10); }
+[data-theme="dark"] .cw-item:hover .cw-icon { background: #2e2e2e; }
+[data-theme="dark"] .cw-icon img { filter: brightness(0) invert(1) opacity(0.7); }
+[data-theme="dark"] .cw-desc { color: #c8c8c8; }
+[data-theme="dark"] .cw-orbit .cw-heading { color: #e4e4e4; }
+
+/* ╔═══════════════════════════════════════════════════════════
+   ║  CAREER WHY-SECTION  — Dark Panel + Feature Rows
+   ╚═══════════════════════════════════════════════════════════ */
+.career-why-section {
+    background: #ffffff;
+}
+
+.cw-inner {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    min-height: 480px;
+}
+
+/* ── Левая тёмная панель ── */
+.cw-panel {
+    background: #111111;
+    display: flex;
+    align-items: center;
+    padding: 64px 44px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cw-panel::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.05);
+    pointer-events: none;
+}
+
+.cw-panel::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.04);
+    pointer-events: none;
+}
+
+.cw-panel-content {
+    position: relative;
+    z-index: 1;
+}
+
+.cw-panel-label {
+    display: inline-block;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(209, 42, 42, 0.9);
+    margin-bottom: 20px;
+}
+
+.cw-panel .cw-heading {
+    font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin: 0 0 32px;
+}
+
+.cw-panel-accent {
+    width: 40px;
+    height: 3px;
+    background: rgb(209, 42, 42);
+    border-radius: 2px;
+}
+
+/* ── Правая часть: список строк ── */
+.cw-feat-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.cw-feat {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0 28px;
+    align-items: start;
+    flex: 1;
+    padding: 44px 56px 44px 48px;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    cursor: default;
+    position: relative;
+    transition: background 0.25s ease;
+}
+
+.cw-feat::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: rgb(209, 42, 42);
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cw-feat:hover {
+    background: rgba(209, 42, 42, 0.025);
+}
+
+.cw-feat:hover::before {
+    transform: scaleY(1);
+}
+
+.cw-feat:last-child {
+    border-bottom: none;
+}
+
+.cw-feat-num {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.07);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.25s ease;
+    align-self: start;
+    padding-top: 6px;
+}
+
+.cw-feat:hover .cw-feat-num {
+    color: rgba(209, 42, 42, 0.18);
+}
+
+.cw-feat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cw-feat-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cw-feat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(209, 42, 42, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s ease;
+}
+
+.cw-feat:hover .cw-feat-icon {
+    background: rgba(209, 42, 42, 0.14);
+}
+
+.cw-feat-title {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--color-text-dark);
+    margin: 0;
+}
+
+.cw-feat-desc {
+    font-size: var(--fs-secondary);
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--color-gray);
+    margin: 0;
+    max-width: 600px;
+}
+
+/* ── Планшет ── */
+@media (max-width: 1024px) {
+    .cw-inner { grid-template-columns: 260px 1fr; }
+    .cw-panel  { padding: 48px 32px; }
+    .cw-feat   { padding: 36px 36px 36px 36px; gap: 0 20px; }
+    .cw-feat-num { font-size: 2.25rem; }
+}
+
+/* ── Мобиль ── */
+@media (max-width: 768px) {
+    .cw-inner { grid-template-columns: 1fr; }
+
+    .cw-panel {
+        padding: 48px var(--container-padding);
+        min-height: unset;
     }
 
-    .cw-desc {
-        color: rgba(255, 255, 255, 0.75);
-        font-size: var(--fs-secondary);
+    .cw-panel::before, .cw-panel::after { display: none; }
+
+    .cw-panel .cw-heading { font-size: clamp(1.25rem, 5vw, 1.5rem); margin-bottom: 20px; }
+
+    .cw-feat {
+        grid-template-columns: 52px 1fr;
+        gap: 0 16px;
+        padding: 28px var(--container-padding);
     }
+
+    .cw-feat-num { font-size: 1.75rem; }
+    .cw-feat-desc { max-width: 100%; }
 }
 
 /* =====================================================
@@ -8537,22 +8526,30 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Career: секция «Почему мы» ── */
 [data-theme="dark"] .career-why-section {
-    background-color: var(--dt-bg);
+    background: #0d0d0d;
 }
-[data-theme="dark"] .cw-heading {
+[data-theme="dark"] .cw-panel {
+    background: #000;
+}
+[data-theme="dark"] .cw-feat {
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+[data-theme="dark"] .cw-feat:hover {
+    background: rgba(209, 42, 42, 0.04);
+}
+[data-theme="dark"] .cw-feat-num {
+    color: rgba(255, 255, 255, 0.06);
+}
+[data-theme="dark"] .cw-feat:hover .cw-feat-num {
+    color: rgba(209, 42, 42, 0.25);
+}
+[data-theme="dark"] .cw-feat-title {
     color: #e4e4e4;
 }
-[data-theme="dark"] .cw-circle-wrap {
-    border-color: rgba(255,255,255,0.10);
+[data-theme="dark"] .cw-feat-desc {
+    color: #999;
 }
-[data-theme="dark"] .cw-icon {
-    background: #242424;
-    border-color: rgba(255,255,255,0.10);
-}
-[data-theme="dark"] .cw-item:hover .cw-icon {
-    background: #2e2e2e;
-}
-[data-theme="dark"] .cw-icon img {
+[data-theme="dark"] .cw-feat-icon img {
     filter: brightness(0) invert(1) opacity(0.7);
 }
 
