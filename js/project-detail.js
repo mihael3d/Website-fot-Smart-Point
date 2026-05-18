@@ -16,14 +16,10 @@ function projectField(obj, field) {
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.project-detail-page')) return;
 
-    // Кнопка «Проекты» (pd-back): при клике браузерная кнопка «назад»
-    // также сработает корректно, т.к. позиция была сохранена при переходе
     const pdBack = document.querySelector('.pd-back');
     if (pdBack) {
         pdBack.addEventListener('click', e => {
             e.preventDefault();
-            // Если пришли с projects.html — идём назад по истории (bfcache)
-            // иначе — прямая ссылка на projects.html (sessionStorage уже установлен)
             if (document.referrer.includes('projects.html')) {
                 history.back();
             } else {
@@ -35,16 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ждём, пока i18n загрузит переводы, потом рендерим / перерендерим
     document.addEventListener('i18n:ready', () => {
         if (_project) {
-            // Смена языка — перерисовываем с теми же данными
             renderProjectDetail(_project);
         } else {
-            // Первый запуск
             loadProjectDetail();
         }
     });
 
     // Ставим флаг перед переходом «← Все проекты»
-    // чтобы projects.html знал — анимации не нужны
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a[href="projects.html"]');
         if (link) {
@@ -74,14 +67,12 @@ async function loadProjectDetail() {
             return;
         }
 
-        // Сохраняем полные данные для перерисовки при смене языка
         _projectsData = data;
         _project      = project;
-        _categoryName = null; // вычисляется динамически в renderProjectDetail
+        _categoryName = null;
 
         renderProjectDetail(project);
 
-        // Запускаем анимации после того как браузер применит opacity:0
         requestAnimationFrame(() => initAnimations());
 
     } catch (error) {
@@ -91,13 +82,11 @@ async function loadProjectDetail() {
 }
 
 function renderProjectDetail(project) {
-    // Вычисляем переведённое название категории
     const category     = _projectsData ? _projectsData.categories.find(c => c.id === project.category) : null;
     const categoryName = category ? projectField(category, 'name') : project.category;
 
-    const title     = projectField(project, 'title');
-    const shortDesc = projectField(project, 'shortDescription');
-    const desc      = projectField(project, 'description');
+    const title = projectField(project, 'title');
+    const desc  = projectField(project, 'description');
 
     document.title = `${title} — Smartpoint`;
 
@@ -117,44 +106,58 @@ function renderProjectDetail(project) {
         `;
     }
 
-    // Разделитель (section-spacer) — показываем и заполняем
+    // Разделитель: первый абзац description как lead
     const spacer = document.getElementById('pdSpacer');
     if (spacer) {
         const lead  = document.getElementById('pdSpacerLead');
         const sub   = document.getElementById('pdSpacerSub');
         const label = document.getElementById('pdSpacerLabel');
 
-        if (lead)  lead.textContent  = shortDesc || title;
-        if (sub)   sub.textContent   = `${I18n.t('pd.client_label')}: ${project.client} · ${project.year}`;
-        if (label) label.innerHTML = categoryName.toUpperCase().replace(' ', '<br>');
+        const firstParagraph = desc.split('\n\n')[0];
+        if (lead)  lead.textContent = firstParagraph;
+        if (sub)   sub.textContent  = `${I18n.t('pd.client_label')}: ${project.client} · ${project.year}`;
+        if (label) label.innerHTML  = categoryName.toUpperCase().replace(' ', '<br>');
 
         spacer.style.display = '';
     }
 
-    // Главная колонка: описание проекта
+    // Главная колонка: описание (многоабзацное) + итог
     const pdMain = document.getElementById('pdMain');
     if (pdMain) {
+        const descParagraphs = desc
+            .split('\n\n')
+            .filter(Boolean)
+            .map(p => `<p class="pd-section-text">${p}</p>`)
+            .join('');
+
+        const resultText = projectField(project, 'result');
+        const resultBlock = resultText ? `
+            <div class="pd-section pd-section--result">
+                <div class="pd-section-label">[+ ${I18n.t('pd.result_label')}]</div>
+                <div class="pd-section-rule"></div>
+                <h2 class="pd-section-title">${I18n.t('pd.result_title')}</h2>
+                <p class="pd-section-text">${resultText}</p>
+            </div>
+        ` : '';
+
         pdMain.innerHTML = `
             <div class="pd-section">
                 <div class="pd-section-label">${I18n.t('pd.about_label')}</div>
                 <div class="pd-section-rule"></div>
                 <h2 class="pd-section-title">${I18n.t('pd.section_title')}</h2>
-                <p class="pd-section-text">${desc}</p>
+                ${descParagraphs}
             </div>
+            ${resultBlock}
         `;
     }
 
-    // Боковая панель: метаданные
+    // Боковая панель: клиент + год (категория уже показана в hero)
     const pdAside = document.getElementById('pdAside');
     if (pdAside) {
         pdAside.innerHTML = `
             <div class="pd-meta-card">
                 <div class="pd-meta-card-label">${I18n.t('pd.details_label')}</div>
                 <div class="pd-meta-list">
-                    <div class="pd-meta-item">
-                        <span class="pd-meta-label">${I18n.t('pd.meta_category')}</span>
-                        <span class="pd-meta-value pd-meta-value--category">${categoryName}</span>
-                    </div>
                     <div class="pd-meta-item">
                         <span class="pd-meta-label">${I18n.t('pd.meta_client')}</span>
                         <span class="pd-meta-value">${project.client}</span>
@@ -178,14 +181,14 @@ function renderProjectDetail(project) {
    ================================================================ */
 
 function initAnimations() {
-    const groups = []; // { trigger: Element, elements: Element[] }
+    const groups = [];
 
     // ── Section-spacer ────────────────────────────────────────────
     const spacer = document.getElementById('pdSpacer');
     if (spacer) {
-        const lead  = spacer.querySelector('.spacer-lead');
-        const rule  = spacer.querySelector('.spacer-rule');
-        const sub   = spacer.querySelector('.spacer-sub');
+        const lead = spacer.querySelector('.spacer-lead');
+        const rule = spacer.querySelector('.spacer-rule');
+        const sub  = spacer.querySelector('.spacer-sub');
 
         if (lead) lead.classList.add('pd-reveal', 'pd-reveal-up');
         if (rule) rule.classList.add('pd-reveal-scale', 'pd-delay-1');
@@ -201,21 +204,21 @@ function initAnimations() {
         groups.push({ trigger: back, elements: [back] });
     }
 
-    // ── Основная секция — снизу, поэтапно ────────────────────────
-    const pdSection = document.querySelector('.pd-section');
-    if (pdSection) {
+    // ── Все секции описания — снизу, поэтапно ────────────────────
+    document.querySelectorAll('.pd-section').forEach(pdSection => {
         const secLabel = pdSection.querySelector('.pd-section-label');
         const secRule  = pdSection.querySelector('.pd-section-rule');
         const secTitle = pdSection.querySelector('.pd-section-title');
-        const secText  = pdSection.querySelector('.pd-section-text');
+        const secTexts = [...pdSection.querySelectorAll('.pd-section-text')];
 
         if (secLabel) secLabel.classList.add('pd-reveal', 'pd-reveal-up');
         if (secRule)  secRule.classList.add('pd-reveal-scale', 'pd-delay-1');
         if (secTitle) secTitle.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-2');
-        if (secText)  secText.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-4');
+        secTexts.forEach(el => el.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-4'));
 
-        groups.push({ trigger: pdSection, elements: [secLabel, secRule, secTitle, secText] });
-    }
+        const allEls = [secLabel, secRule, secTitle, ...secTexts].filter(Boolean);
+        groups.push({ trigger: pdSection, elements: allEls });
+    });
 
     // ── Meta-карточка — справа (desktop), снизу (mobile) ─────────
     const metaCard = document.querySelector('.pd-meta-card');
@@ -230,7 +233,6 @@ function initAnimations() {
 function setupRevealObserver(groups) {
     if (!groups.length) return;
 
-    // WeakMap: trigger → elements[]
     const map = new WeakMap();
     groups.forEach(({ trigger, elements }) => {
         map.set(trigger, elements.filter(Boolean));
