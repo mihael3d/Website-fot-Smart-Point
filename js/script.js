@@ -1415,7 +1415,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryName = category ? projectField(category, 'name') : project.category;
 
         const title       = projectField(project, 'title');
-        const shortDesc   = projectField(project, 'shortDescription');
+        const shortDesc   = projectField(project, 'description').split('\n\n')[0];
         const moreLabel   = (typeof I18n !== 'undefined') ? I18n.t('projects.card_more') : 'Подробнее';
 
         card.innerHTML = `

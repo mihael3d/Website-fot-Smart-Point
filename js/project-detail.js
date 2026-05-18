@@ -59,7 +59,6 @@ function renderProjectDetail(project, categoryName) {
     }
 
     // Контент поверх героя: категория + заголовок
-    // CSS-анимация pdFadeUp запустится сразу после вставки в DOM
     const heroContent = document.getElementById('pdHeroContent');
     if (heroContent) {
         heroContent.innerHTML = `
@@ -68,30 +67,49 @@ function renderProjectDetail(project, categoryName) {
         `;
     }
 
-    // Разделитель (section-spacer) — показываем и заполняем
+    // Разделитель: первый абзац description + метка категории
     const spacer = document.getElementById('pdSpacer');
     if (spacer) {
-        const lead = document.getElementById('pdSpacerLead');
-        const sub  = document.getElementById('pdSpacerSub');
+        const lead  = document.getElementById('pdSpacerLead');
+        const sub   = document.getElementById('pdSpacerSub');
         const label = document.getElementById('pdSpacerLabel');
 
-        if (lead)  lead.textContent  = project.shortDescription || project.title;
+        const firstParagraph = (project.description || '').split('\n\n')[0];
+        if (lead)  lead.textContent  = firstParagraph;
         if (sub)   sub.textContent   = `Клиент: ${project.client} · ${project.year}`;
         if (label) label.textContent = categoryName.toUpperCase();
 
         spacer.style.display = '';
     }
 
-    // Главная колонка: описание проекта
+    // Главная колонка: описание + итог
     const pdMain = document.getElementById('pdMain');
     if (pdMain) {
+        // Разбиваем описание на абзацы по двойному переносу
+        const descParagraphs = (project.description || '')
+            .split('\n\n')
+            .filter(Boolean)
+            .map(p => `<p class="pd-section-text">${p}</p>`)
+            .join('');
+
+        // Блок «Итог проекта» — если поле result заполнено
+        const resultBlock = project.result ? `
+            <div class="pd-section pd-section--result">
+                <div class="pd-section-label">[+ ИТОГ]</div>
+                <div class="pd-section-rule"></div>
+                <h2 class="pd-section-title">Итог проекта</h2>
+                <p class="pd-section-text">${project.result}</p>
+            </div>
+        ` : '';
+
         pdMain.innerHTML = `
             <div class="pd-section">
                 <div class="pd-section-label">[+ О ПРОЕКТЕ]</div>
                 <div class="pd-section-rule"></div>
                 <h2 class="pd-section-title">Описание проекта</h2>
-                <p class="pd-section-text">${project.description}</p>
+                ${descParagraphs}
             </div>
+            ${resultBlock}
         `;
     }
 
@@ -102,10 +120,6 @@ function renderProjectDetail(project, categoryName) {
             <div class="pd-meta-card">
                 <div class="pd-meta-card-label">[+ ДЕТАЛИ]</div>
                 <div class="pd-meta-list">
-                    <div class="pd-meta-item">
-                        <span class="pd-meta-label">Категория</span>
-                        <span class="pd-meta-value pd-meta-value--category">${categoryName}</span>
-                    </div>
                     <div class="pd-meta-item">
                         <span class="pd-meta-label">Клиент</span>
                         <span class="pd-meta-value">${project.client}</span>
@@ -134,9 +148,9 @@ function initAnimations() {
     // ── Section-spacer ────────────────────────────────────────────
     const spacer = document.getElementById('pdSpacer');
     if (spacer) {
-        const lead  = spacer.querySelector('.spacer-lead');
-        const rule  = spacer.querySelector('.spacer-rule');
-        const sub   = spacer.querySelector('.spacer-sub');
+        const lead = spacer.querySelector('.spacer-lead');
+        const rule = spacer.querySelector('.spacer-rule');
+        const sub  = spacer.querySelector('.spacer-sub');
 
         if (lead) lead.classList.add('pd-reveal', 'pd-reveal-up');
         if (rule) rule.classList.add('pd-reveal-scale', 'pd-delay-1');
@@ -152,21 +166,21 @@ function initAnimations() {
         groups.push({ trigger: back, elements: [back] });
     }
 
-    // ── Основная секция — снизу, поэтапно ────────────────────────
-    const pdSection = document.querySelector('.pd-section');
-    if (pdSection) {
+    // ── Все секции описания — снизу, поэтапно ────────────────────
+    document.querySelectorAll('.pd-section').forEach(pdSection => {
         const secLabel = pdSection.querySelector('.pd-section-label');
         const secRule  = pdSection.querySelector('.pd-section-rule');
         const secTitle = pdSection.querySelector('.pd-section-title');
-        const secText  = pdSection.querySelector('.pd-section-text');
+        const secTexts = [...pdSection.querySelectorAll('.pd-section-text')];
 
         if (secLabel) secLabel.classList.add('pd-reveal', 'pd-reveal-up');
         if (secRule)  secRule.classList.add('pd-reveal-scale', 'pd-delay-1');
         if (secTitle) secTitle.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-2');
-        if (secText)  secText.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-4');
+        secTexts.forEach(el => el.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-4'));
 
-        groups.push({ trigger: pdSection, elements: [secLabel, secRule, secTitle, secText] });
-    }
+        const allEls = [secLabel, secRule, secTitle, ...secTexts].filter(Boolean);
+        groups.push({ trigger: pdSection, elements: allEls });
+    });
 
     // ── Meta-карточка — справа (desktop), снизу (mobile) ─────────
     const metaCard = document.querySelector('.pd-meta-card');
