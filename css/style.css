@@ -1805,18 +1805,21 @@ ul {
         background-color: transparent;
         border-color: rgba(255, 255, 255, 0.9);
     }
-    a.cta-btn.action-btn:hover {
+    a.cta-btn.action-btn:hover,
+    button.cta-btn.action-btn:hover {
         color: var(--color-text-dark);
         border-color: #d0d0d0;
     }
     .action-btn--primary:hover .action-btn-icon,
     .action-btn--dark:hover .action-btn-icon,
-    a.cta-btn.action-btn:hover .action-btn-icon {
+    a.cta-btn.action-btn:hover .action-btn-icon,
+    button.cta-btn.action-btn:hover .action-btn-icon {
         transform: none !important;
     }
     .action-btn--primary:hover .action-btn-icon::after,
     .action-btn--dark:hover .action-btn-icon::after,
-    a.cta-btn.action-btn:hover .action-btn-icon::after {
+    a.cta-btn.action-btn:hover .action-btn-icon::after,
+    button.cta-btn.action-btn:hover .action-btn-icon::after {
         transform: none !important;
     }
     .pd-meta-cta-btn:hover {
@@ -1835,7 +1838,8 @@ ul {
     .action-btn:active {
         opacity: 0.75;
     }
-    a.cta-btn.action-btn:active {
+    a.cta-btn.action-btn:active,
+    button.cta-btn.action-btn:active {
         opacity: 0.8;
     }
     .pd-meta-cta-btn:active {
@@ -1938,8 +1942,9 @@ ul {
     font-weight: 400;
     line-height: 1.25;
     color: var(--color-text-dark);
-    margin: 0 0 48px 0;
-    max-width: calc((100% - 48px) / 2);
+    margin: 0 auto 48px;
+    max-width: 720px;
+    text-align: center;
 }
 
 .company-text {
@@ -2907,13 +2912,6 @@ ul {
 }
 
 /* Разрешение окна браузера (для отладки) */
-.viewport-info {
-    font-size: 0.8rem;
-    color: rgba(77, 76, 76, 0.5);
-    margin: 12px 0 0 0;
-    padding-left: 20px;
-}
-
 /* Вертикальная декоративная надпись справа */
 .spacer-side-label {
     writing-mode: vertical-rl;
@@ -4064,8 +4062,9 @@ ul {
     margin: 0 0 32px 0;
 }
 
-/* Кнопка: прямоугольник как input, текст слева, иконка справа */
-a.cta-btn.action-btn {
+/* Кнопка: прямоугольник как input, текст слева, иконка справа (ссылка или <button>) */
+a.cta-btn.action-btn,
+button.cta-btn.action-btn {
     border-radius: 10px !important;   /* перебиваем 999px из базового класса */
     background-color: #ffffff;
     color: var(--color-text-dark);
@@ -4082,12 +4081,21 @@ a.cta-btn.action-btn {
     transition: border-color 0.3s ease, color 0.4s ease;
 }
 
-a.cta-btn.action-btn:hover {
+button.cta-btn.action-btn {
+    cursor: pointer;
+    text-align: left;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+a.cta-btn.action-btn:hover,
+button.cta-btn.action-btn:hover {
     border-color: #b0b0b0;
     color: #ffffff;
 }
 
-a.cta-btn .action-btn-icon {
+a.cta-btn .action-btn-icon,
+button.cta-btn .action-btn-icon {
     background-color: rgba(255, 68, 51, 1);
     width: 32px;
     height: 32px;
@@ -4096,11 +4104,13 @@ a.cta-btn .action-btn-icon {
 }
 
 /* При наведении иконка «закрашивает» всю кнопку полностью */
-a.cta-btn.action-btn:hover .action-btn-icon {
+a.cta-btn.action-btn:hover .action-btn-icon,
+button.cta-btn.action-btn:hover .action-btn-icon {
     transform: scale(35);
 }
 
-a.cta-btn.action-btn:hover .action-btn-icon::after {
+a.cta-btn.action-btn:hover .action-btn-icon::after,
+button.cta-btn.action-btn:hover .action-btn-icon::after {
     transform: scale(calc(1 / 35));
 }
 
@@ -4120,7 +4130,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 @media (max-width: 1024px) {
     .section-cta > .container { padding-top: 24px; }
     .cta-content { padding: 48px 40px 48px 48px; }
-    a.cta-btn.action-btn { max-width: 480px; }
+    a.cta-btn.action-btn,
+    button.cta-btn.action-btn { max-width: 480px; }
 }
 
 /* ---- Мобильный 568px ---- */
@@ -4134,7 +4145,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
     .cta-stripe { border-radius: 0 0 12px 12px; height: 14px; }
     .cta-content { padding: 40px 28px 36px; max-width: 100%; }
-    a.cta-btn.action-btn { max-width: 50%; width: 50%; }
+    a.cta-btn.action-btn,
+    button.cta-btn.action-btn { max-width: 50%; width: 50%; }
     .cta-inner-box::before {
         background-size: 680px auto;
         background-position: calc(100% + 180px) bottom;
@@ -4547,7 +4559,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .stages-image:nth-child(2) {
-    transform: rotate(-25deg);
+    transform: rotate(-30deg);
 }
 
 .stages-image:nth-child(3) {
@@ -4656,11 +4668,19 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .stage-number {
-    font-size: var(--fs-h3);
-    font-weight: 700;
-    color: rgba(77, 76, 76, 0.7);
-    line-height: 1.3;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    color: rgba(209, 42, 42, 0.18);
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
     margin-bottom: 0;
+    padding-top: 6px;
+    transition: color 0.25s ease;
+}
+
+.stage-card:hover .stage-number {
+    color: rgba(209, 42, 42, 0.35);
 }
 
 .stage-title {
@@ -4670,6 +4690,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     margin: 0 0 16px 0;
     color: #111111;
     position: relative;
+    text-transform: uppercase;
 }
 
 .stage-title::after {
@@ -4717,8 +4738,10 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     top: 8px;
     width: 6px;
     height: 6px;
-    background-color: #d12a2a;
-    border-radius: 50%;
+    border: 1.5px solid #d12a2a;
+    border-radius: 0;
+    background: none;
+    box-sizing: border-box;
 }
 
 @media (max-width: 1024px) {
@@ -4870,16 +4893,19 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     }
     .stage-number {
         flex: 0 0 auto;
-        font-size: var(--fs-h3);
-        font-weight: 700;
-        color: rgba(77, 76, 76, 0.7);
-        line-height: 1.3;
+        font-size: 2.25rem;
+        font-weight: 800;
+        line-height: 1;
+        color: rgba(209, 42, 42, 0.18);
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
         margin-bottom: 0;
         border: none;
         background: none;
-        padding: 0;
+        padding: 6px 0 0;
         display: inline-block;
         border-bottom: none;
+        transition: color 0.25s ease;
     }
     .stage-number::before {
         content: none;
@@ -5071,7 +5097,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
         background-attachment: scroll; /* fixed некорректен на iOS */
     }
 
-    .approach-cta a.cta-btn.action-btn {
+    .approach-cta a.cta-btn.action-btn,
+    .approach-cta button.cta-btn.action-btn {
         width: 100%;
         max-width: 100%;
     }
@@ -5666,16 +5693,19 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
     .stage-number {
         flex: 0 0 auto;
-        font-size: var(--fs-h3);
-        font-weight: 700;
-        color: rgba(77, 76, 76, 0.7);
-        line-height: 1.3;
+        font-size: 1.75rem;
+        font-weight: 800;
+        line-height: 1;
+        color: rgba(209, 42, 42, 0.18);
+        letter-spacing: -0.03em;
+        font-variant-numeric: tabular-nums;
         margin-bottom: 0;
         border: none;
         background: none;
-        padding: 0;
+        padding: 6px 0 0;
         display: inline-block;
         border-bottom: none;
+        transition: color 0.25s ease;
     }
 
     .stage-number::before {
@@ -7221,7 +7251,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── career.html: орбитальный макет ────────────────────────── */
 .career-page .career-why-section {
-    padding: 56px 0 72px;
+    padding: 88px 0 44px;
     overflow: hidden;
 }
 
@@ -7355,7 +7385,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 .cw-item--5 { right: calc(50% + 288px); top: 181px; }
 
 @media (max-width: 1280px) {
-    .career-page .career-why-section { padding-top: 12px; }
+    .career-page .career-why-section { padding-top: 40px; padding-bottom: 40px; }
     .cw-orbital-group { height: 640px; }
     .cw-circle-wrap {
         width: 552px; height: 552px;
@@ -7373,7 +7403,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 @media (min-width: 569px) and (max-width: 1024px) {
-    .career-page .career-why-section { padding: 48px 0 60px; overflow: visible; }
+    .career-page .career-why-section { padding: 64px 0 40px; overflow: visible; }
     .cw-orbit { gap: 32px; align-items: flex-start; }
     .cw-orbit .cw-heading { max-width: 100%; text-align: left; margin-top: -16px; }
     .cw-orbital-group {
@@ -7415,7 +7445,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 @media (max-width: 568px) {
     .career-page .career-why-section {
-        padding: 52px 0;
+        padding: 72px 0 36px;
         background-image: url('../assets/images/advanteges2.jpg');
         background-size: cover; background-position: center;
         background-repeat: no-repeat; background-attachment: scroll;
@@ -7450,8 +7480,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* dark mode orbital */
 [data-theme="dark"] .cw-circle-wrap { border-color: rgba(255,255,255,0.10); }
-[data-theme="dark"] .cw-icon { background: #242424; border-color: rgba(255,255,255,0.10); }
-[data-theme="dark"] .cw-item:hover .cw-icon { background: #2e2e2e; }
+[data-theme="dark"] .cw-icon { background: var(--dt-elevated); border-color: rgba(255,255,255,0.12); }
+[data-theme="dark"] .cw-item:hover .cw-icon { background: #353e4c; }
 [data-theme="dark"] .cw-icon img { filter: brightness(0) invert(1) opacity(0.7); }
 [data-theme="dark"] .cw-desc { color: #c8c8c8; }
 [data-theme="dark"] .cw-orbit .cw-heading { color: #e4e4e4; }
@@ -7465,13 +7495,18 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 .cw-inner {
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
     min-height: 480px;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
 }
 
 /* ── Левая тёмная панель ── */
 .cw-panel {
-    background: #111111;
+    background:
+        linear-gradient(rgba(10,10,10,0.62), rgba(10,10,10,0.62)),
+        url('../assets/images/close-up-businessman-holding-briefcase.jpg') center / cover no-repeat;
     display: flex;
     align-items: center;
     padding: 64px 44px;
@@ -7489,15 +7524,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     pointer-events: none;
 }
 
-.cw-panel::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; right: -60px;
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.04);
-    pointer-events: none;
-}
 
 .cw-panel-content {
     position: relative;
@@ -7600,19 +7626,17 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .cw-feat-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: rgba(209, 42, 42, 0.07);
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: background 0.25s ease;
 }
 
-.cw-feat:hover .cw-feat-icon {
-    background: rgba(209, 42, 42, 0.14);
+.cw-feat-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(45%) sepia(60%) saturate(1200%) hue-rotate(350deg) brightness(0.95) contrast(0.9);
 }
 
 .cw-feat-title {
@@ -7621,6 +7645,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     line-height: 1.3;
     color: var(--color-text-dark);
     margin: 0;
+    text-transform: uppercase;
 }
 
 .cw-feat-desc {
@@ -7634,7 +7659,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Планшет ── */
 @media (max-width: 1024px) {
-    .cw-inner { grid-template-columns: 260px 1fr; }
+    .cw-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); }
     .cw-panel  { padding: 48px 32px; }
     .cw-feat   { padding: 36px 36px 36px 36px; gap: 0 20px; }
     .cw-feat-num { font-size: 2.25rem; }
@@ -7703,7 +7728,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     .section-advantages .advantage-card-desc {
         line-height: 1.55;
     }
-    .section-cta a.cta-btn.action-btn {
+    .section-cta a.cta-btn.action-btn,
+    .section-cta button.cta-btn.action-btn {
         width: 100%;
         max-width: 100%;
     }
@@ -7784,17 +7810,18 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
    ТЁМНАЯ ТЕМА  — [data-theme="dark"]
    ═══════════════════════════════════════════════════════════ */
 
-/* ── Палитра: нейтральный тёмный без синего оттенка ── */
+/* ── Палитра: холодный сине-серый ── */
 [data-theme="dark"] {
     --color-text-dark:   #e4e4e4;
     --color-text-light:  #ffffff;
     --color-gray:        #888888;
-    --color-shade-fill:  #2a2a2a;
-    --color-shade-border:#3a3a3a;
-    --dt-bg:      #141414;
-    --dt-surface: #1c1c1c;
-    --dt-card:    #242424;
-    --dt-border:  rgba(255,255,255,0.08);
+    --color-shade-fill:  #232a33;
+    --color-shade-border:#3a4250;
+    --dt-bg:       #141821;
+    --dt-surface:  #1a1f28;
+    --dt-card:     #232a33;
+    --dt-elevated: #2a323d;
+    --dt-border:   rgba(255,255,255,0.08);
 }
 
 /* ── Body ── */
@@ -7809,7 +7836,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .career-page .main-header.is-scrolled,
 [data-theme="dark"] .projects-page .main-header.is-scrolled,
 [data-theme="dark"] .contacts-page .main-header.is-scrolled {
-    background-color: rgba(20,20,20,0.96) !important;
+    background-color: rgba(20, 24, 33, 0.96) !important;
     box-shadow: 0 4px 24px rgba(0,0,0,0.5);
 }
 [data-theme="dark"] .main-header.is-scrolled::after {
@@ -7897,7 +7924,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 @media (max-width: 1024px) {
     [data-theme="dark"] .main-header.is-scrolled .lang-switcher-wrap.is-open .lang-btn:not(.is-active) {
         color: rgba(255, 255, 255, 0.6);
-        background: var(--dt-surface, #1c1c1c);
+        background: var(--dt-surface, #1a1f28);
         border-top: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
     }
@@ -7954,12 +7981,12 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 @media (max-width: 568px) {
     [data-theme="dark"] .main-nav {
-        background-color: rgba(20, 20, 20, 0.96);
+        background-color: rgba(20, 24, 33, 0.96);
     }
 }
 /* Открытое меню на десктопе (перестраховка) */
 [data-theme="dark"] .main-nav.is-open {
-    background-color: rgba(20, 20, 20, 0.96);
+    background-color: rgba(20, 24, 33, 0.96);
 }
 [data-theme="dark"] .menu-overlay {
     background: rgba(0,0,0,0.72);
@@ -7972,7 +7999,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Section-intro ── */
 [data-theme="dark"] .section-intro {
-    background: linear-gradient(to bottom, #1a1f28 0%, #1c1c1c 40%);
+    background: #1a1f28;
 }
 [data-theme="dark"] .intro-title {
     color: #e4e4e4;
@@ -7981,11 +8008,11 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #888;
 }
 [data-theme="dark"] .intro-badge-mirror {
-    background-color: #383838;
+    background-color: #232a33;
     border-color: var(--dt-border);
 }
 [data-theme="dark"] .intro-badge-mirror::before {
-    background-color: #383838;
+    background-color: #2a323d;
 }
 [data-theme="dark"] .intro-badge-mirror::after {
     filter: grayscale(100%) brightness(0.62);
@@ -7999,15 +8026,15 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Section-clients-marquee ── */
 [data-theme="dark"] .section-clients-marquee {
-    background-color: var(--dt-surface);
+    background-color: #1a1f28;
 }
 [data-theme="dark"] .clients-divider::before {
     background-color: rgba(255,255,255,0.1);
 }
 [data-theme="dark"] .clients-divider-text {
-    background-color: var(--dt-surface);
-    border-color: rgba(255,255,255,0.1);
-    color: #c8c8c8;
+    background-color: #232a33;
+    border-color: rgba(255,255,255,0.12);
+    color: #e4e4e4;
 }
 [data-theme="dark"] .clients-item img {
     filter: brightness(0) invert(1) opacity(0.4);
@@ -8047,8 +8074,9 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 /* ── Section-company ── */
-[data-theme="dark"] .section-company {
-    background-color: var(--dt-bg);
+[data-theme="dark"] .section-company,
+[data-theme="dark"] .section-spacer.section-company {
+    background-color: #1a1f28;
 }
 [data-theme="dark"] .company-title {
     color: #e4e4e4;
@@ -8080,13 +8108,14 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .stat-item {
     border-color: var(--dt-border);
 }
+/* Как цвет текста акцентного абзаца (.company-text:nth-child(2) → #ccc) */
 [data-theme="dark"] .company-signature-img {
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1) brightness(0.8);
 }
 
-/* ── Section-spacer ── */
+/* ── Section-spacer ── (как .career-why-section, не dt-surface) */
 [data-theme="dark"] .section-spacer {
-    background-color: var(--dt-surface);
+    background-color: #232a33;
 }
 [data-theme="dark"] .section-spacer-text,
 [data-theme="dark"] .spacer-lead {
@@ -8098,10 +8127,6 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .spacer-side-label {
     color: rgba(255,255,255,0.08);
 }
-[data-theme="dark"] .viewport-info {
-    color: rgba(255, 255, 255, 0.4);
-}
-
 /* ── Section-strategy ── */
 [data-theme="dark"] .section-strategy {
     background-color: var(--dt-surface);
@@ -8157,18 +8182,22 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Section-stages ── */
 [data-theme="dark"] .stages-section {
-    background: linear-gradient(180deg, #1e1e1e 0%, #1a1a1a 100%);
+    background: linear-gradient(180deg, #1a1f28 0%, #141821 100%);
 }
 [data-theme="dark"] .stage-card-wrap {
     background: var(--color-shade-border);
     border: 1px solid var(--color-shade-border);
 }
 [data-theme="dark"] .stage-card {
-    background: var(--dt-surface);
+    background: #232a33;
     border: 1px solid var(--color-shade-border);
 }
 [data-theme="dark"] .stage-number {
-    color: rgba(228,228,228,0.4);
+    color: rgba(255, 255, 255, 0.16);
+}
+
+[data-theme="dark"] .stage-card:hover .stage-number {
+    color: rgba(209, 42, 42, 0.35);
 }
 [data-theme="dark"] .stage-title {
     color: #e4e4e4;
@@ -8180,7 +8209,8 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #c8c8c8;
 }
 [data-theme="dark"] .stage-list li::before {
-    background-color: #888;
+    background: none;
+    border-color: #888;
 }
 [data-theme="dark"] .stage-card-icon img {
     filter: brightness(0) invert(1) brightness(0.894);
@@ -8202,9 +8232,21 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .section-approach {
     background-color: var(--dt-bg);
 }
-[data-theme="dark"] .approach-card,
+/* Как в светлой: подложка + фото (.approach-card-bg), без сплошной dt-card поверх */
+[data-theme="dark"] .approach-card {
+    background-color: #353c48;
+}
 [data-theme="dark"] .approach-card-content {
-    background-color: var(--dt-card);
+    background: linear-gradient(
+        90deg,
+        rgba(26, 31, 40, 0.96) 0%,
+        rgba(26, 31, 40, 0.78) 38%,
+        rgba(26, 31, 40, 0.35) 58%,
+        transparent 78%
+    );
+}
+[data-theme="dark"] .approach-card-bg {
+    opacity: 0.42;
 }
 [data-theme="dark"] .approach-title {
     color: #e4e4e4;
@@ -8214,6 +8256,20 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 [data-theme="dark"] .approach-side-label {
     color: rgba(255,255,255,0.05);
+}
+
+@media (max-width: 568px) {
+    [data-theme="dark"] .approach-card-bg {
+        opacity: 0.28;
+    }
+    [data-theme="dark"] .approach-card-content {
+        background: linear-gradient(
+            180deg,
+            rgba(26, 31, 40, 0.96) 0%,
+            rgba(26, 31, 40, 0.62) 48%,
+            rgba(26, 31, 40, 0.18) 100%
+        );
+    }
 }
 
 /* ── Section-industries ── */
@@ -8262,16 +8318,16 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 [data-theme="dark"] .filter-btn.active {
     background-color: #e4e4e4;
-    color: #141414;
+    color: #141821;
     border-color: transparent;
 }
 
 /* ── CTA section ── */
 [data-theme="dark"] .section-cta {
-    background-color: var(--dt-surface);
+    background-color: #1a1f28;
 }
 [data-theme="dark"] .cta-inner-box {
-    background-color: #2a2a2a;
+    background-color: #2a323d;
     border-color: rgba(255,255,255,0.1);
 }
 [data-theme="dark"] .cta-inner-box::before {
@@ -8284,15 +8340,17 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #c8c8c8;
 }
 [data-theme="dark"] .cta-stripe {
-    background-color: #222;
+    background-color: #141821;
     border-color: rgba(255,255,255,0.08);
 }
-[data-theme="dark"] a.cta-btn.action-btn {
-    background-color: #1c1c1c;
+[data-theme="dark"] a.cta-btn.action-btn,
+[data-theme="dark"] button.cta-btn.action-btn {
+    background-color: #1a1f28;
     border-color: rgba(255,255,255,0.18);
     color: #e4e4e4;
 }
-[data-theme="dark"] a.cta-btn.action-btn:hover {
+[data-theme="dark"] a.cta-btn.action-btn:hover,
+[data-theme="dark"] button.cta-btn.action-btn:hover {
     color: #ffffff;
     border-color: transparent;
 }
@@ -8374,11 +8432,11 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     border-bottom-color: rgba(255,255,255,0.5);
 }
 [data-theme="dark"] .form-group .form-select option {
-    color: #141414;
+    color: #141821;
     background-color: #e4e4e4;
 }
 [data-theme="dark"] .contact-submit-btn {
-    background-color: #3a3a3a;
+    background-color: var(--dt-elevated);
     color: #f0f0f0;
     border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -8396,7 +8454,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .contact-social-link:hover {
     border-color: #e4e4e4;
     background-color: #e4e4e4;
-    color: #141414;
+    color: #141821;
 }
 
 /* ── Career page ── */
@@ -8438,13 +8496,13 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 [data-theme="dark"] .cf-submit-btn,
 [data-theme="dark"] .cf-file-btn {
-    background-color: #2a2a2a;
+    background-color: var(--dt-card);
     color: #e4e4e4;
 }
 
 /* ── Footer ── */
 [data-theme="dark"] .site-footer {
-    background-color: var(--dt-surface);
+    background-color: #141821;
     color: #e4e4e4;
 }
 [data-theme="dark"] .footer-title {
@@ -8475,7 +8533,7 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Scroll-to-top button ── */
 [data-theme="dark"] .scroll-to-top {
-    background-color: var(--dt-card);
+    background-color: #232a33;
     border-color: var(--dt-border);
     box-shadow: 0 4px 16px rgba(0,0,0,0.35);
 }
@@ -8496,11 +8554,11 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #888888;
 }
 [data-theme="dark"] .action-btn--dark {
-    background-color: #2a2a2a;
+    background-color: var(--dt-card);
     color: #e4e4e4;
 }
 [data-theme="dark"] .action-btn--dark:hover {
-    background-color: #333333;
+    background-color: var(--dt-elevated);
 }
 
 /* ── Strategy-cards (services) ── */
@@ -8525,11 +8583,10 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 /* ── Career: секция «Почему мы» ── */
+/* Только background-color: шорткат background сбрасывал background-image
+   у .career-page .career-why-section на мобильных (фото как в светлой теме). */
 [data-theme="dark"] .career-why-section {
-    background: #0d0d0d;
-}
-[data-theme="dark"] .cw-panel {
-    background: #000;
+    background-color: #232a33;
 }
 [data-theme="dark"] .cw-feat {
     border-bottom-color: rgba(255, 255, 255, 0.07);
@@ -8538,10 +8595,10 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     background: rgba(209, 42, 42, 0.04);
 }
 [data-theme="dark"] .cw-feat-num {
-    color: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.16);
 }
 [data-theme="dark"] .cw-feat:hover .cw-feat-num {
-    color: rgba(209, 42, 42, 0.25);
+    color: rgba(209, 42, 42, 0.35);
 }
 [data-theme="dark"] .cw-feat-title {
     color: #e4e4e4;
@@ -8576,11 +8633,11 @@ a.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #444444;
 }
 [data-theme="dark"] .career-file-btn {
-    background-color: #2a2a2a;
+    background-color: var(--dt-card);
     color: #e4e4e4;
 }
 [data-theme="dark"] .career-file-btn:hover {
-    background-color: #333333;
+    background-color: var(--dt-elevated);
 }
 
 /* ── Contacts: блоки контактной информации ── */

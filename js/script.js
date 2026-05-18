@@ -1161,20 +1161,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (viewportCenter >= appearanceStart && viewportCenter <= disappearanceEnd) {
                         let progress;
                         if (viewportCenter <= appearanceEnd) {
-                            // Фаза появления - поворот от 0 до -25
+                            // Фаза появления - поворот от 0 до -30
                             progress = Math.min(1, Math.max(0, (viewportCenter - appearanceStart) / (appearanceEnd - appearanceStart)));
-                            const rotation = -25 * progress;
+                            const rotation = -30 * progress;
                             secondImage.style.transform = `rotate(${rotation}deg)`;
                         } else {
-                            // Фаза исчезновения - поворот от -25 до -45
+                            // Фаза исчезновения - поворот от -30 до -50
                             progress = Math.min(1, Math.max(0, (viewportCenter - disappearanceStart) / (disappearanceEnd - disappearanceStart)));
-                            const rotation = -25 + (progress * -20);
+                            const rotation = -30 + (progress * -20);
                             secondImage.style.transform = `rotate(${rotation}deg)`;
                         }
                     } else if (viewportCenter < appearanceStart) {
                         secondImage.style.transform = 'rotate(0deg)';
                     } else {
-                        secondImage.style.transform = 'rotate(-45deg)';
+                        secondImage.style.transform = 'rotate(-50deg)';
                     }
                 }
 
@@ -1922,19 +1922,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: false });
     }
     initSmartCarousel();
-
-
-    // ─── Разрешение окна браузера (viewport) ───────────────────────────────────
-    (function initViewportInfo() {
-        const el = document.getElementById('viewportInfo');
-        if (!el) return;
-
-        function update() {
-            el.textContent = `Окно браузера: ширина ${window.innerWidth}px, высота ${window.innerHeight}px`;
-        }
-        update();
-        window.addEventListener('resize', update);
-    })();
 
     // ─── Тёмная тема ─────────────────────────────────────────────────────────
     // По умолчанию — светлая; тема ОС не используется. Выбор пользователя

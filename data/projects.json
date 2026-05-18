@@ -1,82 +1,122 @@
 {
   "_comment": "Инструкция по добавлению проектов: 1) Добавьте изображения в assets/images/projects/, 2) Добавьте новый объект в массив projects с уникальным id, 3) Используйте существующие category id или добавьте новую категорию",
-  
+
   "categories": [
     {
       "id": "it",
-      "name": "Информационные технологии"
+      "name": "Информационные технологии",
+      "name_en": "Information Technology",
+      "name_kk": "Ақпараттық технологиялар"
     },
     {
       "id": "industry",
-      "name": "Промышленность"
+      "name": "Промышленность",
+      "name_en": "Industry",
+      "name_kk": "Өнеркәсіп"
     },
     {
       "id": "infrastructure",
-      "name": "Инфраструктура"
+      "name": "Инфраструктура",
+      "name_en": "Infrastructure",
+      "name_kk": "Инфрақұрылым"
     },
     {
       "id": "energy",
-      "name": "Энергетика"
+      "name": "Энергетика",
+      "name_en": "Energy",
+      "name_kk": "Энергетика"
     },
     {
       "id": "finance",
-      "name": "Финансы"
+      "name": "Финансы",
+      "name_en": "Finance",
+      "name_kk": "Қаржы"
     }
   ],
-  
+
   "projects": [
     {
       "id": "project-1",
       "title": "Цифровая трансформация производства",
+      "title_en": "Digital Transformation of Manufacturing",
+      "title_kk": "Өндірісті цифрлық трансформациялау",
       "category": "industry",
       "thumbnail": "assets/images/projects/proizvodtvo.jpg",
       "image": "assets/images/projects/proizvodtvo.jpg",
       "shortDescription": "Внедрение системы автоматизации производственных процессов",
+      "shortDescription_en": "Implementation of a manufacturing process automation system",
+      "shortDescription_kk": "Өндірістік процестерді автоматтандыру жүйесін енгізу",
       "description": "Реализован комплексный проект по цифровизации производственных процессов крупного промышленного предприятия. Внедрена система мониторинга оборудования в реальном времени, автоматизированы процессы планирования и контроля качества. Результат: повышение эффективности производства на 35%, сокращение простоев на 40%.",
+      "description_en": "A comprehensive digitalisation project was delivered for a major industrial enterprise. A real-time equipment monitoring system was implemented, and planning and quality control processes were automated. Results: manufacturing efficiency increased by 35%, downtime reduced by 40%.",
+      "description_kk": "Ірі өнеркәсіп кәсіпорнының өндірістік процестерін цифрландыру бойынша кешенді жоба іске асырылды. Жабдықты нақты уақытта бақылау жүйесі енгізілді, жоспарлау және сапа бақылауы процестері автоматтандырылды. Нәтиже: өндіріс тиімділігі 35%-ға артты, тоқтап қалу уақыты 40%-ға қысқарды.",
       "year": "2024",
       "client": "ПромТех Казахстан"
     },
     {
       "id": "project-2",
       "title": "Модернизация IT-инфраструктуры банка",
+      "title_en": "Bank IT Infrastructure Modernisation",
+      "title_kk": "Банктің IT-инфрақұрылымын жаңғырту",
       "category": "it",
       "thumbnail": "assets/images/projects/telecom3.jpg",
       "image": "assets/images/projects/telecom3.jpg",
       "shortDescription": "Обновление серверной инфраструктуры и систем безопасности",
+      "shortDescription_en": "Upgrade of server infrastructure and security systems",
+      "shortDescription_kk": "Сервер инфрақұрылымы мен қауіпсіздік жүйелерін жаңарту",
       "description": "Проведена полная модернизация IT-инфраструктуры регионального банка. Внедрены современные серверные решения, обновлены системы информационной безопасности, реализована отказоустойчивая архитектура. Проект включал миграцию данных без остановки работы банка. Достигнуто повышение надежности систем до 99.9%.",
+      "description_en": "A full modernisation of a regional bank's IT infrastructure was completed. Modern server solutions were implemented, information security systems were updated, and a fault-tolerant architecture was put in place. The project included data migration with zero downtime. System reliability reached 99.9%.",
+      "description_kk": "Аймақтық банктің IT-инфрақұрылымы толығымен жаңғыртылды. Заманауи сервер шешімдері енгізілді, ақпараттық қауіпсіздік жүйелері жаңартылды, отказге төзімді архитектура жүзеге асырылды. Жоба банктің жұмысын тоқтатпай деректерді көшіруді қамтыды. Жүйелердің сенімділігі 99.9%-ға дейін жетті.",
       "year": "2023",
       "client": "Региональный Банк Развития"
     },
     {
       "id": "project-3",
       "title": "Строительство логистического центра",
+      "title_en": "Logistics Centre Construction",
+      "title_kk": "Логистика орталығын салу",
       "category": "infrastructure",
       "thumbnail": "assets/images/projects/logist2.jpg",
       "image": "assets/images/projects/logist2.jpg",
       "shortDescription": "Проектирование и управление строительством современного логистического комплекса",
+      "shortDescription_en": "Design and construction management of a modern logistics complex",
+      "shortDescription_kk": "Заманауи логистика кешенін жобалау және құрылысты басқару",
       "description": "Полный цикл управления проектом строительства логистического центра площадью 25,000 м². Включал разработку концепции, технико-экономическое обоснование, управление подрядчиками, контроль качества и сроков. Объект введен в эксплуатацию в срок и в рамках бюджета. Внедрены современные системы автоматизации складских операций.",
+      "description_en": "Full project management cycle for the construction of a 25,000 m² logistics centre. This included concept development, feasibility study, contractor management, and quality and schedule control. The facility was delivered on time and within budget. Modern warehouse automation systems were implemented.",
+      "description_kk": "25 000 м² логистика орталығы құрылысын жобалаудың толық циклі іске асырылды. Тұжырымдама жасау, технико-экономикалық негіздеме, мердігерлерді басқару, сапа мен мерзімдерді бақылау кірді. Нысан белгіленген мерзімде және бюджет шегінде пайдалануға берілді. Қойма операцияларын автоматтандырудың заманауи жүйелері енгізілді.",
       "year": "2023",
       "client": "Логистическая Компания Евразия"
     },
     {
       "id": "project-4",
       "title": "Оптимизация энергопотребления завода",
+      "title_en": "Factory Energy Consumption Optimisation",
+      "title_kk": "Зауыттың энергия тұтынуын оңтайландыру",
       "category": "energy",
       "thumbnail": "assets/images/projects/solar 2.jpg",
       "image": "assets/images/projects/solar 2.jpg",
       "shortDescription": "Внедрение системы энергоменеджмента и возобновляемых источников энергии",
+      "shortDescription_en": "Implementation of an energy management system and renewable energy sources",
+      "shortDescription_kk": "Энергия менеджменті жүйесі мен жаңартылатын энергия көздерін енгізу",
       "description": "Комплексный проект по оптимизации энергопотребления металлургического завода. Проведен энергоаудит, внедрена система мониторинга и управления энергопотреблением, установлены солнечные панели мощностью 2 МВт. Достигнуто снижение энергозатрат на 28%, сокращение выбросов CO2 на 15,000 тонн в год.",
+      "description_en": "A comprehensive energy optimisation project was delivered for a metallurgical plant. An energy audit was conducted, an energy monitoring and management system was implemented, and 2 MW of solar panels were installed. Energy costs were reduced by 28% and CO2 emissions cut by 15,000 tonnes per year.",
+      "description_kk": "Металлургия зауытының энергия тұтынуын оңтайландыру бойынша кешенді жоба іске асырылды. Энергетикалық аудит жүргізілді, энергия тұтынуды бақылау және басқару жүйесі енгізілді, 2 МВт қуаттылықтағы күн панельдері орнатылды. Энергия шығындары 28%-ға азайды, CO2 шығарындылары жылына 15 000 тоннаға қысқарды.",
       "year": "2024",
       "client": "Казметалл"
     },
     {
       "id": "project-5",
       "title": "Автоматизация финансового учета",
+      "title_en": "Financial Accounting Automation",
+      "title_kk": "Қаржылық есепті автоматтандыру",
       "category": "finance",
       "thumbnail": "assets/images/projects/god uslugi.jpg",
       "image": "assets/images/projects/god uslugi.jpg",
       "shortDescription": "Внедрение ERP-системы для управления финансами холдинга",
+      "shortDescription_en": "Implementation of an ERP system for holding company financial management",
+      "shortDescription_kk": "Холдинг қаржысын басқаруға арналған ERP жүйесін енгізу",
       "description": "Реализован проект по внедрению единой ERP-системы для управления финансами группы компаний. Автоматизированы процессы бюджетирования, управленческого учета, консолидации отчетности. Интегрированы данные из 12 дочерних компаний. Сокращено время формирования отчетности с 2 недель до 2 дней.",
+      "description_en": "A unified ERP system for group financial management was implemented. Budgeting, management accounting and reporting consolidation processes were automated. Data from 12 subsidiaries was integrated. Reporting preparation time was reduced from 2 weeks to 2 days.",
+      "description_kk": "Компаниялар тобының қаржысын басқаруға арналған бірыңғай ERP жүйесі енгізілді. Бюджеттеу, басқарушылық есеп және есептілікті шоғырландыру процестері автоматтандырылды. 12 еншілес компанияның деректері біріктірілді. Есептілікті дайындау уақыты 2 аптадан 2 күнге дейін қысқартылды.",
       "year": "2023",
       "client": "Холдинг Инвест Групп"
     }

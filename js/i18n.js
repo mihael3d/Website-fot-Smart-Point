@@ -21,6 +21,9 @@ const I18n = (() => {
     }
 
     function applyToDOM() {
+        // Снимаем блокировку отображения (см. html[data-i18n-pending] в style.css)
+        document.documentElement.removeAttribute('data-i18n-pending');
+
         // Текстовое содержимое
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const v = translations[el.dataset.i18n];
@@ -44,8 +47,9 @@ const I18n = (() => {
             });
         });
 
-        // Заголовок страницы
-        if (translations['page.title']) document.title = translations['page.title'];
+        // Заголовок страницы — если на <title> нет data-i18n, используем page.title
+        const titleEl = document.querySelector('title[data-i18n]');
+        if (!titleEl && translations['page.title']) document.title = translations['page.title'];
 
         // Атрибут lang на <html>
         document.documentElement.lang = currentLang;
@@ -71,6 +75,11 @@ const I18n = (() => {
     }
 
     async function init() {
+        // Страховочный таймер: если fetch завис — показываем страницу через 800мс
+        const fallbackTimer = setTimeout(() => {
+            document.documentElement.removeAttribute('data-i18n-pending');
+        }, 800);
+
         try {
             await load(currentLang);
         } catch {
@@ -79,6 +88,8 @@ const I18n = (() => {
                 await load(DEFAULT);
             }
         }
+
+        clearTimeout(fallbackTimer);
         applyToDOM();
 
         document.querySelectorAll('.lang-btn').forEach(btn => {

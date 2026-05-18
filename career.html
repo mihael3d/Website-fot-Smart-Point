@@ -3,14 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>(function(){var l=localStorage.getItem('sp-lang');if(l&&l!=='ru')document.documentElement.setAttribute('data-i18n-pending','');}());</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
-    <title>Smartpoint — Карьера</title>
+    <title data-i18n="career.page_title">Smartpoint — Карьера</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <script>document.documentElement.setAttribute('data-theme','light');</script>
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('sp-theme') || 'light');</script>
 </head>
 
 <body class="career-page">
@@ -33,8 +34,8 @@
                 <svg class="theme-icon theme-icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
             </button>
             <div class="lang-switcher-wrap">
-                <div class="lang-switcher" aria-label="Выбрать язык">
-                    <button class="lang-btn is-active" data-lang="ru">РУ</button>
+                <div class="lang-switcher" aria-label="Выбрать язык" data-i18n-attr="aria-label:aria.lang_switcher">
+                    <button class="lang-btn is-active" data-lang="ru">РУС</button>
                     <button class="lang-btn" data-lang="kk">ҚАЗ</button>
                     <button class="lang-btn" data-lang="en">EN</button>
                 </div>
@@ -58,10 +59,10 @@
         <div class="hero-bg"></div>
         <div class="container hero-container">
             <div class="hero-content">
-                <span class="hero-label career-hero-label">ТВОРЧЕСКИЙ ПУТЬ</span>
+                <span class="hero-label career-hero-label" data-i18n="career.hero_label">ТВОРЧЕСКИЙ ПУТЬ</span>
                 <h1 class="title-lines hero-title">
-                    <span>Выберите работу,</span>
-                    <span>которая вам по душе</span>
+                    <span data-i18n="career.hero_title_1">Выберите работу,</span>
+                    <span data-i18n="career.hero_title_2">которая вам по душе</span>
                 </h1>
             </div>
         </div>
@@ -72,12 +73,11 @@
     <section class="section-spacer">
         <div class="section-spacer-inner">
             <div class="spacer-body">
-                <p class="spacer-lead section-spacer-text">Присоединяйтесь к Smartpoint — стать частью команды, где ваши навыки оценят, а идеи воплощаются в реальность.</p>
+                <p class="spacer-lead section-spacer-text" data-i18n="career.spacer_lead">Присоединяйтесь к Smartpoint — стать частью команды, где ваши навыки оценят, а идеи воплощаются в реальность.</p>
                 <div class="spacer-rule"></div>
-                <p class="spacer-sub">Развивайтесь профессионально над инновационными проектами и находите баланс между карьерой и личной жизнью. Мы создаём пространство, где каждый сотрудник вносит значимый вклад и реализует свой потенциал.</p>
-                <p class="viewport-info" id="viewportInfo" aria-live="polite"></p>
+                <p class="spacer-sub" data-i18n="career.spacer_sub">Развивайтесь профессионально над инновационными проектами и находите баланс между карьерой и личной жизнью. Мы создаём пространство, где каждый сотрудник вносит значимый вклад и реализует свой потенциал.</p>
             </div>
-            <div class="spacer-side-label"> Карьера</div>
+            <div class="spacer-side-label" data-i18n="career.spacer_label">КАРЬЕРА</div>
         </div>
     </section>
 
@@ -88,7 +88,7 @@
             <div class="cw-orbit">
 
                 <!-- Заголовок — отдельно от орбиты -->
-                <h2 class="cw-heading">Почему стоит работать с нами?</h2>
+                <h2 class="cw-heading" data-i18n="career.why_heading">Почему стоит работать с нами?</h2>
 
                 <!-- Орбитальная группа: круг + иконки -->
                 <div class="cw-orbital-group">
@@ -104,8 +104,8 @@
                     <div class="cw-item cw-item--1 cw-item--r">
                         <div class="cw-icon"><img src="assets/icons/career-01.svg" alt=""></div>
                         <div class="cw-text">
-                            <h3 class="cw-title">Инновационные проекты</h3>
-                            <p class="cw-desc">Участие в передовых проектах, которые формируют будущее различных отраслей.</p>
+                            <h3 class="cw-title" data-i18n="career.why1_title">Инновационные проекты</h3>
+                            <p class="cw-desc" data-i18n="career.why1_desc">Участие в передовых проектах, которые формируют будущее различных отраслей.</p>
                         </div>
                     </div>
 
@@ -113,8 +113,8 @@
                     <div class="cw-item cw-item--2 cw-item--r">
                         <div class="cw-icon"><img src="assets/icons/career-03.svg" alt=""></div>
                         <div class="cw-text">
-                            <h3 class="cw-title">Индивидуальные планы развития</h3>
-                            <p class="cw-desc">Персонализированные маршруты карьерного роста и наставничества.</p>
+                            <h3 class="cw-title" data-i18n="career.why2_title">Индивидуальные планы развития</h3>
+                            <p class="cw-desc" data-i18n="career.why2_desc">Персонализированные маршруты карьерного роста и наставничества.</p>
                         </div>
                     </div>
 
@@ -122,8 +122,8 @@
                     <div class="cw-item cw-item--3 cw-item--r">
                         <div class="cw-icon"><img src="assets/icons/career-05.svg" alt=""></div>
                         <div class="cw-text">
-                            <h3 class="cw-title">Креативные дни</h3>
-                            <p class="cw-desc">Дни, посвящённые разработке собственных проектов и идей.</p>
+                            <h3 class="cw-title" data-i18n="career.why3_title">Креативные дни</h3>
+                            <p class="cw-desc" data-i18n="career.why3_desc">Дни, посвящённые разработке собственных проектов и идей.</p>
                         </div>
                     </div>
 
@@ -131,8 +131,8 @@
                     <div class="cw-item cw-item--4 cw-item--l">
                         <div class="cw-icon"><img src="assets/icons/career-04.svg" alt=""></div>
                         <div class="cw-text">
-                            <h3 class="cw-title">Гибкий график</h3>
-                            <p class="cw-desc">Возможность удалённой работы и гибкого расписания.</p>
+                            <h3 class="cw-title" data-i18n="career.why4_title">Гибкий график</h3>
+                            <p class="cw-desc" data-i18n="career.why4_desc">Возможность удалённой работы и гибкого расписания.</p>
                         </div>
                     </div>
 
@@ -140,8 +140,8 @@
                     <div class="cw-item cw-item--5 cw-item--l">
                         <div class="cw-icon"><img src="assets/icons/career-02.svg" alt=""></div>
                         <div class="cw-text">
-                            <h3 class="cw-title">Развитие и обучение</h3>
-                            <p class="cw-desc">Мы инвестируем в развитие наших сотрудников через программы обучения и повышения квалификации.</p>
+                            <h3 class="cw-title" data-i18n="career.why5_title">Развитие и обучение</h3>
+                            <p class="cw-desc" data-i18n="career.why5_desc">Мы инвестируем в развитие наших сотрудников через программы обучения и повышения квалификации.</p>
                         </div>
                     </div>
 
@@ -158,8 +158,8 @@
             <div class="career-apply-inner">
 
                 <div class="career-apply-content">
-                    <h2 class="career-apply-title approach-title">Присоединяйтесь<br>к команде!</h2>
-                    <p class="career-apply-lead approach-text">
+                    <h2 class="career-apply-title approach-title" data-i18n-html="career.apply_title">Присоединяйтесь<br>к команде!</h2>
+                    <p class="career-apply-lead approach-text" data-i18n="career.apply_lead">
                         Мы ищем не просто специалистов — мы ищем людей, которым важно то, чем они занимаются. Если вам близок наш подход к работе, отправьте резюме — и мы обязательно найдём время для нашего разговора.
                     </p>
                     <form
@@ -170,16 +170,16 @@
                         <!-- Honeypot антиспам: боты заполняют, люди не видят -->
                         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                         <!-- Метка источника — для разделения заявок в одной форме Forminit -->
-                        <input type="hidden" name="fi-text-source" value="Резюме">
+                        <input type="hidden" name="fi-text-source" value="Резюме" data-i18n-attr="value:career.form_hidden_source">
 
                         <div class="career-form-row">
                             <div class="career-form-group">
-                                <label class="career-form-label" for="cf-name">Ваше имя</label>
+                                <label class="career-form-label" for="cf-name" data-i18n="career.form_name_label">Ваше имя</label>
                                 <input type="text" id="cf-name" name="fi-sender-firstName"
-                                       class="career-form-input" placeholder="Имя Фамилия" required>
+                                       class="career-form-input" placeholder="Имя Фамилия" required data-i18n-attr="placeholder:career.form_name_placeholder">
                             </div>
                             <div class="career-form-group">
-                                <label class="career-form-label" for="cf-email">Email адрес</label>
+                                <label class="career-form-label" for="cf-email" data-i18n="career.form_email_label">Email адрес</label>
                                 <input type="email" id="cf-email" name="fi-sender-email"
                                        class="career-form-input" placeholder="name@example.com" required>
                             </div>
@@ -187,16 +187,16 @@
 
                         <div class="career-form-row">
                             <div class="career-form-group">
-                                <label class="career-form-label" for="cf-phone">Номер телефона</label>
+                                <label class="career-form-label" for="cf-phone" data-i18n="career.form_phone_label">Номер телефона</label>
                                 <input type="tel" id="cf-phone" name="fi-text-phone"
-                                       class="career-form-input" placeholder="+X (XXX) XXX-XX-XX">
+                                       class="career-form-input" placeholder="+X (XXX) XXX-XX-XX" data-i18n-attr="placeholder:career.form_phone_placeholder">
                             </div>
                             <div class="career-form-group">
-                                <label class="career-form-label career-form-label--muted">Резюме, сопроводительное письмо, сертификаты...</label>
+                                <label class="career-form-label career-form-label--muted" data-i18n="career.form_file_label">Резюме, сопроводительное письмо, сертификаты...</label>
                                 <label class="career-file-upload-area" id="cf-file-label">
                                     <input type="file" id="cf-file" name="fi-file-resume"
                                            class="career-file-input" accept=".pdf,.doc,.docx,.jpg,.png">
-                                    <span class="career-file-btn" id="cf-file-text">Загрузить файл</span>
+                                    <span class="career-file-btn" id="cf-file-text" data-i18n="career.form_file_btn">Загрузить файл</span>
                                 </label>
                             </div>
                         </div>
@@ -206,8 +206,8 @@
 
                         <div class="career-form-bottom">
                             <button type="submit" id="cf-submit"
-                                    class="action-btn action-btn--dark career-submit-btn">
-                                <span class="action-btn-text" id="cf-submit-text">Отправить резюме</span>
+                                    class="action-btn action-btn--primary cta-btn career-submit-btn">
+                                <span class="action-btn-text" id="cf-submit-text" data-i18n="career.form_submit">Отправить резюме</span>
                                 <span class="action-btn-icon"></span>
                             </button>
 
@@ -232,38 +232,40 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <a href="index.html" class="footer-logo">
-                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint">
+                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--light">
+                        <img src="assets/LOGO_Smartpoint_Smart_white.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--dark">
                     </a>
-                    <p class="footer-desc">
+                    <p class="footer-desc" data-i18n-html="footer.desc">
                         Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
                     </p>
                 </div>
                 <div class="footer-nav">
                     <ul>
-                        <li><a href="index.html">О нас</a></li>
-                        <li><a href="services.html">Услуги</a></li>
-                        <li><a href="projects.html">Проекты</a></li>
-                        <li><a href="career.html">Карьера</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
+                        <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                        <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                        <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                        <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                        <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
-                    <h4 class="footer-title">Контакты</h4>
+                    <h4 class="footer-title" data-i18n="footer.contact_title">Контакты</h4>
                     <ul>
                         <li><a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a></li>
                         <li><a href="tel:+77773888333">+7 (777) 3-888-333</a></li>
-                        <li>Алматы, Казахстан</li>
+                        <li data-i18n="footer.location">Алматы, Казахстан</li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <div class="footer-copyright">
+                <div class="footer-copyright" data-i18n-html="footer.copyright">
                     &copy; 2026 Smartpoint. Все права защищены.
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://forminit.com/sdk/v1/forminit.js"></script>
     <script src="js/script.js?v=4.1"></script>

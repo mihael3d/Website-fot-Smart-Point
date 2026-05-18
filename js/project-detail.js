@@ -1,7 +1,47 @@
 // Project Detail Page JavaScript
+
+let _project      = null;
+let _categoryName = null;
+let _projectsData = null;
+
+// Возвращает поле на текущем языке (аналог хелпера из script.js)
+function projectField(obj, field) {
+    const lang = (typeof I18n !== 'undefined') ? I18n.lang : 'ru';
+    if (lang !== 'ru' && obj[field + '_' + lang] !== undefined) {
+        return obj[field + '_' + lang];
+    }
+    return obj[field] || '';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.project-detail-page')) return;
-    loadProjectDetail();
+
+    // Кнопка «Проекты» (pd-back): при клике браузерная кнопка «назад»
+    // также сработает корректно, т.к. позиция была сохранена при переходе
+    const pdBack = document.querySelector('.pd-back');
+    if (pdBack) {
+        pdBack.addEventListener('click', e => {
+            e.preventDefault();
+            // Если пришли с projects.html — идём назад по истории (bfcache)
+            // иначе — прямая ссылка на projects.html (sessionStorage уже установлен)
+            if (document.referrer.includes('projects.html')) {
+                history.back();
+            } else {
+                window.location.href = pdBack.href;
+            }
+        });
+    }
+
+    // Ждём, пока i18n загрузит переводы, потом рендерим / перерендерим
+    document.addEventListener('i18n:ready', () => {
+        if (_project) {
+            // Смена языка — перерисовываем с теми же данными
+            renderProjectDetail(_project);
+        } else {
+            // Первый запуск
+            loadProjectDetail();
+        }
+    });
 
     // Ставим флаг перед переходом «← Все проекты»
     // чтобы projects.html знал — анимации не нужны
@@ -19,7 +59,7 @@ async function loadProjectDetail() {
         const projectId = urlParams.get('id');
 
         if (!projectId) {
-            showError('Проект не найден');
+            showError(I18n.t('pd.error_not_found'));
             return;
         }
 
@@ -30,26 +70,36 @@ async function loadProjectDetail() {
         const project = data.projects.find(p => p.id === projectId);
 
         if (!project) {
-            showError('Проект не найден');
+            showError(I18n.t('pd.error_not_found'));
             return;
         }
 
-        const category = data.categories.find(c => c.id === project.category);
-        const categoryName = category ? category.name : project.category;
+        // Сохраняем полные данные для перерисовки при смене языка
+        _projectsData = data;
+        _project      = project;
+        _categoryName = null; // вычисляется динамически в renderProjectDetail
 
-        renderProjectDetail(project, categoryName);
+        renderProjectDetail(project);
 
         // Запускаем анимации после того как браузер применит opacity:0
         requestAnimationFrame(() => initAnimations());
 
     } catch (error) {
         console.error('Error loading project:', error);
-        showError('Не удалось загрузить информацию о проекте');
+        showError(I18n.t('pd.error_load'));
     }
 }
 
-function renderProjectDetail(project, categoryName) {
-    document.title = `${project.title} — Smartpoint`;
+function renderProjectDetail(project) {
+    // Вычисляем переведённое название категории
+    const category     = _projectsData ? _projectsData.categories.find(c => c.id === project.category) : null;
+    const categoryName = category ? projectField(category, 'name') : project.category;
+
+    const title     = projectField(project, 'title');
+    const shortDesc = projectField(project, 'shortDescription');
+    const desc      = projectField(project, 'description');
+
+    document.title = `${title} — Smartpoint`;
 
     // Фоновое изображение героя
     const heroBg = document.getElementById('pdHeroBg');
@@ -59,25 +109,24 @@ function renderProjectDetail(project, categoryName) {
     }
 
     // Контент поверх героя: категория + заголовок
-    // CSS-анимация pdFadeUp запустится сразу после вставки в DOM
     const heroContent = document.getElementById('pdHeroContent');
     if (heroContent) {
         heroContent.innerHTML = `
             <div class="pd-hero-category">${categoryName}</div>
-            <h1 class="pd-hero-title">${project.title}</h1>
+            <h1 class="pd-hero-title">${title}</h1>
         `;
     }
 
     // Разделитель (section-spacer) — показываем и заполняем
     const spacer = document.getElementById('pdSpacer');
     if (spacer) {
-        const lead = document.getElementById('pdSpacerLead');
-        const sub  = document.getElementById('pdSpacerSub');
+        const lead  = document.getElementById('pdSpacerLead');
+        const sub   = document.getElementById('pdSpacerSub');
         const label = document.getElementById('pdSpacerLabel');
 
-        if (lead)  lead.textContent  = project.shortDescription || project.title;
-        if (sub)   sub.textContent   = `Клиент: ${project.client} · ${project.year}`;
-        if (label) label.textContent = categoryName.toUpperCase();
+        if (lead)  lead.textContent  = shortDesc || title;
+        if (sub)   sub.textContent   = `${I18n.t('pd.client_label')}: ${project.client} · ${project.year}`;
+        if (label) label.innerHTML = categoryName.toUpperCase().replace(' ', '<br>');
 
         spacer.style.display = '';
     }
@@ -87,10 +136,10 @@ function renderProjectDetail(project, categoryName) {
     if (pdMain) {
         pdMain.innerHTML = `
             <div class="pd-section">
-                <div class="pd-section-label">[+ О ПРОЕКТЕ]</div>
+                <div class="pd-section-label">${I18n.t('pd.about_label')}</div>
                 <div class="pd-section-rule"></div>
-                <h2 class="pd-section-title">Описание проекта</h2>
-                <p class="pd-section-text">${project.description}</p>
+                <h2 class="pd-section-title">${I18n.t('pd.section_title')}</h2>
+                <p class="pd-section-text">${desc}</p>
             </div>
         `;
     }
@@ -100,24 +149,24 @@ function renderProjectDetail(project, categoryName) {
     if (pdAside) {
         pdAside.innerHTML = `
             <div class="pd-meta-card">
-                <div class="pd-meta-card-label">[+ ДЕТАЛИ]</div>
+                <div class="pd-meta-card-label">${I18n.t('pd.details_label')}</div>
                 <div class="pd-meta-list">
                     <div class="pd-meta-item">
-                        <span class="pd-meta-label">Категория</span>
+                        <span class="pd-meta-label">${I18n.t('pd.meta_category')}</span>
                         <span class="pd-meta-value pd-meta-value--category">${categoryName}</span>
                     </div>
                     <div class="pd-meta-item">
-                        <span class="pd-meta-label">Клиент</span>
+                        <span class="pd-meta-label">${I18n.t('pd.meta_client')}</span>
                         <span class="pd-meta-value">${project.client}</span>
                     </div>
                     <div class="pd-meta-item">
-                        <span class="pd-meta-label">Год реализации</span>
+                        <span class="pd-meta-label">${I18n.t('pd.meta_year')}</span>
                         <span class="pd-meta-value">${project.year}</span>
                     </div>
                 </div>
                 <div class="pd-meta-cta">
-                    <p class="pd-meta-cta-text">Заинтересованы в подобном решении для вашего бизнеса?</p>
-                    <a href="mailto:info@smartpoint.kz" class="pd-meta-cta-btn">Обсудить проект →</a>
+                    <p class="pd-meta-cta-text">${I18n.t('pd.cta_text')}</p>
+                    <a href="contacts.html?industry=${encodeURIComponent(project.category)}" class="pd-meta-cta-btn">${I18n.t('pd.cta_btn')}</a>
                 </div>
             </div>
         `;
@@ -216,7 +265,7 @@ function showError(message) {
         layout.innerHTML = `
             <div class="pd-error">
                 <h2>${message}</h2>
-                <a href="projects.html" class="pd-error-link">← Вернуться к проектам</a>
+                <a href="projects.html" class="pd-error-link">${I18n.t('pd.error_back')}</a>
             </div>
         `;
     }
