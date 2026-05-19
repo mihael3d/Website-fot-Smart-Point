@@ -1822,10 +1822,6 @@ ul {
     button.cta-btn.action-btn:hover .action-btn-icon::after {
         transform: none !important;
     }
-    .pd-meta-cta-btn:hover {
-        background: #111111;
-    }
-
     /* Отключаем transition для icon, чтобы не мелькал при тапе */
     .action-btn-icon {
         transition: none;
@@ -1841,10 +1837,6 @@ ul {
     a.cta-btn.action-btn:active,
     button.cta-btn.action-btn:active {
         opacity: 0.8;
-    }
-    .pd-meta-cta-btn:active {
-        background: #d12a2a;
-        opacity: 1;
     }
 }
 
@@ -2512,6 +2504,7 @@ ul {
         width: 100%;
         padding: 0;
     }
+
 }
 
 /* ── Section-company: планшет 569–1024px ── */
@@ -4065,7 +4058,7 @@ ul {
 /* Кнопка: прямоугольник как input, текст слева, иконка справа (ссылка или <button>) */
 a.cta-btn.action-btn,
 button.cta-btn.action-btn {
-    border-radius: 10px !important;   /* перебиваем 999px из базового класса */
+    border-radius: 6px !important;   /* перебиваем 999px из базового класса */
     background-color: #ffffff;
     color: var(--color-text-dark);
     border: 1px solid #d0d0d0;
@@ -5176,10 +5169,6 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     gap: 20px;
 }
 
-.career-apply-form .contact-submit-btn {
-    align-self: flex-start;
-}
-
 .career-form-bottom {
     display: flex;
     align-items: center;
@@ -6169,6 +6158,17 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
    PROJECT DETAIL PAGE (pd- prefix)
    ================================================================ */
 
+/* Разделитель под hero (#pdSpacer): компактнее по вертикали, боковые как у .section-spacer-inner */
+#pdSpacer .section-spacer-inner {
+    padding-top: clamp(0.875rem, 2.25vw, 1.75rem);
+    padding-bottom: clamp(1.125rem, 2.75vw, 2.25rem);
+}
+
+/* Порядок: сверху клиент/год (.spacer-sub), ниже summary (.spacer-lead) — отступ между ними */
+#pdSpacer .spacer-lead {
+    margin: 1.25rem 0 0;
+}
+
 /* ─── Hero ──────────────────────────────────────────────────── */
 .pd-hero {
     height: 72vh;
@@ -6217,7 +6217,59 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .pd-hero-content {
-    max-width: 820px;
+    max-width: 1100px;
+    width: 100%;
+    text-align: left;
+}
+
+/* Как .hero.hero-services: колонка слева, не по центру .container */
+.pd-hero-body .container.hero-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    margin-left: var(--hero-left);
+    margin-right: auto;
+    width: calc(60vw - var(--hero-left));
+    max-width: 1100px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Планшеты: больше места под заголовок — 3/4 ширины экрана (как у .container слева) */
+@media (min-width: 569px) and (max-width: 1024px) {
+    .pd-hero-body .container.hero-container {
+        width: calc(100vw * 3 / 4 - var(--hero-left));
+        max-width: 1100px;
+    }
+}
+
+/* Только смартфоны: колонка героя на всю ширину, симметричные боковые отступы.
+   Планшеты — см. правило выше; десктоп (>1024) — базовая колонка 60vw. */
+@media (max-width: 568px) {
+    .pd-hero-body .container.hero-container {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        max-width: 100%;
+        padding-left: var(--container-padding);
+        padding-right: var(--container-padding);
+        box-sizing: border-box;
+        align-items: stretch;
+    }
+
+    .pd-hero-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .pd-hero-title {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
 }
 
 .pd-hero-category {
@@ -6244,8 +6296,16 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ─── Контент ───────────────────────────────────────────────── */
 .pd-content {
-    padding: 64px 0 100px;
+    padding: 8px 0 0;
     background-color: #eaecf3;
+}
+
+/* ─── Кнопка назад: полоса между контентом и футером ────────── */
+.pd-back-band {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px 0;
 }
 
 /* ─── Кнопка назад ──────────────────────────────────────────── */
@@ -6255,11 +6315,11 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     gap: 8px;
     font-size: var(--fs-label);
     font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-transform: none;
     color: rgba(17, 17, 17, 0.4);
     text-decoration: none;
-    margin-bottom: 52px;
+    margin: 0;
     transition: color 0.2s ease;
 }
 
@@ -6288,25 +6348,30 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 /* ─── Главная колонка: блоки ────────────────────────────────── */
 .pd-section {
     background: #ffffff;
-    padding: 52px 56px;
+    padding: 28px 36px 36px 28px;
     margin-bottom: 2px;
 }
 
-.pd-section-label {
-    font-size: 0.68rem;
-    font-weight: 700;
+.pd-section-label,
+.pd-meta-card-label {
+    font-size: clamp(0.75rem, 0.68rem + 0.32vw, 0.88rem);
+    font-weight: 600;
     letter-spacing: 0.12em;
     color: rgba(77, 76, 76, 0.55);
     text-transform: uppercase;
     margin-bottom: 24px;
 }
 
+.pd-section-label {
+    margin-bottom: 10px;
+}
+
 .pd-section-rule {
     width: 40px;
-    height: 3px;
+    height: 2px;
     background: #d12a2a;
-    border-radius: 2px;
-    margin-bottom: 20px;
+    border-radius: 1px;
+    margin-bottom: 12px;
 }
 
 .pd-section-title {
@@ -6320,26 +6385,23 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
 .pd-section-text {
     font-size: 1rem;
+    font-weight: 500;
     line-height: 1.8;
     color: rgba(77, 76, 76, 0.9);
     max-width: 680px;
 }
 
+/* Несколько абзацев подряд — только вертикальный зазор, без линий */
+.pd-section .pd-section-text + .pd-section-text {
+    margin-top: 0.55rem;
+}
+
 /* ─── Боковая панель ────────────────────────────────────────── */
 .pd-meta-card {
     background: #ffffff;
-    padding: 40px 36px;
+    padding: 40px 36px 40px 28px;
     position: sticky;
     top: 100px;
-}
-
-.pd-meta-card-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    color: rgba(77, 76, 76, 0.55);
-    text-transform: uppercase;
-    margin-bottom: 28px;
 }
 
 .pd-meta-list {
@@ -6348,7 +6410,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .pd-meta-item {
-    padding: 16px 0;
+    padding: 16px 0 8px;
     border-bottom: 1px solid rgba(17, 17, 17, 0.07);
     display: flex;
     flex-direction: column;
@@ -6376,17 +6438,79 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     font-size: 1rem;
     font-weight: 600;
     color: #111111;
-    line-height: 1.35;
+    line-height: 1.2;
+    margin: 0;
+    display: block;
 }
 
 .pd-meta-value--category {
     color: #d12a2a;
 }
 
+/* Пять плейсхолдеров-стадий в один ряд: (ширина блока − 4 зазора) / 5 */
+.pd-meta-item--stages .pd-meta-stages {
+    --pd-stage-gap: 2%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: 100%;
+    gap: var(--pd-stage-gap);
+    box-sizing: border-box;
+}
+
+.pd-meta-stage-wrap {
+    position: relative;
+    display: block;
+    flex: 0 0 calc((100% - 4 * var(--pd-stage-gap)) / 5);
+    width: calc((100% - 4 * var(--pd-stage-gap)) / 5);
+    max-width: calc((100% - 4 * var(--pd-stage-gap)) / 5);
+    line-height: 0;
+}
+
+.pd-meta-stage-thumb {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    object-fit: cover;
+    border: none;
+    background: transparent;
+}
+
+/* Кастомная подсказка — без задержки ОС, в отличие от атрибута title */
+.pd-meta-stage-tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 6px);
+    transform: translateX(-50%);
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    color: #111111;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 20;
+    transition: opacity 0.08s ease-out, visibility 0s linear 0.12s;
+}
+
+.pd-meta-stage-wrap--has-tip:hover .pd-meta-stage-tooltip,
+.pd-meta-stage-wrap--has-tip:focus-within .pd-meta-stage-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.06s ease-out, visibility 0s;
+}
+
 /* ─── CTA в сайдбаре ────────────────────────────────────────── */
 .pd-meta-cta {
-    margin-top: 32px;
-    padding-top: 32px;
+    margin-top: 14px;
+    padding-top: 8px;
     border-top: 1px solid rgba(17, 17, 17, 0.07);
 }
 
@@ -6397,26 +6521,18 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     margin-bottom: 16px;
 }
 
-.pd-meta-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background: #111111;
-    color: #ffffff;
-    font-size: var(--fs-label);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: background 0.2s ease;
+/* Кнопка CTA: на десктопе/ноутбуке — на всю ширину карточки;
+   на планшете в одной колонке — половина; на смартфоне снова 100% (см. @media max 568 ниже) */
+.pd-meta-cta a.cta-btn.action-btn {
     width: 100%;
-    justify-content: center;
+    max-width: 100%;
 }
 
-.pd-meta-cta-btn:hover {
-    background: #d12a2a;
+@media (max-width: 1024px) and (min-width: 569px) {
+    .pd-meta-cta a.cta-btn.action-btn {
+        width: 50%;
+        max-width: 50%;
+    }
 }
 
 /* ─── Ошибка ────────────────────────────────────────────────── */
@@ -6477,20 +6593,31 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
         padding-bottom: 44px;
     }
 
-    .pd-content {
-        padding: 44px 0 64px;
+    .pd-hero-body .container.hero-container {
+        padding-top: 0;
     }
 
-    .pd-back {
-        margin-bottom: 36px;
+    .pd-content {
+        padding: 6px 0 0;
+    }
+
+    .pd-back-band {
+        padding: 20px 0;
+    }
+
+    /* «Назад»: без scroll-reveal на мобилке (стрелка и текст всегда видны) */
+    .pd-content .pd-back.pd-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 
     .pd-section {
-        padding: 36px 24px;
+        padding: 16px 20px 26px 16px;
     }
 
     .pd-meta-card {
-        padding: 32px 24px;
+        padding: 32px 20px 32px 16px;
     }
 }
 
@@ -6550,6 +6677,15 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 /* На планшетах/мобильных: aside анимируется снизу, не сбоку */
 @media (max-width: 1024px) {
     .pd-reveal-right { transform: translateY(120px); }
+}
+
+/* Смартфон: карточка метаданных без scroll-reveal (IO + rootMargin давали заметный «запоздалый» показ) */
+@media (max-width: 568px) {
+    .pd-layout .pd-meta-card.pd-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }
 
 
@@ -6951,6 +7087,10 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     box-shadow: 0 2px 24px rgba(0, 0, 0, 0.07);
 }
 
+#contact-form-card {
+    scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
 .contact-form-title {
     font-size: clamp(1.3rem, 2vw, 1.75rem);
     font-weight: 700;
@@ -7037,114 +7177,12 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     line-height: 1.55;
 }
 
-/* Кнопка отправки — тёмная, красный блок-иконка, плавная заливка при hover */
-.contact-submit-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0;
-    border: none;
-    border-radius: 10px;
-    background-color: #dce0e8;
-    color: #111111;
-    font-family: var(--font-primary);
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    overflow: hidden;
-    padding: 0 0 0 24px;
-    height: 52px;
-    position: relative;
-}
-
-/* Красная заливка скользит слева направо при hover */
-.contact-submit-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: var(--color-accent);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: inherit;
-    z-index: 0;
-}
-
-.contact-submit-btn:hover::before {
-    transform: scaleX(1);
-}
-
-.contact-submit-text {
-    position: relative;
-    z-index: 2;
-    padding-right: 20px;
-    transition: color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.contact-submit-btn:hover .contact-submit-text {
-    color: #111111;
-}
-
-.contact-submit-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 52px;
-    background-color: var(--color-accent);
-    flex-shrink: 0;
-    position: relative;
-    z-index: 2;
-    transition: background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #ffffff;
-}
-
-.contact-submit-btn:hover .contact-submit-icon {
-    background-color: #cc2211;
-}
-
-/* ── Touch-устройства: кнопка сразу в «активном» виде ── */
-@media (hover: none) and (pointer: coarse) {
-
-    /* Показываем красную заливку сразу — без hover */
-    .contact-submit-btn::before {
-        transform: scaleX(1);
-        transition: none;
-    }
-
-    /* Текст тёмный */
-    .contact-submit-text {
-        color: #111111;
-    }
-
-    [data-theme="dark"] .contact-submit-text {
-        color: #f0f0f0;
-    }
-
-    /* Иконка чуть темнее красного для визуального разделения */
-    .contact-submit-icon {
-        background-color: #cc2211;
-    }
-
-    /* Чуть выше для удобства пальца */
-    .contact-submit-btn {
-        height: 56px;
-        border-radius: 12px;
-        align-self: flex-start;
-    }
-
-    /* :active — нажатие пальцем: лёгкое сжатие + темнее */
-    .contact-submit-btn:active {
-        transform: scale(0.97);
-    }
-
-    .contact-submit-btn:active::before {
-        background-color: #aa1b0d;
-    }
-
-    .contact-submit-btn:active .contact-submit-icon {
-        background-color: #8f1509;
-    }
+/* Кнопка отправки — как CTA; ширина = одна колонка .contact-form-grid (как у select в ряду) */
+#contact-inquiry-form button.contact-submit-btn.cta-btn.action-btn {
+    width: calc((100% - 32px) / 2);
+    max-width: none;
+    box-sizing: border-box;
+    align-self: flex-start;
 }
 
 /* ── Адаптив: планшет ── */
@@ -7191,12 +7229,26 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
         gap: 40px;
     }
 
+    /* Смартфон: один столбец блоков (перебивает grid 1fr 1fr из ≤1024px) */
+    .contact-info-left {
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+        width: 100%;
+    }
+
+    .contact-info-left .contact-block:first-child,
+    .contact-info-left .contact-block:not(:first-child) {
+        grid-column: unset;
+        grid-row: unset;
+    }
+
     .contact-map-section iframe {
         height: 300px;
     }
 
     .contact-form-card {
-        padding: 28px 20px 32px;
+        padding: 28px var(--container-padding) 32px;
     }
 
     .contact-form-grid {
@@ -7208,8 +7260,12 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
         grid-column: 1;
     }
 
-    .contact-submit-btn {
-        align-self: flex-start;
+    /* Кнопка: на всю ширину контента карточки; отступы по краям — padding у .contact-form-card */
+    #contact-inquiry-form button.contact-submit-btn.cta-btn.action-btn {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
     }
 }
 
@@ -8362,18 +8418,18 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .pd-section {
     background: var(--dt-card);
 }
-[data-theme="dark"] .pd-section-title,
-[data-theme="dark"] .pd-section-label {
+[data-theme="dark"] .pd-section-title {
     color: #e4e4e4;
+}
+[data-theme="dark"] .pd-section-label,
+[data-theme="dark"] .pd-meta-card-label {
+    color: rgba(228, 228, 228, 0.72);
 }
 [data-theme="dark"] .pd-section-text {
     color: #888;
 }
 [data-theme="dark"] .pd-meta-card {
     background: var(--dt-card);
-}
-[data-theme="dark"] .pd-meta-card-label {
-    color: rgba(255,255,255,0.35);
 }
 [data-theme="dark"] .pd-meta-item {
     border-bottom-color: var(--dt-border);
@@ -8383,6 +8439,15 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 [data-theme="dark"] .pd-meta-value {
     color: #e4e4e4;
+}
+[data-theme="dark"] .pd-meta-stage-thumb {
+    border: none;
+    background: transparent;
+}
+[data-theme="dark"] .pd-meta-stage-tooltip {
+    color: #f0f0f0;
+    background: rgba(17, 17, 17, 0.95);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
 }
 [data-theme="dark"] .pd-meta-cta {
     border-top-color: rgba(255,255,255,0.08);
@@ -8434,18 +8499,6 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .form-group .form-select option {
     color: #141821;
     background-color: #e4e4e4;
-}
-[data-theme="dark"] .contact-submit-btn {
-    background-color: var(--dt-elevated);
-    color: #f0f0f0;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-[data-theme="dark"] .contact-submit-btn:hover .contact-submit-text {
-    color: #ffffff;
-}
-[data-theme="dark"] .contact-submit-btn:hover .contact-submit-icon {
-    color: #ffffff;
 }
 [data-theme="dark"] .contact-social-link {
     border-color: rgba(255,255,255,0.18);

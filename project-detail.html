@@ -43,7 +43,7 @@
                 <ul>
                     <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
                     <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
-                    <li class="active"><a href="projects.html" class="active" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
                     <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
                     <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
                 </ul>
@@ -57,7 +57,7 @@
         <div class="pd-hero-bg" id="pdHeroBg"></div>
         <div class="pd-hero-overlay"></div>
         <div class="pd-hero-body">
-            <div class="container">
+            <div class="container hero-container">
                 <div class="pd-hero-content" id="pdHeroContent">
                     <!-- заполняется через JS -->
                 </div>
@@ -69,22 +69,16 @@
     <div class="section-spacer" id="pdSpacer" style="display:none">
         <div class="section-spacer-inner">
             <div class="spacer-body">
-                <p class="spacer-lead section-spacer-text" id="pdSpacerLead"></p>
-                <div class="spacer-rule"></div>
                 <p class="spacer-sub" id="pdSpacerSub"></p>
+                <div class="spacer-rule"></div>
+                <p class="spacer-lead section-spacer-text" id="pdSpacerLead"></p>
             </div>
-            <div class="spacer-side-label" id="pdSpacerLabel">PROJECT</div>
         </div>
     </div>
 
     <!-- ═══ Секция: Основной контент проекта ═══ -->
     <section class="pd-content">
         <div class="container">
-
-            <a href="projects.html" class="pd-back">
-                <span class="pd-back-arrow">←</span>
-                <span data-i18n="pd.back_btn">Проекты</span>
-            </a>
 
             <div class="pd-layout">
 
@@ -99,6 +93,14 @@
                 </aside>
 
             </div>
+
+            <div class="pd-back-band">
+            <a href="projects.html" class="pd-back">
+                <span class="pd-back-arrow">←</span>
+                <span data-i18n="pd.back_btn">Все проекты</span>
+            </a>
+            </div>
+
         </div>
     </section>
 

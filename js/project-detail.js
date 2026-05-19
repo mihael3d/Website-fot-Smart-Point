@@ -111,44 +111,41 @@ function renderProjectDetail(project) {
     if (spacer) {
         const lead  = document.getElementById('pdSpacerLead');
         const sub   = document.getElementById('pdSpacerSub');
-        const label = document.getElementById('pdSpacerLabel');
 
-        const firstParagraph = desc.split('\n\n')[0];
-        if (lead)  lead.textContent = firstParagraph;
-        if (sub)   sub.textContent  = `${I18n.t('pd.client_label')}: ${project.client} · ${project.year}`;
-        if (label) label.innerHTML  = categoryName.toUpperCase().replace(' ', '<br>');
+        const summary = projectField(project, 'summary') || desc.split('\n\n')[0];
+        if (lead)  lead.textContent = summary;
+        if (sub)   sub.textContent  = `${project.client} · ${project.year}`;
 
         spacer.style.display = '';
     }
 
-    // Главная колонка: описание (многоабзацное) + итог
+    // Главная колонка: полное description + итог
     const pdMain = document.getElementById('pdMain');
     if (pdMain) {
         const descParagraphs = desc
             .split('\n\n')
+            .map((s) => s.trim())
             .filter(Boolean)
-            .map(p => `<p class="pd-section-text">${p}</p>`)
+            .map((p) => `<p class="pd-section-text">${p}</p>`)
             .join('');
 
         const resultText = projectField(project, 'result');
         const resultBlock = resultText ? `
             <div class="pd-section pd-section--result">
-                <div class="pd-section-label">[+ ${I18n.t('pd.result_label')}]</div>
+                <div class="pd-section-label">${I18n.t('pd.result_title')}</div>
                 <div class="pd-section-rule"></div>
-                <h2 class="pd-section-title">${I18n.t('pd.result_title')}</h2>
                 <p class="pd-section-text">${resultText}</p>
             </div>
         ` : '';
 
-        pdMain.innerHTML = `
+        const aboutSection = descParagraphs
+            ? `
             <div class="pd-section">
-                <div class="pd-section-label">${I18n.t('pd.about_label')}</div>
-                <div class="pd-section-rule"></div>
-                <h2 class="pd-section-title">${I18n.t('pd.section_title')}</h2>
                 ${descParagraphs}
-            </div>
-            ${resultBlock}
-        `;
+            </div>`
+            : '';
+
+        pdMain.innerHTML = `${aboutSection}${resultBlock}`;
     }
 
     // Боковая панель: клиент + год (категория уже показана в hero)
@@ -159,8 +156,39 @@ function renderProjectDetail(project) {
                 <div class="pd-meta-card-label">${I18n.t('pd.details_label')}</div>
                 <div class="pd-meta-list">
                     <div class="pd-meta-item">
+                        <span class="pd-meta-label">${I18n.t('pd.meta_category')}</span>
+                        <span class="pd-meta-value">${categoryName}</span>
+                    </div>
+                    <div class="pd-meta-item">
                         <span class="pd-meta-label">${I18n.t('pd.meta_client')}</span>
-                        <span class="pd-meta-value">${project.client}</span>
+                        <span class="pd-meta-value">${projectField(project, 'client')}</span>
+                    </div>
+                    <div class="pd-meta-item pd-meta-item--stages">
+                        <span class="pd-meta-label">${I18n.t('pd.meta_stages')}</span>
+                        <div class="pd-meta-stages" role="group" aria-label="${I18n.t('pd.meta_stages')}">
+                            ${[6, 2, 3, 4, 5]
+                                .map((n, i) => {
+                                    const escAttr = (s) =>
+                                        String(s)
+                                            .replace(/&/g, '&amp;')
+                                            .replace(/"/g, '&quot;');
+                                    const escHtml = (s) =>
+                                        String(s)
+                                            .replace(/&/g, '&amp;')
+                                            .replace(/</g, '&lt;')
+                                            .replace(/>/g, '&gt;')
+                                            .replace(/"/g, '&quot;');
+                                    const tip = I18n.t('pd.stage_tip_init');
+                                    const altAttr =
+                                        i === 0 ? ` alt="${escAttr(tip)}"` : ' alt=""';
+                                    const img = `<img class="pd-meta-stage-thumb" src="assets/images/1/stage_icon_read-${String(n).padStart(2, '0')}.svg"${altAttr} decoding="async">`;
+                                    if (i === 0) {
+                                        return `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip">${img}<span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(tip)}</span></span>`;
+                                    }
+                                    return `<span class="pd-meta-stage-wrap">${img}</span>`;
+                                })
+                                .join('')}
+                        </div>
                     </div>
                     <div class="pd-meta-item">
                         <span class="pd-meta-label">${I18n.t('pd.meta_year')}</span>
@@ -169,7 +197,10 @@ function renderProjectDetail(project) {
                 </div>
                 <div class="pd-meta-cta">
                     <p class="pd-meta-cta-text">${I18n.t('pd.cta_text')}</p>
-                    <a href="contacts.html?industry=${encodeURIComponent(project.category)}" class="pd-meta-cta-btn">${I18n.t('pd.cta_btn')}</a>
+                    <a href="contacts.html?industry=${encodeURIComponent(project.category)}#contact-form-card" class="action-btn action-btn--primary cta-btn">
+                        <span class="action-btn-text">${I18n.t('pd.cta_btn')}</span>
+                        <span class="action-btn-icon" aria-hidden="true"></span>
+                    </a>
                 </div>
             </div>
         `;
@@ -190,18 +221,19 @@ function initAnimations() {
         const rule = spacer.querySelector('.spacer-rule');
         const sub  = spacer.querySelector('.spacer-sub');
 
-        if (lead) lead.classList.add('pd-reveal', 'pd-reveal-up');
+        if (sub)  sub.classList.add('pd-reveal', 'pd-reveal-up');
         if (rule) rule.classList.add('pd-reveal-scale', 'pd-delay-1');
-        if (sub)  sub.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-3');
+        if (lead) lead.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-3');
 
-        groups.push({ trigger: spacer, elements: [lead, rule, sub] });
+        groups.push({ trigger: spacer, elements: [sub, rule, lead] });
     }
 
-    // ── Кнопка «Все проекты» — слева ─────────────────────────────
+    // ── Кнопка «Все проекты» — снизу (триггер: полоса, чтобы на мобилке IO срабатывал надёжно)
     const back = document.querySelector('.pd-back');
+    const backBand = document.querySelector('.pd-back-band');
     if (back) {
-        back.classList.add('pd-reveal', 'pd-reveal-left');
-        groups.push({ trigger: back, elements: [back] });
+        back.classList.add('pd-reveal', 'pd-reveal-up');
+        groups.push({ trigger: backBand || back, elements: [back] });
     }
 
     // ── Все секции описания — снизу, поэтапно ────────────────────
@@ -210,11 +242,12 @@ function initAnimations() {
         const secRule  = pdSection.querySelector('.pd-section-rule');
         const secTitle = pdSection.querySelector('.pd-section-title');
         const secTexts = [...pdSection.querySelectorAll('.pd-section-text')];
+        const textDelayClass = secTitle ? 'pd-delay-4' : 'pd-delay-2';
 
         if (secLabel) secLabel.classList.add('pd-reveal', 'pd-reveal-up');
         if (secRule)  secRule.classList.add('pd-reveal-scale', 'pd-delay-1');
         if (secTitle) secTitle.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-2');
-        secTexts.forEach(el => el.classList.add('pd-reveal', 'pd-reveal-up', 'pd-delay-4'));
+        secTexts.forEach(el => el.classList.add('pd-reveal', 'pd-reveal-up', textDelayClass));
 
         const allEls = [secLabel, secRule, secTitle, ...secTexts].filter(Boolean);
         groups.push({ trigger: pdSection, elements: allEls });

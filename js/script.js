@@ -46,10 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuOverlay = document.querySelector('.menu-overlay');
 
     function closeMenu() {
-        mobileMenuToggle.classList.remove('active');
-        mainNav.classList.remove('is-open');
+        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
+        if (mainNav) mainNav.classList.remove('is-open');
         if (menuOverlay) menuOverlay.classList.remove('is-active');
         lockScroll(false);
+    }
+
+    /** true, если ссылка ведёт на текущий HTML-файл (не срабатывать как переход) */
+    function isSamePageNavLink(anchor) {
+        const hrefRaw = (anchor && anchor.getAttribute('href')) || '';
+        if (/^mailto:|^tel:|^javascript:/i.test(hrefRaw.trim())) return false;
+        const href = hrefRaw.split('#')[0].split('?')[0];
+        const page = (location.pathname.split('/').pop() || 'index.html').split('?')[0];
+        return href === page || (page === '' && href === 'index.html');
     }
 
     function lockScroll(lock) {
@@ -57,6 +66,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = lock ? 'hidden' : '';
         document.body.classList.toggle('menu-open', lock);
     }
+
+    document.querySelectorAll('.footer-nav a').forEach((a) => {
+        a.addEventListener('click', (e) => {
+            if (isSamePageNavLink(a)) e.preventDefault();
+        });
+    });
 
     document.addEventListener('touchmove', (e) => {
         if (mainNav && mainNav.classList.contains('is-open') && !mainNav.contains(e.target)) {
@@ -73,16 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
             lockScroll(isOpen);
         });
 
-        // Close menu when clicking on a link
+        // Закрыть меню; переход отменяем только если href — тот же HTML, что и в адресной строке
+        // (на project-detail.html пункт «Проекты» → projects.html должен открываться).
         links.forEach(link => {
             link.addEventListener('click', (e) => {
-                const isActive = link.classList.contains('active') || link.closest('li')?.classList.contains('active');
-                if (isActive) {
-                    e.preventDefault();
-                    closeMenu();
-                } else {
-                    closeMenu();
-                }
+                if (isSamePageNavLink(link)) e.preventDefault();
+                closeMenu();
             });
         });
     }
@@ -1267,6 +1278,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return obj[field] || '';
     }
 
+    /** Первый календарный год из project.year (диапазон «2007–2008» / «2007-2008» или одно число) */
+    function projectStartYear(project) {
+        const y = project && project.year != null ? String(project.year).trim() : '';
+        if (!y) return 0;
+        const m = y.match(/\d{4}/);
+        return m ? parseInt(m[0], 10) : 0;
+    }
+
     // Initialize portfolio if on projects page
     const portfolioSection = document.querySelector('.portfolio-section');
     if (portfolioSection) {
@@ -1304,6 +1323,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Failed to load projects data');
             }
             portfolioData = await response.json();
+            if (Array.isArray(portfolioData.projects)) {
+                portfolioData.projects.sort((a, b) => projectStartYear(a) - projectStartYear(b));
+            }
 
             // Render filters and projects
             renderCategoryFilters();
@@ -1415,7 +1437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const categoryName = category ? projectField(category, 'name') : project.category;
 
         const title       = projectField(project, 'title');
-        const shortDesc   = projectField(project, 'description').split('\n\n')[0];
+        const shortDesc   = projectField(project, 'summary') || projectField(project, 'description').split('\n\n')[0];
         const moreLabel   = (typeof I18n !== 'undefined') ? I18n.t('projects.card_more') : 'Подробнее';
 
         card.innerHTML = `
@@ -1547,6 +1569,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
         contactAnimEls.forEach((el) => contactObserver.observe(el));
+
+        /* Переход с project-detail (кнопка CTA): якорь #contact-form-card */
+        if (location.hash === '#contact-form-card') {
+            const anchorEl = document.getElementById('contact-form-card');
+            if (anchorEl) {
+                const scrollToForm = () => anchorEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                requestAnimationFrame(() => requestAnimationFrame(scrollToForm));
+            }
+        }
     }
 
     // ── career page: slide-in анимация контента (слева) и фото (справа) ──

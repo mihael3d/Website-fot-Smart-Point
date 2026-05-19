@@ -110,7 +110,7 @@
 
             <!-- Правый столбец: форма -->
             <div class="contact-form-wrap">
-                <div class="contact-form-card">
+                <div id="contact-form-card" class="contact-form-card">
                     <h2 class="contact-form-title" data-i18n="contacts.form_title">Обсудим наше сотрудничество?</h2>
 
                     <form id="contact-inquiry-form" class="contact-form" novalidate>
@@ -190,13 +190,9 @@
                         <!-- reCAPTCHA v2 -->
                         <div class="g-recaptcha" data-sitekey="6Leu34UsAAAAAG9uz9Iqi9BfiiFOxAKvfQCvVf88" style="margin-bottom: 20px;"></div>
 
-                        <button type="submit" class="contact-submit-btn">
-                            <span class="contact-submit-text" data-i18n="contacts.form_submit">Отправить запрос</span>
-                            <span class="contact-submit-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-                                </svg>
-                            </span>
+                        <button type="submit" class="action-btn action-btn--primary cta-btn contact-submit-btn">
+                            <span class="action-btn-text contact-submit-text" data-i18n="contacts.form_submit">Отправить запрос</span>
+                            <span class="action-btn-icon" aria-hidden="true"></span>
                         </button>
 
                         <!-- Статус отправки -->
