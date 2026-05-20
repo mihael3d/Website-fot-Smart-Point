@@ -13,6 +13,70 @@ function projectField(obj, field) {
     return obj[field] || '';
 }
 
+/** Выполненные стадии 1–5. Нет поля / не массив — все 5; [] — ни одной (серые заглушки). */
+function projectStagesDone(project) {
+    const raw = project.stages;
+    if (raw === undefined || raw === null) {
+        return new Set([1, 2, 3, 4, 5]);
+    }
+    if (!Array.isArray(raw)) {
+        return new Set([1, 2, 3, 4, 5]);
+    }
+    if (raw.length === 0) {
+        return new Set();
+    }
+    const nums = [...new Set(raw.map((n) => parseInt(n, 10)).filter((n) => n >= 1 && n <= 5))].sort((a, b) => a - b);
+    return new Set(nums);
+}
+
+function renderPdMetaStages(project) {
+    const escAttr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+    const escHtml = (s) =>
+        String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const stageLinks = [
+        { tip: I18n.t('pd.stage_tip_init'), card: 'stage-card-01' },
+        { tip: I18n.t('pd.stage_tip_concept'), card: 'stage-card-02' },
+        { tip: I18n.t('pd.stage_tip_planning'), card: 'stage-card-03' },
+        { tip: I18n.t('pd.stage_tip_impl'), card: 'stage-card-04' },
+        { tip: I18n.t('pd.stage_tip_control'), card: 'stage-card-05' },
+    ];
+    const done = projectStagesDone(project);
+
+    const listParts = [];
+    for (let n = 1; n <= 5; n++) {
+        if (!done.has(n)) continue;
+        const sl = stageLinks[n - 1];
+        listParts.push(
+            `<a href="services.html#${sl.card}" class="pd-stages-list-link" data-scroll-center>${escHtml(sl.tip)}</a>`
+        );
+    }
+    const listHtml = listParts.join('<span class="pd-stages-list-sep" aria-hidden="true">●</span>');
+
+    const thumbsParts = [];
+    for (let n = 1; n <= 5; n++) {
+        const pad = String(n).padStart(2, '0');
+        const graySrc = `assets/images/1/stage_icon_gray_white-${pad}.svg`;
+        if (done.has(n)) {
+            const sl = stageLinks[n - 1];
+            const altAttr = ` alt="${escAttr(sl.tip)}"`;
+            const img =
+                `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--light" src="assets/images/1/stage_icon_read-${pad}.svg"${altAttr} decoding="async">` +
+                `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--dark"  src="assets/images/1/stage_icon_white-${pad}.svg"${altAttr} decoding="async" aria-hidden="true">`;
+            thumbsParts.push(
+                `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip pd-meta-stage-wrap--link"><a href="services.html#${sl.card}" class="pd-meta-stage-link" data-scroll-center aria-label="${escAttr(sl.tip)}">${img}</a><span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(sl.tip)}</span></span>`
+            );
+        } else {
+            thumbsParts.push(
+                `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--placeholder"><img class="pd-meta-stage-thumb pd-meta-stage-thumb--gray" src="${graySrc}" alt="" decoding="async" aria-hidden="true"></span>`
+            );
+        }
+    }
+    const thumbsHtml = thumbsParts.join('');
+
+    return `<p class="pd-stages-list">${listHtml}</p>
+                        <div class="pd-meta-stages" role="group" aria-label="${escAttr(I18n.t('pd.meta_stages'))}">${thumbsHtml}</div>`;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.project-detail-page')) return;
 
@@ -165,38 +229,7 @@ function renderProjectDetail(project) {
                     </div>
                     <div class="pd-meta-item pd-meta-item--stages">
                         <span class="pd-meta-label">${I18n.t('pd.meta_stages')}</span>
-                        ${(() => {
-                            const escAttr = (s) =>
-                                String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-                            const escHtml = (s) =>
-                                String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-                            const stageLinks = [
-                                { tip: I18n.t('pd.stage_tip_init'),     card: 'stage-card-01' },
-                                { tip: I18n.t('pd.stage_tip_concept'),  card: 'stage-card-02' },
-                                { tip: I18n.t('pd.stage_tip_planning'), card: 'stage-card-03' },
-                                { tip: I18n.t('pd.stage_tip_impl'),     card: 'stage-card-04' },
-                                { tip: I18n.t('pd.stage_tip_control'),  card: 'stage-card-05' },
-                            ];
-                            const listHtml = stageLinks
-                                .map((sl) => `<a href="services.html#${sl.card}" class="pd-stages-list-link" data-scroll-center>${escHtml(sl.tip)}</a>`)
-                                .join('<span class="pd-stages-list-sep" aria-hidden="true">●</span>');
-                            const thumbsHtml = [1, 2, 3, 4, 5]
-                                .map((n, i) => {
-                                    const linked = stageLinks[i];
-                                    const pad = String(n).padStart(2, '0');
-                                    const altAttr = linked ? ` alt="${escAttr(linked.tip)}"` : ' alt=""';
-                                    const img =
-                                        `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--light" src="assets/images/1/stage_icon_read-${pad}.svg"${altAttr} decoding="async">` +
-                                        `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--dark"  src="assets/images/1/stage_icon_white-${pad}.svg"${altAttr} decoding="async" aria-hidden="true">`;
-                                    if (linked) {
-                                        return `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip pd-meta-stage-wrap--link"><a href="services.html#${linked.card}" class="pd-meta-stage-link" data-scroll-center aria-label="${escAttr(linked.tip)}">${img}</a><span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(linked.tip)}</span></span>`;
-                                    }
-                                    return `<span class="pd-meta-stage-wrap">${img}</span>`;
-                                })
-                                .join('');
-                            return `<p class="pd-stages-list">${listHtml}</p>
-                        <div class="pd-meta-stages" role="group" aria-label="${escAttr(I18n.t('pd.meta_stages'))}">${thumbsHtml}</div>`;
-                        })()}
+                        ${renderPdMetaStages(project)}
                     </div>
                 </div>
                 <div class="pd-meta-cta">

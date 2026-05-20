@@ -146,30 +146,13 @@ ul {
     background-color: rgba(0, 0, 0, 0.08);
 }
 
-/* Align logo with page content (same as .container) */
-.header-container .logo {
-    margin-left: max(0px, (100vw - var(--container-width)) / 2);
-}
-
 @media (max-width: 1024px) {
-    .header-container .logo {
-        margin-left: 0;
-    }
     .lang-switcher-wrap {
         margin-right: 0;
     }
     /* Порядок элементов: [лого] [тема] → авто-отступ → [языки] [бургер] */
     .mobile-menu-toggle { order: 10; }   /* правый край */
     .lang-switcher-wrap  { order: 5;  }  /* левее бургера */
-}
-
-.services2-page .header-container,
-.career-page .header-container,
-.projects-page .header-container,
-.contacts-page .header-container {
-    max-width: 100%;
-    padding-left: var(--container-padding);
-    padding-right: var(--container-padding);
 }
 
 .main-header.is-hidden {
@@ -6038,7 +6021,10 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .project-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
     background: #ffffff;
     overflow: hidden;
     text-decoration: none;
@@ -6063,6 +6049,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 /* ─── Картинка ──────────────────────────────────────────────── */
 .project-card-image {
     width: 100%;
+    flex-shrink: 0;
     aspect-ratio: 4 / 3;
     background: #d0d1d8;
     position: relative;
@@ -6108,6 +6095,8 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     padding: 24px 28px 28px;
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
     gap: 10px;
     border-top: 1px solid rgba(17,17,17,0.07);
 }
@@ -6161,7 +6150,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-top: 4px;
+    margin-top: auto;
 }
 
 .project-card-arrow {
@@ -6556,6 +6545,14 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     object-fit: cover;
     border: none;
     background: transparent;
+}
+
+.pd-meta-stage-wrap--placeholder {
+    pointer-events: none;
+}
+
+.pd-meta-stage-thumb--gray {
+    object-fit: contain;
 }
 
 /* Текстовое перечисление стадий */
