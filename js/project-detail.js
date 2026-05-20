@@ -165,34 +165,38 @@ function renderProjectDetail(project) {
                     </div>
                     <div class="pd-meta-item pd-meta-item--stages">
                         <span class="pd-meta-label">${I18n.t('pd.meta_stages')}</span>
-                        <div class="pd-meta-stages" role="group" aria-label="${I18n.t('pd.meta_stages')}">
-                            ${[6, 2, 3, 4, 5]
+                        ${(() => {
+                            const escAttr = (s) =>
+                                String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+                            const escHtml = (s) =>
+                                String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                            const stageLinks = [
+                                { tip: I18n.t('pd.stage_tip_init'),     card: 'stage-card-01' },
+                                { tip: I18n.t('pd.stage_tip_concept'),  card: 'stage-card-02' },
+                                { tip: I18n.t('pd.stage_tip_planning'), card: 'stage-card-03' },
+                                { tip: I18n.t('pd.stage_tip_impl'),     card: 'stage-card-04' },
+                                { tip: I18n.t('pd.stage_tip_control'),  card: 'stage-card-05' },
+                            ];
+                            const listHtml = stageLinks
+                                .map((sl) => `<a href="services.html#${sl.card}" class="pd-stages-list-link" data-scroll-center>${escHtml(sl.tip)}</a>`)
+                                .join('<span class="pd-stages-list-sep" aria-hidden="true">●</span>');
+                            const thumbsHtml = [1, 2, 3, 4, 5]
                                 .map((n, i) => {
-                                    const escAttr = (s) =>
-                                        String(s)
-                                            .replace(/&/g, '&amp;')
-                                            .replace(/"/g, '&quot;');
-                                    const escHtml = (s) =>
-                                        String(s)
-                                            .replace(/&/g, '&amp;')
-                                            .replace(/</g, '&lt;')
-                                            .replace(/>/g, '&gt;')
-                                            .replace(/"/g, '&quot;');
-                                    const tip = I18n.t('pd.stage_tip_init');
-                                    const altAttr =
-                                        i === 0 ? ` alt="${escAttr(tip)}"` : ' alt=""';
-                                    const img = `<img class="pd-meta-stage-thumb" src="assets/images/1/stage_icon_read-${String(n).padStart(2, '0')}.svg"${altAttr} decoding="async">`;
-                                    if (i === 0) {
-                                        return `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip">${img}<span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(tip)}</span></span>`;
+                                    const linked = stageLinks[i];
+                                    const pad = String(n).padStart(2, '0');
+                                    const altAttr = linked ? ` alt="${escAttr(linked.tip)}"` : ' alt=""';
+                                    const img =
+                                        `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--light" src="assets/images/1/stage_icon_read-${pad}.svg"${altAttr} decoding="async">` +
+                                        `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--dark"  src="assets/images/1/stage_icon_white-${pad}.svg"${altAttr} decoding="async" aria-hidden="true">`;
+                                    if (linked) {
+                                        return `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip pd-meta-stage-wrap--link"><a href="services.html#${linked.card}" class="pd-meta-stage-link" data-scroll-center aria-label="${escAttr(linked.tip)}">${img}</a><span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(linked.tip)}</span></span>`;
                                     }
                                     return `<span class="pd-meta-stage-wrap">${img}</span>`;
                                 })
-                                .join('')}
-                        </div>
-                    </div>
-                    <div class="pd-meta-item">
-                        <span class="pd-meta-label">${I18n.t('pd.meta_year')}</span>
-                        <span class="pd-meta-value">${project.year}</span>
+                                .join('');
+                            return `<p class="pd-stages-list">${listHtml}</p>
+                        <div class="pd-meta-stages" role="group" aria-label="${escAttr(I18n.t('pd.meta_stages'))}">${thumbsHtml}</div>`;
+                        })()}
                     </div>
                 </div>
                 <div class="pd-meta-cta">
@@ -293,6 +297,41 @@ function setupRevealObserver(groups) {
 /* ================================================================
    ОШИБКА
    ================================================================ */
+
+/* ── Плавная прокрутка до центра при клике по [data-scroll-center] ── */
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-scroll-center]');
+    if (!link) return;
+
+    const hash = link.getAttribute('href').split('#')[1];
+    if (!hash) return;
+
+    /* Если уже на той же странице — прокручиваем без перехода */
+    const samePage = link.pathname === window.location.pathname;
+    const target = samePage && document.getElementById(hash);
+
+    if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+    }
+
+    /* Переход на другую страницу — передаём hash, страница сама прокрутит */
+    /* Дополнительный центрирующий scroll выполнится после загрузки services.html */
+});
+
+/* После загрузки services.html — прокрутка до #stage-card-01 по центру */
+if (window.location.hash === '#stage-card-01') {
+    const doScroll = () => {
+        const el = document.getElementById('stage-card-01');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', doScroll);
+    } else {
+        requestAnimationFrame(doScroll);
+    }
+}
 
 function showError(message) {
     const layout = document.querySelector('.pd-layout');

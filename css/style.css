@@ -1840,6 +1840,69 @@ ul {
     }
 }
 
+/* Планшет в портрете, смартфоны и сенсорные планшеты — без анимации hover/active на CTA */
+@media (max-width: 568px),
+       ((max-width: 1024px) and (orientation: portrait)),
+       ((max-width: 1024px) and (pointer: coarse)) {
+    .action-btn--primary:hover {
+        color: #111111;
+    }
+    .action-btn--dark:hover {
+        color: #111111;
+    }
+    .action-btn--secondary:hover {
+        background-color: transparent;
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.9);
+    }
+    .action-btn--primary:hover .action-btn-icon,
+    .action-btn--dark:hover .action-btn-icon,
+    a.cta-btn.action-btn:hover .action-btn-icon,
+    button.cta-btn.action-btn:hover .action-btn-icon {
+        transform: none !important;
+    }
+    .action-btn--primary:hover .action-btn-icon::after,
+    .action-btn--dark:hover .action-btn-icon::after,
+    a.cta-btn.action-btn:hover .action-btn-icon::after,
+    button.cta-btn.action-btn:hover .action-btn-icon::after {
+        transform: none !important;
+    }
+
+    a.cta-btn.action-btn:hover,
+    button.cta-btn.action-btn:hover {
+        color: var(--color-text-dark);
+        border-color: #d0d0d0;
+    }
+
+    [data-theme="dark"] a.cta-btn.action-btn:hover,
+    [data-theme="dark"] button.cta-btn.action-btn:hover {
+        color: #e4e4e4;
+        border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .action-btn-icon,
+    .action-btn-icon::after {
+        transition: none !important;
+    }
+
+    .action-btn:active,
+    a.cta-btn.action-btn:active,
+    button.cta-btn.action-btn:active {
+        opacity: 1 !important;
+    }
+
+    .action-btn-text {
+        transition: none;
+    }
+    .action-btn {
+        transition: none;
+    }
+    a.cta-btn.action-btn,
+    button.cta-btn.action-btn {
+        transition: none;
+    }
+}
+
 .hero-features {
     display: flex;
     flex-wrap: nowrap;
@@ -3670,6 +3733,23 @@ ul {
 
     .main-nav a {
         font-size: 13px;
+    }
+}
+
+@media (min-width: 569px) and (max-width: 1024px) {
+    /* Nav выходит из absolute-центрирования, занимает всё место между логотипом и правыми кнопками */
+    .main-nav {
+        position: static;
+        flex: 1 1 0;
+        transform: none;
+        left: auto;
+        justify-content: center;
+        margin-left: 8px;
+    }
+    .main-nav ul {
+        width: 100%;
+        justify-content: center;
+        gap: clamp(6px, 1.8vw, 22px);
     }
 }
 
@@ -5883,7 +5963,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ─── Portfolio Section ─────────────────────────────────────── */
 .portfolio-section {
-    padding: 72px 0 80px;
+    padding: 48px 0 80px;
     background-color: #eaecf3;
 }
 
@@ -5902,7 +5982,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 }
 
 .portfolio-title {
-    margin-top: 12px;
+    margin-top: 0;
     margin-bottom: 0;
 }
 
@@ -6124,7 +6204,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
 @media (max-width: 568px) {
     .portfolio-section {
-        padding: 48px 0 56px;
+        padding: 36px 0 56px;
     }
 
     .portfolio-header {
@@ -6387,7 +6467,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     font-size: 1rem;
     font-weight: 500;
     line-height: 1.8;
-    color: rgba(77, 76, 76, 0.9);
+    color: rgba(17, 17, 17, 0.88);
     max-width: 680px;
 }
 
@@ -6478,6 +6558,55 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     background: transparent;
 }
 
+/* Текстовое перечисление стадий */
+.pd-stages-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 3px 0;
+    margin: 4px 0 10px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #111111;
+}
+
+.pd-stages-list-link {
+    color: inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+}
+.pd-stages-list-link:hover {
+    color: #d12a2a;
+}
+
+.pd-stages-list-sep {
+    font-size: 0.5em;
+    line-height: 1;
+    color: rgba(17, 17, 17, 0.3);
+    padding: 0 5px;
+    vertical-align: middle;
+}
+
+[data-theme="dark"] .pd-stages-list {
+    color: #e4e4e4;
+}
+[data-theme="dark"] .pd-stages-list-sep {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+/* Тёмная версия скрыта по умолчанию; светлая — скрыта в тёмной теме */
+.pd-meta-stage-thumb--dark {
+    display: none;
+}
+[data-theme="dark"] .pd-meta-stage-thumb--light {
+    display: none;
+}
+[data-theme="dark"] .pd-meta-stage-thumb--dark {
+    display: block;
+}
+
 /* Кастомная подсказка — без задержки ОС, в отличие от атрибута title */
 .pd-meta-stage-tooltip {
     position: absolute;
@@ -6505,6 +6634,19 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     opacity: 1;
     visibility: visible;
     transition: opacity 0.06s ease-out, visibility 0s;
+}
+
+/* Ссылка внутри иконки стадии */
+.pd-meta-stage-link {
+    display: block;
+    line-height: 0;
+    border-radius: 4px;
+    outline-offset: 3px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+.pd-meta-stage-link:hover {
+    opacity: 0.75;
 }
 
 /* ─── CTA в сайдбаре ────────────────────────────────────────── */
@@ -6580,6 +6722,12 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
     .pd-meta-card {
         position: static;
+    }
+}
+
+@media (min-width: 569px) and (max-width: 1024px) {
+    .pd-meta-item--stages .pd-meta-stages {
+        width: 50%;
     }
 }
 
@@ -8353,7 +8501,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     color: #e4e4e4;
 }
 [data-theme="dark"] .project-card-description {
-    color: #a0a0a0;
+    color: rgba(200, 200, 200, 0.95);
 }
 [data-theme="dark"] .project-card-year {
     color: rgba(255,255,255,0.35);
@@ -8361,8 +8509,8 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 [data-theme="dark"] .project-card-label {
     color: #888;
 }
-[data-theme="dark"] .portfolio-section .section-label {
-    color: #888;
+[data-theme="dark"] .project-card-arrow {
+    color: #a0a0a0;
 }
 [data-theme="dark"] .filter-btn {
     border-color: rgba(255,255,255,0.14);
@@ -8426,7 +8574,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     color: rgba(228, 228, 228, 0.72);
 }
 [data-theme="dark"] .pd-section-text {
-    color: #888;
+    color: rgba(228, 228, 228, 0.88);
 }
 [data-theme="dark"] .pd-meta-card {
     background: var(--dt-card);

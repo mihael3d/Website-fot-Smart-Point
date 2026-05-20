@@ -176,7 +176,7 @@
                             <div class="stages-grid-sticky">
                                 <div class="stages-grid">
                         <div class="stage-card-wrap">
-                        <div class="stage-card">
+                        <div class="stage-card" id="stage-card-01">
                             <div class="stage-card-body">
                                 <div class="stage-number-row">
                                     <div class="stage-number">01</div>
@@ -198,7 +198,7 @@
                         </div>
 
                         <div class="stage-card-wrap">
-                        <div class="stage-card">
+                        <div class="stage-card" id="stage-card-02">
                             <div class="stage-card-body">
                                 <div class="stage-number-row">
                                     <div class="stage-number">02</div>
@@ -223,7 +223,7 @@
                         </div>
 
                         <div class="stage-card-wrap">
-                        <div class="stage-card">
+                        <div class="stage-card" id="stage-card-03">
                             <div class="stage-card-body">
                                 <div class="stage-number-row">
                                     <div class="stage-number">03</div>
@@ -246,7 +246,7 @@
                         </div>
 
                         <div class="stage-card-wrap">
-                        <div class="stage-card">
+                        <div class="stage-card" id="stage-card-04">
                             <div class="stage-card-body">
                                 <div class="stage-number-row">
                                     <div class="stage-number">04</div>
@@ -272,7 +272,7 @@
                         </div>
 
                         <div class="stage-card-wrap">
-                        <div class="stage-card">
+                        <div class="stage-card" id="stage-card-05">
                             <div class="stage-card-body">
                                 <div class="stage-number-row">
                                     <div class="stage-number">05</div>
@@ -497,6 +497,30 @@
 
     <script src="js/i18n.js"></script>
     <script src="js/script.js?v=4.1"></script>
+    <script>
+        /* Центрирующий скролл при переходе по якорю #stage-card-XX */
+        (function () {
+            if (!window.location.hash) return;
+            var id = window.location.hash.slice(1);
+            if (!id.startsWith('stage-card-')) return;
+
+            /* Сразу убираем хэш из URL — браузер не делает свой нативный прыжок */
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+
+            window.addEventListener('load', function () {
+                var el = document.getElementById(id);
+                if (!el) return;
+                /* Восстанавливаем хэш без скролла */
+                history.replaceState(null, '', '#' + id);
+                /* Считаем позицию после финального рендера */
+                requestAnimationFrame(function () {
+                    var rect = el.getBoundingClientRect();
+                    var top  = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+                    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                });
+            });
+        })();
+    </script>
 </body>
 
 </html>
