@@ -1423,7 +1423,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProjectCard(project, index) {
         const card = document.createElement('a');
         card.className = 'project-card';
-        card.href = `project-detail.html?id=${project.id}`;
+        card.href = `project-detail?id=${project.id}`;
         card.dataset.category = project.category;
         card.style.animationDelay = `${index * 0.08}s`;
 
