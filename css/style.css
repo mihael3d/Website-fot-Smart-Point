@@ -620,11 +620,11 @@ ul {
 /* Фоновые изображения по страницам */
 .services-page .hero.hero-services .hero-bg,
 .services2-page .hero.hero-services .hero-bg {
-    background-image: url('../assets/images/servises1.jpg');
+    background-image: url('../assets/images/servises1.webp');
 }
 
 .projects-page .hero.hero-services .hero-bg {
-    background-image: url('../assets/images/projects.jpg');
+    background-image: url('../assets/images/projects.webp');
 }
 
 .hero.hero-services::before {
@@ -694,6 +694,7 @@ ul {
     line-height: 1.65;
     color: var(--color-text-dark);
     margin: 0;
+    text-align: justify;
 }
 
 .strategy-intro-text {
@@ -702,6 +703,7 @@ ul {
     line-height: 1.65;
     color: #666666;
     margin: 0;
+    text-align: justify;
 }
 
 /* Сетка карточек — оформление как у stage-card-wrap */
@@ -1022,7 +1024,7 @@ ul {
 }
 
 .smart-card:nth-child(1)::before {
-    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Specific 1.jpg');
+    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Specific 1.webp');
 }
 
 .smart-card:nth-child(2)::before {
@@ -1030,15 +1032,15 @@ ul {
 }
 
 .smart-card:nth-child(3)::before {
-    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Measurable 04.jpg');
+    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Measurable 04.webp');
 }
 
 .smart-card:nth-child(4)::before {
-    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Relevant 01.jpg');
+    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Relevant 01.webp');
 }
 
 .smart-card:nth-child(5)::before {
-    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Time-bound 04.jpg');
+    background-image: linear-gradient(rgba(145, 22, 22, 0.78), rgba(145, 22, 22, 0.78)), url('../assets/images/Time-bound 04.webp');
 }
 
 .smart-card > * {
@@ -1358,7 +1360,7 @@ ul {
    ===================================================== */
 .section-industries {
     position: relative;
-    background-image: url('../assets/images/businessmen-going-upstairs.jpg');
+    background-image: url('../assets/images/businessmen-going-upstairs.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -1539,7 +1541,7 @@ ul {
 
 /* Фоновое изображение только для главной страницы */
 .hero.hero-home .hero-bg {
-    background-image: url('../assets/images/businessmen-going-upstairs.jpg');
+    background-image: url('../assets/images/businessmen-going-upstairs.webp');
 }
 
 .hero-animated .hero-bg {
@@ -1702,6 +1704,7 @@ ul {
     animation: heroSlideInLeft 1s ease-out 1.5s both;
 }
 
+
 .action-btn {
     display: inline-flex;
     align-items: center;
@@ -1758,7 +1761,6 @@ ul {
     background-position: center;
     background-repeat: no-repeat;
     display: block;
-    transition: transform 0.5s ease;
 }
 
 .action-btn--primary:hover .action-btn-icon::after {
@@ -1800,10 +1802,12 @@ ul {
         transform: none !important;
     }
     .action-btn--primary:hover .action-btn-icon::after,
-    .action-btn--dark:hover .action-btn-icon::after,
-    a.cta-btn.action-btn:hover .action-btn-icon::after,
-    button.cta-btn.action-btn:hover .action-btn-icon::after {
+    .action-btn--dark:hover .action-btn-icon::after {
         transform: none !important;
+    }
+    a.cta-btn.action-btn:hover::after,
+    button.cta-btn.action-btn:hover::after {
+        animation: none !important;
     }
     /* Отключаем transition для icon, чтобы не мелькал при тапе */
     .action-btn-icon {
@@ -1845,10 +1849,12 @@ ul {
         transform: none !important;
     }
     .action-btn--primary:hover .action-btn-icon::after,
-    .action-btn--dark:hover .action-btn-icon::after,
-    a.cta-btn.action-btn:hover .action-btn-icon::after,
-    button.cta-btn.action-btn:hover .action-btn-icon::after {
+    .action-btn--dark:hover .action-btn-icon::after {
         transform: none !important;
+    }
+    a.cta-btn.action-btn:hover::after,
+    button.cta-btn.action-btn:hover::after {
+        animation: none !important;
     }
 
     a.cta-btn.action-btn:hover,
@@ -2007,6 +2013,7 @@ ul {
 .company-text-block {
     margin-bottom: 0;
     overflow: visible;
+    text-align: justify;
 }
 
 .company-signature {
@@ -2279,7 +2286,7 @@ ul {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('../assets/images/advanteges1.jpg');
+    background-image: url('../assets/images/advanteges1.webp');
     background-size: cover;
     background-position: left center;
     background-repeat: no-repeat;
@@ -2294,7 +2301,7 @@ ul {
     letter-spacing: -0.04em;
     z-index: 2;
     color: transparent;
-    background-image: url('../assets/images/advanteges1.jpg');
+    background-image: url('../assets/images/advanteges1.webp');
     background-size: 180px 180px;
     background-position: left center;
     background-repeat: no-repeat;
@@ -2311,7 +2318,7 @@ ul {
     line-height: 1.2;
     z-index: 2;
     color: transparent;
-    background-image: url('../assets/images/advanteges1.jpg');
+    background-image: url('../assets/images/advanteges1.webp');
     background-size: 180px 180px;
     background-position: left center;
     background-repeat: no-repeat;
@@ -3395,7 +3402,7 @@ ul {
 @media (max-width: 1024px) {
     .section-advantages {
         position: relative;
-        background-image: url('../assets/images/close-up-businessman-holding-briefcase.jpg');
+        background-image: url('../assets/images/close-up-businessman-holding-briefcase.webp');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -4165,9 +4172,39 @@ button.cta-btn.action-btn:hover .action-btn-icon {
     transform: scale(35);
 }
 
-a.cta-btn.action-btn:hover .action-btn-icon::after,
-button.cta-btn.action-btn:hover .action-btn-icon::after {
-    transform: scale(calc(1 / 35));
+/* Скрываем стрелку внутри кружка для cta-btn — используем button::after */
+a.cta-btn .action-btn-icon::after,
+button.cta-btn .action-btn-icon::after {
+    content: none;
+}
+
+/* Стрелка cta-btn: живёт прямо в кнопке, не внутри масштабируемого кружка */
+@keyframes sp-arrow-bounce {
+    0%   { transform: scale(1); }
+    45%  { transform: scale(4); }
+    100% { transform: scale(1); }
+}
+
+a.cta-btn.action-btn::after,
+button.cta-btn.action-btn::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    margin-top: -16px;
+    width: 32px;
+    height: 32px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 17L17 7M17 7v10M17 7H7' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 18px 18px;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 3;
+    pointer-events: none;
+}
+
+a.cta-btn.action-btn:hover::after,
+button.cta-btn.action-btn:hover::after {
+    animation: sp-arrow-bounce 0.4s ease-in-out 0s both;
 }
 
 /* Нижняя тень по форме карточки — скругления снизу (левый и правый нижние углы) */
@@ -5074,7 +5111,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     bottom: 0;
     width: 55%;
     pointer-events: none;
-    background-image: url('../assets/images/servise4.jpg');
+    background-image: url('../assets/images/servise4.webp');
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -6457,7 +6494,9 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     font-weight: 500;
     line-height: 1.8;
     color: rgba(17, 17, 17, 0.88);
-    max-width: 680px;
+    max-width: 100%;
+    text-align: justify;
+    text-align-last: left;
 }
 
 /* Несколько абзацев подряд — только вертикальный зазор, без линий */
@@ -7421,7 +7460,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── Hero: фоновое изображение ── */
 .career-page .hero.hero-services .hero-bg {
-    background-image: url('../assets/images/career_01.jpg');
+    background-image: url('../assets/images/career_01.webp');
     background-position: center 30%;
 }
 
@@ -7438,7 +7477,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 
 /* ── CTA: фон для карточки ── */
 .career-cta-bg {
-    background-image: url('../assets/images/close-up-businessman-holding-briefcase.jpg') !important;
+    background-image: url('../assets/images/close-up-businessman-holding-briefcase.webp') !important;
     background-position: center 20% !important;
 }
 
@@ -7647,7 +7686,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 @media (max-width: 568px) {
     .career-page .career-why-section {
         padding: 72px 0 36px;
-        background-image: url('../assets/images/advanteges2.jpg');
+        background-image: url('../assets/images/advanteges2.webp');
         background-size: cover; background-position: center;
         background-repeat: no-repeat; background-attachment: scroll;
         position: relative;
@@ -7707,7 +7746,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
 .cw-panel {
     background:
         linear-gradient(rgba(10,10,10,0.62), rgba(10,10,10,0.62)),
-        url('../assets/images/close-up-businessman-holding-briefcase.jpg') center / cover no-repeat;
+        url('../assets/images/close-up-businessman-holding-briefcase.webp') center / cover no-repeat;
     display: flex;
     align-items: center;
     padding: 64px 44px;
@@ -7768,7 +7807,7 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     gap: 0 28px;
     align-items: start;
     flex: 1;
-    padding: 44px 56px 44px 48px;
+    padding: 44px 0 44px 48px;
     border-bottom: 1px solid rgba(0,0,0,0.07);
     cursor: default;
     position: relative;
@@ -7855,7 +7894,8 @@ button.cta-btn.action-btn:hover .action-btn-icon::after {
     line-height: 1.7;
     color: var(--color-gray);
     margin: 0;
-    max-width: 600px;
+    max-width: 100%;
+    text-align: justify;
 }
 
 /* ── Планшет ── */
