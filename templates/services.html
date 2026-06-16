@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <script>(function(){var l=localStorage.getItem('sp-lang');if(l&&l!=='ru')document.documentElement.setAttribute('data-i18n-pending','');}());</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
+    <title data-i18n="services.page_title">Smartpoint — Услуги</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('sp-theme') || 'light');</script>
+</head>
+
+<body class="services-page services2-page">
+
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/LOGO_Smartpoint_Full_White.svg" alt="Smartpoint Logo" class="logo-desktop">
+                <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint Logo" class="logo-desktop-scrolled">
+                <img src="assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
+                <img src="assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
+            </a>
+            <button class="mobile-menu-toggle"
+                aria-label="Открыть меню"
+                data-i18n-attr="aria-label:aria.menu_open"><span></span></button>
+            <button class="theme-toggle"
+                aria-label="Переключить тему"
+                data-i18n-attr="aria-label:aria.theme_toggle">
+                <svg class="theme-icon theme-icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="theme-icon theme-icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+            <div class="lang-switcher-wrap">
+                <div class="lang-switcher" aria-label="Выбрать язык">
+                    <button class="lang-btn is-active" data-lang="ru">РУС</button>
+                    <button class="lang-btn" data-lang="kk">ҚАЗ</button>
+                    <button class="lang-btn" data-lang="en">ENG</button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                    <li class="active"><a href="services.html" class="active" data-i18n="nav.services">Услуги</a></li>
+                    <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                    <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="menu-overlay"></div>
+
+
+    <!-- ═══ Секция: Главный экран ═══ -->
+    <section class="hero hero-services">
+        <div class="hero-bg"></div>
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="title-lines hero-title">
+                    <span data-i18n="services.hero_title_1">Превращаем цели</span>
+                    <span data-i18n="services.hero_title_2">в достижения</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: Вступительный разделитель ═══ -->
+    <section class="section-spacer">
+        <div class="section-spacer-inner">
+
+            <div class="spacer-body">
+                <p class="spacer-lead section-spacer-text" data-i18n="services.spacer_lead">Smart Point предлагает комплексные консалтинговые услуги для реализации технических проектов любой сложности.</p>
+                <div class="spacer-rule"></div>
+                <p class="spacer-sub" data-i18n="services.spacer_sub">Мы работаем на всех этапах:  от стратегического планирования до постпроектного сопровождения.</p>
+            </div>
+
+            <div class="spacer-side-label" data-i18n="services.spacer_label">SERVICES</div>
+
+        </div>
+    </section>
+
+    <!-- ═══ Секция: SMART-стратегия ═══ -->
+    <section class="section-strategy">
+        <div class="container">
+            <!-- Верхний блок: два столбца -->
+            <div class="strategy-intro">
+                <div class="strategy-intro-left">
+                    <p class="company-label" data-i18n="services.strategy_label">Наш подход к каждому проекту.</p>
+                    <h2 class="strategy-heading" data-i18n-html="services.strategy_heading">Стратегия, направленная на решение ваших задач.</h2>
+                </div>
+                <div class="strategy-intro-right">
+                    <p class="strategy-intro-bold" data-i18n="services.strategy_bold">Название нашей компании связано с методологией SMART — системой, в которой каждая цель проходит проверку на конкретность, измеримость и достижимость.</p>
+                    <p class="strategy-intro-text" data-i18n="services.strategy_text">
+                        Мы не просто беремся за задачи — мы выстраиваем работу так, чтобы вы понимали, что именно делается, по каким критериям оценивается успех и в какие сроки будет результат.</p>
+                </div>
+            </div>
+            <!-- Нижний блок: три карточки -->
+            <div class="strategy-cards-sticky">
+            <div class="strategy-cards">
+                <div class="strategy-card-wrap">
+                    <div class="strategy-card">
+                        <span class="strategy-card-letter">S</span>
+                        <div class="strategy-card-icon">
+                            <img src="assets/icons/Smart-01.svg" alt="" width="56" height="56">
+                        </div>
+                        <h3 class="strategy-card-title"><span class="strategy-card-title-en" data-i18n="smart.s_en">Specific</span><br><span class="strategy-card-title-ru" data-i18n="smart.s_ru">Конкретность</span></h3>
+                        <p class="strategy-card-desc" data-i18n="smart.s_desc">Чётко определяем задачи и ожидаемые результаты каждого проекта.</p>
+                    </div>
+                </div>
+                <div class="strategy-card-wrap">
+                    <div class="strategy-card">
+                        <span class="strategy-card-letter">M</span>
+                        <div class="strategy-card-icon">
+                            <img src="assets/icons/Smart-02.svg" alt="" width="56" height="56">
+                        </div>
+                        <h3 class="strategy-card-title"><span class="strategy-card-title-en" data-i18n="smart.m_en">Measurable</span><br><span class="strategy-card-title-ru" data-i18n="smart.m_ru">Измеримость</span></h3>
+                        <p class="strategy-card-desc" data-i18n="smart.m_desc">Устанавливаем понятные критерии успеха и контрольные точки.</p>
+                    </div>
+                </div>
+                <div class="strategy-card-wrap">
+                    <div class="strategy-card">
+                        <span class="strategy-card-letter">A</span>
+                        <div class="strategy-card-icon">
+                            <img src="assets/icons/Smart-03.svg" alt="" width="56" height="56">
+                        </div>
+                        <h3 class="strategy-card-title"><span class="strategy-card-title-en" data-i18n="smart.a_en">Achievable</span><br><span class="strategy-card-title-ru" data-i18n="smart.a_ru">Достижимость</span></h3>
+                        <p class="strategy-card-desc" data-i18n="smart.a_desc">Оцениваем реальность целей с учётом ресурсов и ограничений.</p>
+                    </div>
+                </div>
+                <div class="strategy-card-wrap">
+                    <div class="strategy-card">
+                        <span class="strategy-card-letter">R</span>
+                        <div class="strategy-card-icon">
+                            <img src="assets/icons/Smart-04.svg" alt="" width="56" height="56">
+                        </div>
+                        <h3 class="strategy-card-title"><span class="strategy-card-title-en" data-i18n="smart.r_en">Relevant</span><br><span class="strategy-card-title-ru" data-i18n="smart.r_ru">Актуальность</span></h3>
+                        <p class="strategy-card-desc" data-i18n="smart.r_desc">Фокусируемся на решениях, которые действительно нужны вашему бизнесу.</p>
+                    </div>
+                </div>
+                <div class="strategy-card-wrap">
+                    <div class="strategy-card">
+                        <span class="strategy-card-letter">T</span>
+                        <div class="strategy-card-icon">
+                            <img src="assets/icons/Smart-05.svg" alt="" width="56" height="56">
+                        </div>
+                        <h3 class="strategy-card-title"><span class="strategy-card-title-en" data-i18n="smart.t_en">Time-bound</span><br><span class="strategy-card-title-ru" data-i18n="smart.t_ru">Сроки</span></h3>
+                        <p class="strategy-card-desc" data-i18n="smart.t_desc">Работаем по чётким срокам с прозрачным планированием.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: Этапы проекта ═══ -->
+    <section class="stages-section">
+        <div class="container">
+            <div class="stages-with-label">
+                <div class="stages-main">
+                    <div class="stages-header-row">
+                        <div class="stages-header-inner">
+                            <h2 class="section-heading stages-experience-title" data-i18n="services.stages_heading">Наши услуги на каждом этапе проекта</h2>
+                        </div>
+                    </div>
+                    <div class="stages-header-right">
+                        <p class="section-text stages-experience-text" data-i18n="services.stages_text">
+                            Каждый проект проходит через следующие этапы жизненного цикла.  Мы можем как полностью реализовать их
+                            для вас так и подключиться на любом из них.
+                        </p>
+                    </div>
+                    <div class="stages-layout">
+                        <div class="stages-content">
+                            <div class="stages-grid-sticky">
+                                <div class="stages-grid">
+                        <div class="stage-card-wrap">
+                        <div class="stage-card" id="stage-card-01">
+                            <div class="stage-card-body">
+                                <div class="stage-number-row">
+                                    <div class="stage-number">01</div>
+                                    <div class="stage-card-icon">
+                                        <img src="assets/icons/stage-01.svg" alt="">
+                                    </div>
+                                </div>
+                                <h3 class="stage-title" data-i18n="services.stage1_title">Инициализация</h3>
+                                <p class="stage-desc" data-i18n="services.stage1_desc">Закладываем фундамент успешного проекта на начальном этапе.</p>
+                                <ul class="stage-list" data-i18n-html="services.stage1_list">
+                                    <li>Подготовка дизайна проекта и технико-экономического обоснования</li>
+                                    <li>Определение организационной структуры и шаблонов управления</li>
+                                    <li>Медиация и фасилитация для создания максимальных возможностей</li>
+                                    <li>Определение финансовой структуры и методов финансирования</li>
+                                </ul>
+                            </div>
+                            <img class="stage-img-mobile" src="assets/images/1/mon1.png" alt="Инициализация">
+                        </div>
+                        </div>
+
+                        <div class="stage-card-wrap">
+                        <div class="stage-card" id="stage-card-02">
+                            <div class="stage-card-body">
+                                <div class="stage-number-row">
+                                    <div class="stage-number">02</div>
+                                    <div class="stage-card-icon">
+                                        <img src="assets/icons/stage-02.svg" alt="">
+                                    </div>
+                                </div>
+                                <h3 class="stage-title" data-i18n="services.stage2_title">Концепция</h3>
+                                <p class="stage-desc" data-i18n="services.stage2_desc">Разрабатываем детальную концепцию и архитектуру решения.</p>
+                                <ul class="stage-list" data-i18n-html="services.stage2_list">
+                                    <li>Создание и ведение мастер-планов проекта</li>
+                                    <li>Детальная разработка и архитектура решений</li>
+                                    <li>Определение ролей участников и бизнес-процессов</li>
+                                    <li>Подготовка концепции финансирования</li>
+                                    <li>Разработка временного планирования</li>
+                                    <li>Сбор экспертных мнений и заключений</li>
+                                    <li>Координация со всеми заинтересованными сторонами</li>
+                                </ul>
+                            </div>
+                            <img class="stage-img-mobile" src="assets/images/1/mon2.png" alt="Концепция">
+                        </div>
+                        </div>
+
+                        <div class="stage-card-wrap">
+                        <div class="stage-card" id="stage-card-03">
+                            <div class="stage-card-body">
+                                <div class="stage-number-row">
+                                    <div class="stage-number">03</div>
+                                    <div class="stage-card-icon">
+                                        <img src="assets/icons/stage-03.svg" alt="">
+                                    </div>
+                                </div>
+                                <h3 class="stage-title" data-i18n="services.stage3_title">Детальное планирование</h3>
+                                <p class="stage-desc" data-i18n="services.stage3_desc">Прорабатываем все аспекты реализации до мельчайших деталей.</p>
+                                <ul class="stage-list" data-i18n-html="services.stage3_list">
+                                    <li>Составление технических и коммерческих спецификаций</li>
+                                    <li>Временное и ресурсное планирование</li>
+                                    <li>Планирование финансов и ликвидности проекта</li>
+                                    <li>Планирование процесса внедрения</li>
+                                    <li>Координация и синхронизация внутренних и внешних проектов</li>
+                                </ul>
+                            </div>
+                            <img class="stage-img-mobile" src="assets/images/1/mon3.png" alt="Планирование">
+                        </div>
+                        </div>
+
+                        <div class="stage-card-wrap">
+                        <div class="stage-card" id="stage-card-04">
+                            <div class="stage-card-body">
+                                <div class="stage-number-row">
+                                    <div class="stage-number">04</div>
+                                    <div class="stage-card-icon">
+                                        <img src="assets/icons/stage-04.svg" alt="">
+                                    </div>
+                                </div>
+                                <h3 class="stage-title" data-i18n="services.stage4_title">Реализация</h3>
+                                <p class="stage-desc" data-i18n="services.stage4_desc">Контролируем выполнение проекта на всех этапах внедрения.</p>
+                                <ul class="stage-list" data-i18n-html="services.stage4_list">
+                                    <li>Проведение тендеров и выбор подрядчиков</li>
+                                    <li>Управление проектом и контроль соответствия спецификациям</li>
+                                    <li>Активный контроль бюджета и затрат</li>
+                                    <li>Управление полномочиями участников</li>
+                                    <li>Контроль качества и документирование</li>
+                                    <li>Организационно-техническая реализация на объекте</li>
+                                    <li>Мониторинг тестовой эксплуатации</li>
+                                    <li>Приёмка подпроектов и финальная сдача</li>
+                                </ul>
+                            </div>
+                            <img class="stage-img-mobile" src="assets/images/1/mon4.png" alt="Реализация">
+                        </div>
+                        </div>
+
+                        <div class="stage-card-wrap">
+                        <div class="stage-card" id="stage-card-05">
+                            <div class="stage-card-body">
+                                <div class="stage-number-row">
+                                    <div class="stage-number">05</div>
+                                    <div class="stage-card-icon">
+                                        <img src="assets/icons/stage-05.svg" alt="">
+                                    </div>
+                                </div>
+                                <h3 class="stage-title" data-i18n="services.stage5_title">Контроль и оптимизация</h3>
+                                <p class="stage-desc" data-i18n="services.stage5_desc">Обеспечиваем эффективную работу после запуска проекта.</p>
+                                <ul class="stage-list" data-i18n-html="services.stage5_list">
+                                    <li>Анализ и оптимизация процессов</li>
+                                    <li>Внедрение новых операционных процессов</li>
+                                    <li>Планирование и управление ресурсами</li>
+                                    <li>Назначение персонала и материального снабжения</li>
+                                    <li>Внедрение KPI и систем управления</li>
+                                    <li>Анализ и управление рисками</li>
+                                    <li>Аудиты и сертификация</li>
+                                    <li>Обучение персонала процессам и IT-системам</li>
+                                </ul>
+                            </div>
+                            <img class="stage-img-mobile" src="assets/images/1/mon5.png" alt="Контроль">
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="stages-media">
+                    <img class="stages-image is-active" src="assets/images/1/mon1.png"
+                        alt="Этапы проекта: инициализация">
+                    <img class="stages-image" src="assets/images/1/mon2.png" alt="Этапы проекта: концепция">
+                    <img class="stages-image" src="assets/images/1/mon3.png" alt="Этапы проекта: планирование">
+                    <img class="stages-image" src="assets/images/1/mon4.png" alt="Этапы проекта: реализация">
+                    <img class="stages-image" src="assets/images/1/mon5.png" alt="Этапы проекта: контроль">
+                </div>
+            </div>
+                </div>
+                <div class="section-label stages-side-label" data-i18n="services.stages_label">ЭТАПЫ РАБОТ</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: Отрасли — тёмная секция с карточками ═══ -->
+    <section class="section-industries">
+        <div class="container">
+            <div class="industries-wrap">
+                <!-- Левая колонна: лейбл + заголовок -->
+                <div class="industries-left">
+                    <h2 class="industries-heading" data-i18n="services.industries_heading">Работаем с ключевыми отраслями экономики:</h2>
+                </div>
+                <!-- Правая колонна: сетка 3×2 карточек -->
+                <div class="industries-right">
+                    <div class="industries-grid">
+                        <div class="industry-card">
+                            <div class="industry-card-icon">
+                                <img src="assets/icons/Scope-01.svg" alt="" width="48" height="48">
+                            </div>
+                            <p class="industry-card-title" data-i18n="services.industry1">Информационные технологии</p>
+                        </div>
+                        <div class="industry-card">
+                            <div class="industry-card-icon">
+                                <img src="assets/icons/Scope-02.svg" alt="" width="48" height="48">
+                            </div>
+                            <p class="industry-card-title" data-i18n="services.industry2">Инфраструктура и логистика</p>
+                        </div>
+                        <div class="industry-card">
+                            <div class="industry-card-icon">
+                                <img src="assets/icons/Scope-03.svg" alt="" width="48" height="48">
+                            </div>
+                            <p class="industry-card-title" data-i18n="services.industry3">Финансы и банковское дело</p>
+                        </div>
+                        <div class="industry-card">
+                            <div class="industry-card-icon">
+                                <img src="assets/icons/Scope-04.svg" alt="" width="48" height="48">
+                            </div>
+                            <p class="industry-card-title" data-i18n="services.industry4">Энергетика</p>
+                        </div>
+                        <div class="industry-card">
+                            <div class="industry-card-icon">
+                                <img src="assets/icons/Scope-05.svg" alt="" width="48" height="48">
+                            </div>
+                            <p class="industry-card-title" data-i18n="services.industry5">Телекоммуникации</p>
+                        </div>
+                        <div class="industry-card">
+                            <div class="industry-card-icon">
+                                <img src="assets/icons/Scope-06.svg" alt="" width="48" height="48">
+                            </div>
+                            <p class="industry-card-title" data-i18n="services.industry6">Государственный сектор и управление</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: SMART-карточки (новый дизайн) ═══ -->
+    <section class="section-smart-cards">
+        <div class="container">
+            <div class="smart-cards-main">
+                <div class="strategy-intro">
+                    <div class="strategy-intro-left">
+                        <h2 class="strategy-heading" data-i18n="services.strategy_heading">Стратегия, направленная на решение ваших задач.</h2>
+                    </div>
+                    <div class="strategy-intro-right">
+                        <p class="strategy-intro-bold" data-i18n="services.strategy_bold">Название нашей компании связано с методологией SMART — системой, в которой каждая цель проходит проверку на конкретность, измеримость и достижимость.</p>
+                        <p class="strategy-intro-text" data-i18n="services.strategy_text">Мы не просто беремся за задачи — мы выстраиваем работу так, чтобы вы понимали, что именно делается, по каким критериям оценивается успех и в какие сроки будет результат.</p>
+                    </div>
+                </div>
+                <div class="section-label smart-side-label" data-i18n="services.smart_side_label">МЕТОДОЛОГИЯ</div>
+                <p class="company-label smart-cards-label" data-i18n="services.smart_label">Наш подход к каждому проекту</p>
+                <div class="smart-cards-grid">
+                <div class="smart-card">
+                    <span class="smart-card-letter">S</span>
+                    <div class="smart-card-icon">
+                        <img src="assets/icons/Smart-01.svg" alt="" width="56" height="56">
+                    </div>
+                    <h3 class="smart-card-title">Specific<br><span data-i18n="smart.s_ru">Конкретность</span></h3>
+                    <p class="smart-card-desc" data-i18n="smart.s_desc">Чётко определяем задачи и ожидаемые результаты каждого проекта.</p>
+                </div>
+                <div class="smart-card">
+                    <span class="smart-card-letter">M</span>
+                    <div class="smart-card-icon">
+                        <img src="assets/icons/Smart-02.svg" alt="" width="56" height="56">
+                    </div>
+                    <h3 class="smart-card-title">Measurable<br><span data-i18n="smart.m_ru">Измеримость</span></h3>
+                    <p class="smart-card-desc" data-i18n="smart.m_desc">Устанавливаем понятные критерии успеха и контрольные точки.</p>
+                </div>
+                <div class="smart-card">
+                    <span class="smart-card-letter">A</span>
+                    <div class="smart-card-icon">
+                        <img src="assets/icons/Smart-03.svg" alt="" width="56" height="56">
+                    </div>
+                    <h3 class="smart-card-title">Achievable<br><span data-i18n="smart.a_ru">Достижимость</span></h3>
+                    <p class="smart-card-desc" data-i18n="smart.a_desc">Оцениваем реальность целей с учётом ресурсов и ограничений.</p>
+                </div>
+                <div class="smart-card">
+                    <span class="smart-card-letter">R</span>
+                    <div class="smart-card-icon">
+                        <img src="assets/icons/Smart-04.svg" alt="" width="56" height="56">
+                    </div>
+                    <h3 class="smart-card-title">Relevant<br><span data-i18n="smart.r_ru">Актуальность</span></h3>
+                    <p class="smart-card-desc" data-i18n="smart.r_desc">Фокусируемся на решениях, которые действительно нужны вашему бизнесу.</p>
+                </div>
+                <div class="smart-card">
+                    <span class="smart-card-letter">T</span>
+                    <div class="smart-card-icon">
+                        <img src="assets/icons/Smart-05.svg" alt="" width="56" height="56">
+                    </div>
+                    <h3 class="smart-card-title">Time-bound<br><span data-i18n="smart.t_ru">Сроки</span></h3>
+                    <p class="smart-card-desc" data-i18n="smart.t_desc">Работаем по чётким срокам с прозрачным планированием.</p>
+                </div>
+            </div>
+                <div class="smart-carousel-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: Индивидуальный подход ═══ -->
+    <section class="section-approach">
+        <div class="approach-card">
+            <div class="approach-card-bg"></div>
+            <div class="approach-card-inner">
+                <div class="approach-card-content">
+                    <div class="approach-text-block">
+                        <div class="approach-text-inner">
+                            <h2 class="section-heading approach-title" data-i18n="services.approach_title">Индивидуальный подход</h2>
+                            <p class="section-text approach-text" data-i18n-html="services.approach_text">
+                                Мы не предлагаем шаблонных решений. Каждый проект разрабатывается с учётом специфики вашего бизнеса,
+                                отрасли и целей.<br>
+                                Свяжитесь с нами, чтобы обсудить ваш проект.
+                            </p>
+                        </div>
+                        <div class="section-label approach-label approach-side-label" data-i18n="services.approach_label">ГИБКОСТЬ</div>
+                    </div>
+                    <div class="approach-cta">
+                        <a href="contacts.html" class="action-btn action-btn--primary cta-btn">
+                            <span class="action-btn-text" data-i18n="services.approach_cta">Связаться с нами</span>
+                            <span class="action-btn-icon"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--light">
+                        <img src="assets/LOGO_Smartpoint_Smart_white.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--dark">
+                    </a>
+                    <p class="footer-desc" data-i18n-html="footer.desc">
+                        Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
+                    </p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                        <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                        <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                        <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                        <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title" data-i18n="footer.contact_title">Контакты</h4>
+                    <ul>
+                        <li><a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a></li>
+                        <li><a href="tel:+77773888333">+7 (777) 3-888-333</a></li>
+                        <li data-i18n="footer.location">Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright" data-i18n="footer.copyright">
+                    &copy; 2026 Smartpoint. Все права защищены.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js?v=4.1"></script>
+    <script>
+        /* Центрирующий скролл при переходе по якорю #stage-card-XX */
+        (function () {
+            if (!window.location.hash) return;
+            var id = window.location.hash.slice(1);
+            if (!id.startsWith('stage-card-')) return;
+
+            /* Сразу убираем хэш из URL — браузер не делает свой нативный прыжок */
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+
+            window.addEventListener('load', function () {
+                var el = document.getElementById(id);
+                if (!el) return;
+                /* Восстанавливаем хэш без скролла */
+                history.replaceState(null, '', '#' + id);
+                /* Считаем позицию после финального рендера */
+                requestAnimationFrame(function () {
+                    var rect = el.getBoundingClientRect();
+                    var top  = window.scrollY + rect.top - (window.innerHeight - rect.height) / 2;
+                    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

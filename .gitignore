@@ -18,3 +18,9 @@ test-categories.html
 Thumbs.db
 desktop.ini
 nul
+
+# Node.js
+node_modules/
+
+# Генерируемые файлы (запускать: node build.js)
+dist/

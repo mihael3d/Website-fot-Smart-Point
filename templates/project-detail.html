@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <script>(function(){var l=localStorage.getItem('sp-lang');if(l&&l!=='ru')document.documentElement.setAttribute('data-i18n-pending','');}());</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
+    <title data-i18n="pd.page_title">Проект — Smartpoint</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('sp-theme') || 'light');</script>
+</head>
+
+<body class="project-detail-page services2-page">
+
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/LOGO_Smartpoint_Full_White.svg" alt="Smartpoint Logo" class="logo-desktop">
+                <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint Logo" class="logo-desktop-scrolled">
+                <img src="assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
+                <img src="assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
+            </a>
+            <button class="mobile-menu-toggle"
+                aria-label="Открыть меню"
+                data-i18n-attr="aria-label:aria.menu_open"><span></span></button>
+            <button class="theme-toggle"
+                aria-label="Переключить тему"
+                data-i18n-attr="aria-label:aria.theme_toggle">
+                <svg class="theme-icon theme-icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="theme-icon theme-icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+            <div class="lang-switcher-wrap">
+                <div class="lang-switcher" aria-label="Выбрать язык">
+                    <button class="lang-btn is-active" data-lang="ru">РУС</button>
+                    <button class="lang-btn" data-lang="kk">ҚАЗ</button>
+                    <button class="lang-btn" data-lang="en">ENG</button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                    <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                    <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                    <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="menu-overlay"></div>
+
+    <!-- ═══ Секция: Hero — изображение и заголовок проекта ═══ -->
+    <section class="pd-hero">
+        <div class="pd-hero-bg" id="pdHeroBg"></div>
+        <div class="pd-hero-overlay"></div>
+        <div class="pd-hero-body">
+            <div class="container hero-container">
+                <div class="pd-hero-content" id="pdHeroContent">
+                    <!-- заполняется через JS -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Разделитель: краткое описание проекта ═══ -->
+    <div class="section-spacer" id="pdSpacer" style="display:none">
+        <div class="section-spacer-inner">
+            <div class="spacer-body">
+                <p class="spacer-sub" id="pdSpacerSub"></p>
+                <div class="spacer-rule"></div>
+                <p class="spacer-lead section-spacer-text" id="pdSpacerLead"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Секция: Основной контент проекта ═══ -->
+    <section class="pd-content">
+        <div class="container">
+
+            <div class="pd-layout">
+
+                <!-- Главная колонка -->
+                <div class="pd-main" id="pdMain">
+                    <!-- заполняется через JS -->
+                </div>
+
+                <!-- Боковая панель -->
+                <aside class="pd-aside" id="pdAside">
+                    <!-- заполняется через JS -->
+                </aside>
+
+            </div>
+
+            <div class="pd-back-band">
+            <a href="projects.html" class="pd-back">
+                <span class="pd-back-arrow">←</span>
+                <span data-i18n="pd.back_btn">Все проекты</span>
+            </a>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--light">
+                        <img src="assets/LOGO_Smartpoint_Smart_white.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--dark">
+                    </a>
+                    <p class="footer-desc" data-i18n-html="footer.desc">
+                        Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
+                    </p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                        <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                        <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                        <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                        <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title" data-i18n="footer.contact_title">Контакты</h4>
+                    <ul>
+                        <li><a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a></li>
+                        <li><a href="tel:+77773888333">+7 (777) 3-888-333</a></li>
+                        <li data-i18n="footer.location">Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright" data-i18n="footer.copyright">
+                    &copy; 2026 Smartpoint. Все права защищены.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js?v=4.2"></script>
+    <script src="js/project-detail.js?v=3"></script>
+</body>
+
+</html>

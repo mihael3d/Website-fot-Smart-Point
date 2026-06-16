@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <script>(function(){var l=localStorage.getItem('sp-lang');if(l&&l!=='ru')document.documentElement.setAttribute('data-i18n-pending','');}());</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
+    <title data-i18n="contacts.page_title">Smartpoint — Контакты</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=4.3">
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('sp-theme') || 'light');</script>
+</head>
+
+<body class="contacts-page">
+
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/LOGO_Smartpoint_Full_White.svg" alt="Smartpoint Logo" class="logo-desktop">
+                <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint Logo" class="logo-desktop-scrolled">
+                <img src="assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
+                <img src="assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
+            </a>
+            <button class="mobile-menu-toggle"
+                aria-label="Открыть меню"
+                data-i18n-attr="aria-label:aria.menu_open"><span></span></button>
+            <button class="theme-toggle"
+                aria-label="Переключить тему"
+                data-i18n-attr="aria-label:aria.theme_toggle">
+                <svg class="theme-icon theme-icon--moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <svg class="theme-icon theme-icon--sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </button>
+            <div class="lang-switcher-wrap">
+                <div class="lang-switcher" aria-label="Выбрать язык">
+                    <button class="lang-btn is-active" data-lang="ru">РУС</button>
+                    <button class="lang-btn" data-lang="kk">ҚАЗ</button>
+                    <button class="lang-btn" data-lang="en">ENG</button>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                    <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                    <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                    <li class="active"><a href="contacts.html" class="active" data-i18n="nav.contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="menu-overlay"></div>
+
+    <!-- ═══ Секция: Главный экран с картой в качестве фона ═══ -->
+    <section class="hero hero-services contacts-hero">
+        <!-- Карта как фоновый слой -->
+        <iframe
+            class="contact-hero-map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2906.7!2d76.9266!3d43.2568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38836ba68c3d3d93%3A0x0!2z0YPQuy4g0JrQsNC30YvQsdC10Log0LHQuCA2NSwg0JDQu9C80LDRgtGL!5e0!3m2!1sru!2skz!4v1700000000001"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Smartpoint офис на карте — Казыбек би 65, Алматы">
+        </iframe>
+        <!-- Градиентный оверлей + текст поверх карты -->
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="title-lines hero-title">
+                    <span data-i18n="contacts.hero_title_1">Свяжитесь с нами —</span>
+                    <span data-i18n="contacts.hero_title_2">мы готовы ответить</span>
+                    <span data-i18n="contacts.hero_title_3">на любые вопросы.</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ Секция: Контактная информация + форма ═══ -->
+    <section class="contact-info-section">
+        <div class="container contact-info-container">
+
+            <!-- Левый столбец: контактные блоки -->
+            <div class="contact-info-left">
+
+                <div class="contact-block">
+                    <h3 class="contact-block-title" data-i18n="contacts.block1_title">Контакты</h3>
+                    <p class="contact-block-line">
+                        <span class="contact-block-label" data-i18n="contacts.block1_email_label">Email:</span>
+                        <a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a>
+                    </p>
+                    <p class="contact-block-line">
+                        <span class="contact-block-label" data-i18n="contacts.block1_phone_label">Телефон:</span>
+                        <a href="tel:+77773888333">+7 (777) 3-888-333</a>
+                    </p>
+                </div>
+
+                <div class="contact-block">
+                    <h3 class="contact-block-title" data-i18n="contacts.block2_title">Адрес</h3>
+                    <p class="contact-block-line" data-i18n="contacts.block2_address">ул. Казыбек би 65, офис 617</p>
+                    <p class="contact-block-line" data-i18n="contacts.block2_city">Алматы, Казахстан</p>
+                </div>
+
+                <div class="contact-block">
+                    <h3 class="contact-block-title" data-i18n="contacts.block3_title">Часы работы</h3>
+                    <p class="contact-block-line" data-i18n="contacts.block3_hours">Пн–Пт 9:00 — 18:00</p>
+                    <p class="contact-block-line contact-block-note" data-i18n="contacts.block3_note">*Кроме праздничных дней</p>
+                </div>
+
+            </div>
+
+            <!-- Правый столбец: форма -->
+            <div class="contact-form-wrap">
+                <div id="contact-form-card" class="contact-form-card">
+                    <h2 class="contact-form-title" data-i18n="contacts.form_title">Обсудим наше сотрудничество?</h2>
+
+                    <form id="contact-inquiry-form" class="contact-form" novalidate>
+
+                        <!-- Honeypot (антиспам) -->
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                        <!-- Метка источника — для разделения заявок в одной форме Forminit -->
+                        <input type="hidden" name="fi-text-source" value="Запрос проекта">
+
+                        <div class="contact-form-grid">
+
+                            <div class="form-group">
+                                <label for="contact-name" data-i18n="contacts.form_name_label">Ваше имя</label>
+                                <input type="text" id="contact-name" name="fi-sender-firstName"
+                                    placeholder="Имя Фамилия"
+                                    data-i18n-attr="placeholder:contacts.form_name_placeholder">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-email" data-i18n="contacts.form_email_label">Электронная почта</label>
+                                <input type="email" id="contact-email" name="fi-sender-email" placeholder="Name@company.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-phone" data-i18n="contacts.form_phone_label">Номер телефона</label>
+                                <input type="tel" id="contact-phone" name="fi-text-phone" placeholder="+X(XXX) XXX-XX-XX">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-company" data-i18n="contacts.form_company_label">Название компании</label>
+                                <input type="text" id="contact-company" name="fi-text-company" placeholder="Company Name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-industry" data-i18n="contacts.form_industry_label">Отрасль</label>
+                                <select id="contact-industry" name="fi-text-industry" class="form-select">
+                                    <option value="" disabled selected data-i18n="contacts.form_industry_default">Выберите отрасль</option>
+                                    <option value="Энергетика" data-i18n="contacts.form_ind1">Энергетика</option>
+                                    <option value="Промышленность и производство" data-i18n="contacts.form_ind2">Промышленность и производство</option>
+                                    <option value="Строительство и инфраструктура" data-i18n="contacts.form_ind3">Строительство и инфраструктура</option>
+                                    <option value="Телекоммуникации" data-i18n="contacts.form_ind4">Телекоммуникации</option>
+                                    <option value="Информационные технологии" data-i18n="contacts.form_ind5">Информационные технологии</option>
+                                    <option value="Транспорт и логистика" data-i18n="contacts.form_ind6">Транспорт и логистика</option>
+                                    <option value="Финансы и банковское дело" data-i18n="contacts.form_ind7">Финансы и банковское дело</option>
+                                    <option value="ЖКХ и коммунальная инфраструктура" data-i18n="contacts.form_ind8">ЖКХ и коммунальная инфраструктура</option>
+                                    <option value="Государственный сектор и управление" data-i18n="contacts.form_ind9">Государственный сектор и управление</option>
+                                    <option value="Прочее" data-i18n="contacts.form_ind10">Прочее</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-expertise" data-i18n="contacts.form_expertise_label">Направление</label>
+                                <select id="contact-expertise" name="fi-text-expertise" class="form-select">
+                                    <option value="" disabled selected data-i18n="contacts.form_expertise_default">Выберите направление</option>
+                                    <option value="Управление проектами" data-i18n="contacts.form_exp1">Управление проектами</option>
+                                    <option value="Цифровая трансформация" data-i18n="contacts.form_exp2">Цифровая трансформация</option>
+                                    <option value="Трансфер технологий" data-i18n="contacts.form_exp3">Трансфер технологий</option>
+                                    <option value="Технический консалтинг" data-i18n="contacts.form_exp4">Технический консалтинг</option>
+                                    <option value="Технический аудит" data-i18n="contacts.form_exp5">Технический аудит</option>
+                                    <option value="Автоматизация процессов" data-i18n="contacts.form_exp6">Автоматизация процессов</option>
+                                    <option value="Развитие инфраструктуры" data-i18n="contacts.form_exp7">Развитие инфраструктуры</option>
+                                    <option value="Стратегическое планирование" data-i18n="contacts.form_exp8">Стратегическое планирование</option>
+                                    <option value="Обучение персонала" data-i18n="contacts.form_exp9">Обучение персонала</option>
+                                    <option value="Иное" data-i18n="contacts.form_exp10">Иное</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group form-group--full">
+                                <label for="contact-message" data-i18n="contacts.form_message_label">Описание проекта</label>
+                                <textarea id="contact-message" name="fi-text-message" rows="4"
+                                    placeholder="Кратко опишите вашу задачу..."
+                                    data-i18n-attr="placeholder:contacts.form_message_placeholder"></textarea>
+                            </div>
+
+                        </div>
+
+                        <!-- reCAPTCHA v2 -->
+                        <div class="g-recaptcha" data-sitekey="6Leu34UsAAAAAG9uz9Iqi9BfiiFOxAKvfQCvVf88" style="margin-bottom: 20px;"></div>
+
+                        <button type="submit" class="action-btn action-btn--primary cta-btn contact-submit-btn">
+                            <span class="action-btn-text contact-submit-text" data-i18n="contacts.form_submit">Отправить запрос</span>
+                            <span class="action-btn-icon" aria-hidden="true"></span>
+                        </button>
+
+                        <!-- Статус отправки -->
+                        <div id="contact-status" class="contact-form-status" aria-live="polite"></div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">
+                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--light">
+                        <img src="assets/LOGO_Smartpoint_Smart_white.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--dark">
+                    </a>
+                    <p class="footer-desc" data-i18n-html="footer.desc">
+                        Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
+                    </p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
+                        <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
+                        <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
+                        <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
+                        <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title" data-i18n="footer.contact_title">Контакты</h4>
+                    <ul>
+                        <li><a href="mailto:info@smartpoint.kz">info@smartpoint.kz</a></li>
+                        <li><a href="tel:+77773888333">+7 (777) 3-888-333</a></li>
+                        <li data-i18n="footer.location">Алматы, Казахстан</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copyright" data-i18n="footer.copyright">
+                    &copy; 2026 Smartpoint. Все права защищены.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://forminit.com/sdk/v1/forminit.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/script.js?v=4.2"></script>
+</body>
+
+</html>

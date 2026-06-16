@@ -1,0 +1,24 @@
+{
+  "name": "site3-sp-mountins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mihael3d/Website-fot-Smart-Point.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mihael3d/Website-fot-Smart-Point/issues"
+  },
+  "homepage": "https://github.com/mihael3d/Website-fot-Smart-Point#readme",
+  "devDependencies": {
+    "cheerio": "^1.2.0"
+  }
+}
