@@ -1318,13 +1318,19 @@ document.addEventListener('DOMContentLoaded', () => {
     async function initPortfolio() {
         try {
             // Load projects data
-            const response = await fetch('data/projects.json');
+            const response = await fetch('/data/projects.json');
             if (!response.ok) {
                 throw new Error('Failed to load projects data');
             }
             portfolioData = await response.json();
             if (Array.isArray(portfolioData.projects)) {
-                portfolioData.projects.sort((a, b) => projectStartYear(a) - projectStartYear(b));
+                portfolioData.projects.sort((a, b) => {
+                    const yearDiff = projectStartYear(b) - projectStartYear(a);
+                    if (yearDiff !== 0) return yearDiff;
+                    const categoryA = projectField(a, 'category');
+                    const categoryB = projectField(b, 'category');
+                    return categoryA.localeCompare(categoryB);
+                });
             }
 
             // Render filters and projects
@@ -1423,7 +1429,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProjectCard(project, index) {
         const card = document.createElement('a');
         card.className = 'project-card';
-        card.href = `project-detail.html?id=${project.id}`;
+        const _langPfx = (typeof I18n !== 'undefined' && I18n.lang !== 'ru') ? `/${I18n.lang}` : '';
+        card.href = `${_langPfx}/project-detail.html?id=${project.id}`;
         card.dataset.category = project.category;
         card.style.animationDelay = `${index * 0.08}s`;
 
@@ -1443,7 +1450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.innerHTML = `
             <div class="project-card-image">
                 <div class="project-card-image-placeholder"><span>${title.charAt(0)}</span></div>
-                <img src="${project.thumbnail}" alt="${title}"
+                <img src="${project.thumbnail.startsWith('/') ? project.thumbnail : '/' + project.thumbnail}" alt="${title}"
                      onload="this.style.opacity='1'"
                      onerror="this.remove()"
                      style="opacity:0;transition:opacity 0.4s ease, transform 1s cubic-bezier(0.33, 1, 0.68, 1)">
@@ -1965,6 +1972,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function applyTheme(theme) {
             const t = theme === 'dark' ? 'dark' : 'light';
             html.setAttribute('data-theme', t);
+            html.style.colorScheme = t;
             localStorage.setItem(STORAGE_KEY, t);
         }
 
@@ -1974,6 +1982,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 applyTheme(current === 'dark' ? 'light' : 'dark');
             });
         }
+
+        // Re-apply on bfcache restore (back/forward navigation on real hosting)
+        window.addEventListener('pageshow', function(e) {
+            if (e.persisted) {
+                applyTheme(localStorage.getItem(STORAGE_KEY) || 'light');
+            }
+        });
     })();
 
     // ── Lang dropdown: открытие/закрытие на < 1024px ─────────────
@@ -1991,17 +2006,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (window.innerWidth > 1024) return;
                 const btn = e.target.closest('.lang-btn');
                 if (!btn) return;
-                if (btn.classList.contains('is-active')) {
-                    e.stopPropagation();
-                    if (!wrap.classList.contains('is-open')) {
-                        // Фиксируем размер до открытия: wrap не схлопывается → контейнер знает свою ширину
-                        wrap.style.minHeight = wrap.offsetHeight + 'px';
-                        wrap.style.minWidth  = wrap.offsetWidth  + 'px';
-                        wrap.classList.add('is-open');
-                    } else {
-                        closeWrap(wrap);
-                    }
+                e.stopPropagation();
+                if (!wrap.classList.contains('is-open')) {
+                    // Первый клик — открываем список, не переключаем язык
+                    e.preventDefault();
+                    wrap.style.minHeight = wrap.offsetHeight + 'px';
+                    wrap.style.minWidth  = wrap.offsetWidth  + 'px';
+                    wrap.classList.add('is-open');
                 } else {
+                    // Список уже открыт — закрываем и позволяем переключение
                     closeWrap(wrap);
                 }
             });

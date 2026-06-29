@@ -55,19 +55,21 @@ function renderPdMetaStages(project) {
     const thumbsParts = [];
     for (let n = 1; n <= 5; n++) {
         const pad = String(n).padStart(2, '0');
-        const graySrc = `assets/images/1/stage_icon_gray_white-${pad}.svg`;
+        const graySrc = `/assets/images/1/stage_icon_gray_white-${pad}.svg`;
         if (done.has(n)) {
             const sl = stageLinks[n - 1];
             const altAttr = ` alt="${escAttr(sl.tip)}"`;
             const img =
-                `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--light" src="assets/images/1/stage_icon_read-${pad}.svg"${altAttr} decoding="async">` +
-                `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--dark"  src="assets/images/1/stage_icon_white-${pad}.svg"${altAttr} decoding="async" aria-hidden="true">`;
+                `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--light" src="/assets/images/1/stage_icon_read-${pad}.svg"${altAttr} decoding="async">` +
+                `<img class="pd-meta-stage-thumb pd-meta-stage-thumb--dark"  src="/assets/images/1/stage_icon_white-${pad}.svg"${altAttr} decoding="async" aria-hidden="true">`;
             thumbsParts.push(
                 `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip pd-meta-stage-wrap--link"><a href="services.html#${sl.card}" class="pd-meta-stage-link" data-scroll-center aria-label="${escAttr(sl.tip)}">${img}</a><span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(sl.tip)}</span></span>`
             );
         } else {
+            const sl = stageLinks[n - 1];
+            const altAttr = ` alt="${escAttr(sl.tip)}"`;
             thumbsParts.push(
-                `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--placeholder"><img class="pd-meta-stage-thumb pd-meta-stage-thumb--gray" src="${graySrc}" alt="" decoding="async" aria-hidden="true"></span>`
+                `<span class="pd-meta-stage-wrap pd-meta-stage-wrap--has-tip pd-meta-stage-wrap--placeholder"><img class="pd-meta-stage-thumb pd-meta-stage-thumb--gray" src="${graySrc}"${altAttr} decoding="async" aria-hidden="true"><span class="pd-meta-stage-tooltip" role="tooltip">${escHtml(sl.tip)}</span></span>`
             );
         }
     }
@@ -79,6 +81,16 @@ function renderPdMetaStages(project) {
 
 document.addEventListener('DOMContentLoaded', () => {
     if (!document.querySelector('.project-detail-page')) return;
+
+    // Preserve ?id= param in lang switcher links
+    const projectId = new URLSearchParams(window.location.search).get('id');
+    if (projectId) {
+        document.querySelectorAll('.lang-switcher a').forEach(a => {
+            const url = new URL(a.href, window.location.origin);
+            url.searchParams.set('id', projectId);
+            a.href = url.toString();
+        });
+    }
 
     const pdBack = document.querySelector('.pd-back');
     if (pdBack) {
@@ -120,7 +132,7 @@ async function loadProjectDetail() {
             return;
         }
 
-        const response = await fetch('data/projects.json');
+        const response = await fetch('/data/projects.json');
         if (!response.ok) throw new Error('Failed to load projects data');
 
         const data = await response.json();
@@ -157,7 +169,8 @@ function renderProjectDetail(project) {
     // Фоновое изображение героя
     const heroBg = document.getElementById('pdHeroBg');
     if (heroBg) {
-        const imgSrc = project.image || project.thumbnail;
+        const imgSrcRaw = project.image || project.thumbnail;
+        const imgSrc = imgSrcRaw.startsWith('/') ? imgSrcRaw : '/' + imgSrcRaw;
         heroBg.style.backgroundImage = `url('${imgSrc}')`;
     }
 
@@ -197,7 +210,6 @@ function renderProjectDetail(project) {
         const resultBlock = resultText ? `
             <div class="pd-section pd-section--result">
                 <div class="pd-section-label">${I18n.t('pd.result_title')}</div>
-                <div class="pd-section-rule"></div>
                 <p class="pd-section-text">${resultText}</p>
             </div>
         ` : '';
@@ -205,6 +217,7 @@ function renderProjectDetail(project) {
         const aboutSection = descParagraphs
             ? `
             <div class="pd-section">
+                <div class="pd-section-label">${I18n.t('pd.work_done_label')}</div>
                 ${descParagraphs}
             </div>`
             : '';
@@ -242,6 +255,15 @@ function renderProjectDetail(project) {
             </div>
         `;
     }
+
+    // Перемещаем кнопку "Все проекты" после pd-section--result для десктопов
+    requestAnimationFrame(() => {
+        const backBandDesktop = document.getElementById('pdBackBandDesktop');
+        const resultSection = document.querySelector('.pd-section--result');
+        if (backBandDesktop && resultSection) {
+            resultSection.parentNode.insertBefore(backBandDesktop, resultSection.nextSibling);
+        }
+    });
 }
 
 /* ================================================================

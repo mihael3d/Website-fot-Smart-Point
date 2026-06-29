@@ -9,19 +9,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('sp-theme') || 'light');</script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>(function(){var t=localStorage.getItem('sp-theme')||'light';document.documentElement.setAttribute('data-theme',t);document.documentElement.style.colorScheme=t;})();</script>
 </head>
 
 <body class="project-detail-page services2-page">
 
     <header class="main-header">
         <div class="container header-container">
-            <a href="index.html" class="logo">
-                <img src="assets/LOGO_Smartpoint_Full_White.svg" alt="Smartpoint Logo" class="logo-desktop">
-                <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint Logo" class="logo-desktop-scrolled">
-                <img src="assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
-                <img src="assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
+            <a href="/index.html" class="logo">
+                <img src="/assets/LOGO_Smartpoint_Full_White.svg" alt="Smartpoint Logo" class="logo-desktop">
+                <img src="/assets/LOGO_Smartpoint.svg" alt="Smartpoint Logo" class="logo-desktop-scrolled">
+                <img src="/assets/LOGO_letter_S.svg" alt="Smartpoint Logo" class="logo-mobile">
+                <img src="/assets/LOGO_letter_S_Red-01.svg" alt="Smartpoint Logo" class="logo-mobile-scrolled">
             </a>
             <button class="mobile-menu-toggle"
                 aria-label="Открыть меню"
@@ -41,11 +41,11 @@
             </div>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
-                    <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
-                    <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
-                    <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
-                    <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                    <li><a href="/index.html" data-i18n="nav.about">О нас</a></li>
+                    <li><a href="/services.html" data-i18n="nav.services">Услуги</a></li>
+                    <li><a href="/projects.html" data-i18n="nav.projects">Проекты</a></li>
+                    <li><a href="/career.html" data-i18n="nav.career">Карьера</a></li>
+                    <li><a href="/contacts.html" data-i18n="nav.contacts">Контакты</a></li>
                 </ul>
             </nav>
         </div>
@@ -94,8 +94,15 @@
 
             </div>
 
-            <div class="pd-back-band">
-            <a href="projects.html" class="pd-back">
+            <div class="pd-back-band pd-back-band--mobile">
+            <a href="/projects.html" class="pd-back">
+                <span class="pd-back-arrow">←</span>
+                <span data-i18n="pd.back_btn">Все проекты</span>
+            </a>
+            </div>
+
+            <div class="pd-back-band pd-back-band--desktop" id="pdBackBandDesktop">
+            <a href="/projects.html" class="pd-back">
                 <span class="pd-back-arrow">←</span>
                 <span data-i18n="pd.back_btn">Все проекты</span>
             </a>
@@ -108,9 +115,9 @@
         <div class="container footer-container">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <a href="index.html" class="footer-logo">
-                        <img src="assets/LOGO_Smartpoint.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--light">
-                        <img src="assets/LOGO_Smartpoint_Smart_white.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--dark">
+                    <a href="/index.html" class="footer-logo">
+                        <img src="/assets/LOGO_Smartpoint.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--light">
+                        <img src="/assets/LOGO_Smartpoint_Smart_white.svg" alt="Smartpoint" class="footer-logo-img footer-logo-img--dark">
                     </a>
                     <p class="footer-desc" data-i18n-html="footer.desc">
                         Комплексные инженерные и консалтинговые <br />решения для вашего бизнеса.
@@ -118,11 +125,11 @@
                 </div>
                 <div class="footer-nav">
                     <ul>
-                        <li><a href="index.html" data-i18n="nav.about">О нас</a></li>
-                        <li><a href="services.html" data-i18n="nav.services">Услуги</a></li>
-                        <li><a href="projects.html" data-i18n="nav.projects">Проекты</a></li>
-                        <li><a href="career.html" data-i18n="nav.career">Карьера</a></li>
-                        <li><a href="contacts.html" data-i18n="nav.contacts">Контакты</a></li>
+                        <li><a href="/index.html" data-i18n="nav.about">О нас</a></li>
+                        <li><a href="/services.html" data-i18n="nav.services">Услуги</a></li>
+                        <li><a href="/projects.html" data-i18n="nav.projects">Проекты</a></li>
+                        <li><a href="/career.html" data-i18n="nav.career">Карьера</a></li>
+                        <li><a href="/contacts.html" data-i18n="nav.contacts">Контакты</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
@@ -142,9 +149,9 @@
         </div>
     </footer>
 
-    <script src="js/i18n.js"></script>
-    <script src="js/script.js?v=4.2"></script>
-    <script src="js/project-detail.js?v=3"></script>
+    <script src="/js/i18n.js"></script>
+    <script src="/js/script.js?v=4.2"></script>
+    <script src="/js/project-detail.js?v=3"></script>
 </body>
 
 </html>
